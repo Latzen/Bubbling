@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/startdialog">
+
+             <TextView
+                 android:id="@+id/text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/yellow"
+                 android:layout_marginTop="75dp"
+                 android:layout_alignParentTop="true"
+                 android:layout_centerHorizontal="true"
+                 android:text="Are you ready?"
+                 android:textSize="30dp"
+                 android:textStyle="bold"
+                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+             <ImageButton
+                android:id="@+id/dialogCancel"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/text"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="17dp"
+                android:background="@drawable/startdialogcancel" />
+
+             <ImageButton
+                 android:id="@+id/dialogOK"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_below="@id/text"
+                 android:layout_marginTop="25dp"
+                 android:layout_marginLeft="166dp"
+                 android:background="@drawable/startdialogbutton" />
+</RelativeLayout>

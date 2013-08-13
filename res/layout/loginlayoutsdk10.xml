@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView android:id="@+id/textId"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:layout_marginTop="2dp"
+              android:text="Do you want to Login?"
+              android:layout_centerHorizontal="true" />
+    <TextView android:id="@+id/leaderBoardInfo"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_below="@id/textId"
+              android:text="Login is required for leaderbord"
+              android:layout_centerHorizontal="true" />
+    <TextView android:id="@+id/scoreInfo"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:layout_marginTop="2dp"
+              android:layout_below="@id/leaderBoardInfo"
+              android:text="and sharing scores with friends!"
+              android:layout_centerHorizontal="true" />
+    <Button
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="G+|Login"
+            android:layout_alignRight="@id/scoreInfo"
+            android:layout_below="@id/scoreInfo" android:longClickable="false"/>
+    <Button android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/scoreInfo"
+            android:layout_marginTop="10dp"
+            android:text="no"
+            android:layout_below="@id/scoreInfo"/>
+    <CheckBox android:id="@+id/doNotShow"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:layout_below="@id/logout"
+              android:text="Do not show again"
+              android:layout_alignLeft="@id/logout"/>
+
+
+</RelativeLayout>

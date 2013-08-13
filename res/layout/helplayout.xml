@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/backgroundhelp">
+
+    <TextView android:id="@+id/highscore_easy"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Current Highscore easy:"
+              android:textColor="@color/black"
+              android:layout_centerHorizontal="true"/>
+    <TextView android:id="@+id/currenthighscore_easy"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text=""
+              android:textColor="@color/black"
+              android:layout_below="@id/highscore_easy"
+              android:layout_marginTop="2dp"
+              android:layout_centerHorizontal="true"
+              android:textStyle="bold"
+              android:textSize="15dp"/>
+    <TextView android:id="@+id/highscore_normal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Current Highscore normal:"
+              android:layout_below="@id/currenthighscore_easy"
+              android:textColor="@color/black"
+              android:layout_centerHorizontal="true"/>
+
+    <TextView android:id="@+id/currenthighscore_normal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text=""
+              android:textColor="@color/black"
+              android:layout_below="@id/highscore_normal"
+              android:layout_marginTop="2dp"
+              android:layout_centerHorizontal="true"
+              android:textStyle="bold"/>
+
+    <TextView android:id="@+id/highscore_hard"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Current Highscore hard:"
+              android:layout_below="@id/currenthighscore_normal"
+              android:textColor="@color/black"
+              android:layout_centerHorizontal="true"/>
+
+    <TextView android:id="@+id/currenthighscore_hard"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text=""
+              android:textColor="@color/black"
+              android:layout_below="@id/highscore_hard"
+              android:layout_marginTop="2dp"
+              android:layout_centerHorizontal="true"
+              android:textStyle="bold"
+              android:textSize="15dp"/>
+
+
+    <ImageButton android:id="@+id/showleaderboard"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_below="@id/currenthighscore_hard"
+                 android:layout_centerHorizontal="true"
+                 android:background="@drawable/leaderboardbutton"
+                 />
+    <TextView android:id="@+id/strokesOverall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:text="@string/help_strokesoveral"
+              android:layout_below="@id/showleaderboard"
+              android:textColor="@color/black"
+            />
+    <TextView android:id="@+id/perfectStrokes"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:text="@string/help_perfect"
+              android:layout_below="@id/strokesOverall"
+              android:textColor="@color/black"
+              />
+    <TextView android:id="@+id/timePlayed"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerHorizontal="true"
+              android:text="@string/help_timeplayed"
+              android:layout_below="@id/perfectStrokes"
+              android:textColor="@color/black"
+            />
+
+</RelativeLayout>

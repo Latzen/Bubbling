@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/startdialog">
+
+             <TextView
+                 android:id="@+id/gameOverText"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/yellow"
+                 android:layout_marginTop="30dp"
+                 android:layout_alignParentTop="true"
+                 android:layout_centerHorizontal="true"
+                 android:text="Game Over!"
+                 android:textSize="30dp"
+                 android:textStyle="bold"
+                 android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+                android:id="@+id/highscoretext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow"
+                android:layout_marginTop="60dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/gameOverText"
+                android:text="new Highscore:"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow"
+                android:layout_marginTop="90dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/highscoretext"
+                android:text=":"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+             <ImageButton
+                android:id="@+id/dialogCancel"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/score"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="17dp"
+                android:background="@drawable/startdialogcancel" />
+
+             <ImageButton
+                 android:id="@+id/dialogOK"
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_below="@id/score"
+                 android:layout_marginTop="10dp"
+                 android:layout_marginLeft="166dp"
+                 android:background="@drawable/startdialogbutton" />
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bubbling</string>
+    <string name="app_name_test">Bubbling_Test</string>
+    <string name="app_id">878499086406</string>
+    <string name="leaderboard_easy">CgkIxoCB1cgZEAIQAQ</string>
+    <string name="leaderboard_normal">CgkIxoCB1cgZEAIQCA</string>
+    <string name="leaderboard_hard">CgkIxoCB1cgZEAIQCQ</string>
+
+
+    <string name="rememberdiff">Remember my decision</string>
+
+    <string name="pref_keepLogin">keepLogin</string>
+    <string name="pref_donotshowAgain">doNotShowAgain</string>
+    <string name="pref_score">score</string>
+    <string name="pref_longestStroke">longestStroke</string>
+    <string name="pref_timePlayed">timePlayed</string>
+    <string name="pref_perfectStrokes">perfectStrokes</string>
+    <string name="pref_strokesOverall">strokesOverall</string>
+    <string name="pref_reset">reset</string>
+    <string name="pref_logout">logout</string>
+    <string name="pref_loggedin">loggedin</string>
+    <string name="pref_rememberdiff">rem_difficulty</string>
+    <string name="pref_diff">difficulty</string>
+
+    <string name="help_strokesoveral">Strokes overall: </string>
+    <string name="help_perfect">Perfect Strokes overall: </string>
+    <string name="help_timeplayed">Time played: </string>
+</resources>

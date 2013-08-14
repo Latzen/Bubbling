@@ -22,14 +22,14 @@ public class MyPreferenceManager {
     }
 
     public void updateStats(GameProgress progress){
-        updateStats(progress.getTimePlayed(), progress.getPerfectStrokes(), 0, progress.getScore(), progress.getStokesOverall());
+        updateStats(progress.getTimePlayed(), progress.getPerfectStrokes(), progress.getStrokesInARow(), progress.getScore(), progress.getStokesOverall());
     }
     public void updateStats(long sessionPlayed, int perfectStrokes, int longestPerfectStroke, long score, int strokesOverall){
         SharedPreferences.Editor edit = prefs.edit();
         edit.putLong(context.getString(R.string.pref_timePlayed),getTimePlayed()+sessionPlayed);
         edit.putInt(context.getString(R.string.pref_perfectStrokes),getPerfectStrokes()+perfectStrokes);
         edit.putInt(context.getString(R.string.pref_strokesOverall), getStrokesOverall()+strokesOverall);
-        if(getLongestPerfectStroke()>longestPerfectStroke){
+        if(getLongestPerfectStroke()<longestPerfectStroke){
             edit.putInt(context.getString(R.string.pref_longestStroke),longestPerfectStroke);
         }
         /*long scoreT = prefs.getLong(context.getString(R.string.pref_score), 0); //0 is the default value
@@ -66,6 +66,7 @@ public class MyPreferenceManager {
         edit.putInt(context.getString(R.string.pref_perfectStrokes),0);
         edit.putInt(context.getString(R.string.pref_strokesOverall), 0);
         edit.putInt(context.getString(R.string.pref_longestStroke),0);
+        edit.putLong(context.getString(R.string.leaderboard_normal),0);
         edit.putLong(context.getString(R.string.pref_score), 0);
         edit.commit();
     }
@@ -80,10 +81,6 @@ public class MyPreferenceManager {
 
     public int getLongestPerfectStroke() {
         return prefs.getInt(context.getString(R.string.pref_longestStroke),0);
-    }
-
-    public long getCurrentHigscore(){
-        return  prefs.getLong(context.getString(R.string.pref_score), 0);
     }
 
     public int getStrokesOverall(){
@@ -128,5 +125,9 @@ public class MyPreferenceManager {
 
     public long getLong(String s){
         return prefs.getLong(s,0);
+    }
+
+    public boolean getBoolean(String s){
+        return prefs.getBoolean(s, false);
     }
 }

@@ -2,19 +2,19 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Google Play Games"
-                        android:summary="Login/Logout">
+                        android:summary="Automatic upload on game over">
                         <CheckBoxPreference android:key="@string/pref_keepLogin"
-                                            android:title="Keep me logged in"
+                                            android:title="Upload score"
                                             android:defaultValue="true"
-                                            android:summary="On/Off"/>
+                                            android:summary="Automatic upload on game over"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="Others">
                         <CheckBoxPreference android:key="@string/pref_donotshowAgain"
                                             android:title="Hide Login Dialog"
                                             android:summary="Hide dialog on game startup"/>
-                        <CheckBoxPreference android:key="@string/pref_rememberdiff"
+                        <!--<CheckBoxPreference android:key="@string/pref_rememberdiff"
                                             android:title="Remember my game difficulty"
-                                            android:summary="Hide difficulty dialog on game startup"/>
+                                            android:summary="Hide difficulty dialog on game startup"/>-->
     </PreferenceCategory>
     <Preference android:key="@string/pref_reset"
                 android:title="Reset"

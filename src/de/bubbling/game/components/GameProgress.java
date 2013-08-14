@@ -12,14 +12,20 @@ public class GameProgress {
     long timePlayed;
     int perfectStrokes;
     int stokesOverall, strokesInARow;
+    int stageReached;
 
 
-    public GameProgress(long score, long timePlayed, int perfectStrokes, int strokesOverall, int strokesInARow) {
+    public GameProgress(long score, long timePlayed, int perfectStrokes, int strokesOverall, int strokesInARow, int stageReached) {
         this.score = score;
         this.timePlayed = timePlayed;
         this.perfectStrokes = perfectStrokes;
         this.stokesOverall = strokesOverall;
         this.strokesInARow = strokesInARow ;
+        this.stageReached = stageReached;
+    }
+
+    public int getStageReached() {
+        return stageReached;
     }
 
     public int getStokesOverall() {

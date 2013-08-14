@@ -72,9 +72,11 @@ public class GooglePlayServiceController {
        if(gameProgress.score>ACHIEVEMENT_50K){
            gamesClient.unlockAchievement(context.getString(R.string.fifty_thousand));
        }
-
        if(gameProgress.getStrokesInARow()>ACHIEVEMENT_STROKE){
            gamesClient.unlockAchievement(context.getString(R.string.perfect));
+       }
+       if(gameProgress.getStageReached()>=LevelDesigner.MAXIMAL_STAGE){
+           gamesClient.unlockAchievement(context.getString(R.string.reachlaststage));
        }
 
 

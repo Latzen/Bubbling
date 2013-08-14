@@ -23,7 +23,7 @@ public class TextAnimation extends Entity implements CustomAnimation {
         this.text = text;
         this.color = color;
         this.textSize = textSize;
-        this.alpha =  125;
+        this.alpha =  200;
         painter = new TextPaint();
         painter.setColor(color);
         painter.setTextSize(textSize);

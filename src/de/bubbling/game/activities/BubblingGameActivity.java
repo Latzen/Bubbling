@@ -113,7 +113,7 @@ public class BubblingGameActivity extends BaseGameActivity {
                 super.handleMessage(msg);
                 if(msg.obj instanceof  GameProgress){
                     GameProgress gameProgress = (GameProgress)msg.obj;
-                    if(isSignedIn()){
+                    if(isSignedIn()&&stats.getBoolean(getString(R.string.pref_keepLogin))){
                         serviceController.checkForUnlockedAchievements(gameProgress);
                         uploadCurrentHighscore(gameProgress.getScore());
                     }
@@ -218,7 +218,7 @@ public class BubblingGameActivity extends BaseGameActivity {
     public void startGame(){
         lostGameDialogActive = false;
         gameMaster = new BubblingGameMaster(
-                DifficultyProperties.matchWithString(stats.getDifficulty()),
+                DifficultyProperties.matchWithString("normal"),
                 width, height/GameView.HEIGHT_DIVISOR *GameView.HEIGHT_MULTIPLIKATOR);
         new Thread(gameMaster).start();
     }

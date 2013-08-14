@@ -6,7 +6,7 @@
     <string name="leaderboard_easy">CgkIxoCB1cgZEAIQAQ</string>
     <string name="leaderboard_normal">CgkIxoCB1cgZEAIQCA</string>
     <string name="leaderboard_hard">CgkIxoCB1cgZEAIQCQ</string>
-
+    <string name="leaderboard">Show Leaderboard</string>
 
     <string name="rememberdiff">Remember my decision</string>
 
@@ -26,4 +26,5 @@
     <string name="help_strokesoveral">Strokes overall: </string>
     <string name="help_perfect">Perfect Strokes overall: </string>
     <string name="help_timeplayed">Time played: </string>
+    <string name="help_strokesinrow">Longest Perfect Stroke in a Row:</string>
 </resources>

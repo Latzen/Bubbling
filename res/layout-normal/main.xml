@@ -11,16 +11,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/playButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:contentDescription="startGame"
             android:longClickable="false"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:clickable="true"/>
+            android:src="@drawable/playbutton"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/helpButton"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/playButton"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:src="@drawable/statistcbutton"
+            />
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/settingsButton"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/helpButton"
+            android:background="@android:color/transparent"
+            android:src="@drawable/settingsbutton"
+            />
 </RelativeLayout>

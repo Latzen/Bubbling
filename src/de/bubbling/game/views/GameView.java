@@ -5,11 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
+import de.bubbling.game.components.BubblingGameMaster;
 import de.bubbling.game.entities.Bubble;
 import de.bubbling.game.entities.CustomAnimation;
 import de.bubbling.game.entities.TextAnimation;
-import de.bubbling.game.views.messages.HitInformation;
 import de.bubbling.game.views.messages.GameViewUpdate;
+import de.bubbling.game.views.messages.NearHitInformation;
 import de.bubbling.game.views.messages.StrokeUpdate;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class GameView extends View implements Observer {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         for (Bubble b : bubbles) {
-            b.draw(canvas, this);
+            b.draw(canvas);
         }
         if(gainedPoints!= null){
             gainedPoints.draw(canvas);
@@ -64,11 +65,11 @@ public class GameView extends View implements Observer {
             int TEXT_SIZE = width/10;
             switch (update.getType()){
                 case Perfect:
-                    strokeUpdate = new TextAnimation(width/2, height/2, true, "Perfect"+update.getPerfectTimes(), Color.BLACK, TEXT_SIZE);
+                    strokeUpdate = new TextAnimation(width/2, 0+TEXT_SIZE, true, "Perfect"+update.getPerfectTimes(), Color.rgb(0,232,0), TEXT_SIZE);
                     showPerfectStrokeText(strokeUpdate);
                     break;
                 case Good:
-                    strokeUpdate = new TextAnimation(width/2, height/2, true, "Good", Color.BLACK, TEXT_SIZE);
+                    strokeUpdate = new TextAnimation(width/2,0+TEXT_SIZE, true, "Good", Color.rgb(0,232,0), TEXT_SIZE);
                     showPerfectStrokeText(strokeUpdate);
                     break;
             }
@@ -81,13 +82,30 @@ public class GameView extends View implements Observer {
     public boolean checkHit(MotionEvent event){
         float xCord = event.getX();
         float yCord = event.getY();
+
+        ArrayList<NearHitInformation> hitInformations = new ArrayList<NearHitInformation>();
         for (Bubble b : bubbles){
-            HitInformation hit = b.checkHit(xCord,yCord, getNextFreeNumber(),height/ HEIGHT_MULTIPLIKATOR);
-            if(hit.isHit()){
-                postInvalidate();
-                return true;
+            NearHitInformation hit =
+                    b.checkNearHit(xCord,yCord, height/HEIGHT_MULTIPLIKATOR, height / BubblingGameMaster.BUBBLE_RAD_DEVISOR/5);
+            if(hit.getHit()== NearHitInformation.Hit.Hitted){
+                hitInformations.add(hit);
             }
         }
+        if (hitInformations.size()>=1){
+            NearHitInformation info = hitInformations.get(0);
+            double distance = Math.pow(info.getxDistance(), 2) + Math.pow(info.getyDistance(), 2);
+            distance = Math.sqrt(distance);
+            for(NearHitInformation n : hitInformations){
+                double distance2 = Math.pow(n.getxDistance(), 2) + Math.pow(n.getyDistance(),2);
+                distance2 = Math.sqrt(distance2);
+                if(distance2<distance)
+                    info = n;
+            }
+            info.getBubble().setHitted(getNextFreeNumber());
+            postInvalidate();
+            return true;
+        }
+
         return  false;
     }
 

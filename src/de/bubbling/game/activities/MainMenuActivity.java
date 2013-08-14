@@ -3,12 +3,10 @@ package de.bubbling.game.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import de.bubbling.game.components.MyPreferenceManager;
@@ -19,7 +17,7 @@ import static android.graphics.BitmapFactory.*;
 public class MainMenuActivity extends Activity{
 
     private static final int CHOOSE_DIFFICULTY = 1;
-    ImageButton playButton, statisticButton;
+    ImageButton playButton, statisticButton, settingsButton;
     MyPreferenceManager manager;
     int width, height;
 
@@ -44,8 +42,6 @@ public class MainMenuActivity extends Activity{
         setContentView(R.layout.main);
         playButton = (ImageButton) findViewById(R.id.playButton);
         statisticButton = (ImageButton) findViewById(R.id.helpButton);
-        Bitmap image = decodeResource(this.getResources(), R.drawable.playbutton);
-        playButton.setImageBitmap(image);
         playButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -56,7 +52,8 @@ public class MainMenuActivity extends Activity{
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Bitmap image = decodeResource(v.getResources(), R.drawable.playbutton);
                     playButton.setImageBitmap(image);
-                    if(manager.getRemDiff()){
+                    boolean skip = true;
+                    if(skip||manager.getRemDiff()){
                         startActivity(new Intent(MainMenuActivity.this, BubblingGameActivity.class));
                     }else{
                         showDialog(CHOOSE_DIFFICULTY);
@@ -66,9 +63,7 @@ public class MainMenuActivity extends Activity{
                 return true;
             }
         });
-        image = decodeResource(this.getResources(), R.drawable.statistic);
 
-        statisticButton.setImageBitmap(image);
         statisticButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -77,9 +72,26 @@ public class MainMenuActivity extends Activity{
                     Bitmap image = decodeResource(v.getResources(), R.drawable.statisticpressed);
                     playButton.setImageBitmap(image);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Bitmap image = decodeResource(v.getResources(), R.drawable.statistic);
+                    Bitmap image = decodeResource(v.getResources(), R.drawable.statistcbutton);
                     playButton.setImageBitmap(image);
-                    startActivity(new Intent(MainMenuActivity.this, HelpActivity.class));
+                    startActivity(new Intent(MainMenuActivity.this, StatisticActivity.class));
+                }
+                return true;
+            }
+        });
+
+        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        settingsButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ImageButton playButton = (ImageButton) v;
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Bitmap image = decodeResource(getResources(), R.drawable.settingsbuttonpressed);
+                    playButton.setImageBitmap(image);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Bitmap image = decodeResource(getResources(), R.drawable.settingsbutton);
+                    playButton.setImageBitmap(image);
+                    startActivity(new Intent(MainMenuActivity.this, PrefActivity.class));
                 }
                 return true;
             }

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,7 +28,7 @@ import static com.google.android.gms.common.GooglePlayServicesUtil.isGooglePlayS
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-public class HelpActivity extends BaseGameActivity {
+public class StatisticActivity extends BaseGameActivity {
 
     private static final int LOGIN_DIALOG = 3;
     private static final int CHOOSE_DIFFICULTY = 1;
@@ -44,28 +43,29 @@ public class HelpActivity extends BaseGameActivity {
             setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
         }
         super.onCreate(savedInstanceState);
-        GOOGLE_PLAY = isGooglePlayServicesAvailable(HelpActivity.this);
-        setContentView(R.layout.helplayout);
+        GOOGLE_PLAY = isGooglePlayServicesAvailable(StatisticActivity.this);
+        setContentView(R.layout.statisticlayout);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         stats = new MyPreferenceManager(this);
         TextView overallStrokes = (TextView) findViewById(R.id.strokesOverall);
-        overallStrokes.setText("" + getString(R.string.help_strokesoveral)+stats.getStrokesOverall());
+        overallStrokes.setText(getString(R.string.help_strokesoveral)+stats.getStrokesOverall());
         //easy
         TextView scoreViewEasy = (TextView) findViewById(R.id.currenthighscore_easy);
-        scoreViewEasy.setText("" + stats.getLong(getString(R.string.leaderboard_easy)));
-        //normal
-        TextView scoreViewNormal = (TextView) findViewById(R.id.currenthighscore_normal);
+        scoreViewEasy.setText("" + stats.getLong(getString(R.string.leaderboard_normal)));
+        TextView strokesinarow = (TextView) findViewById(R.id.perfectStrokesInRow);
+        strokesinarow.setText(getString(R.string.help_strokesinrow) + stats.getLongestPerfectStroke());
+        //normal maybe later
+        /*TextView scoreViewNormal = (TextView) findViewById(R.id.currenthighscore_normal);
         scoreViewNormal.setText("" + stats.getLong(getString(R.string.leaderboard_normal)));
         //hard
         TextView scoreViewHard = (TextView) findViewById(R.id.currenthighscore_hard);
-        scoreViewHard.setText("" + stats.getLong(getString(R.string.leaderboard_hard)));
+        scoreViewHard.setText("" + stats.getLong(getString(R.string.leaderboard_hard)));*/
 
         TextView perfect = (TextView)findViewById(R.id.perfectStrokes);
         perfect.setText(getString(R.string.help_perfect)+stats.getPerfectStrokes());
+
         TextView time = (TextView)findViewById(R.id.timePlayed);
         long min=00, hh=00, sec= stats.getTimePlayed();
-
-
         if(sec>60){
             min = sec/60;
             sec = min%60;
@@ -78,6 +78,8 @@ public class HelpActivity extends BaseGameActivity {
         String sm =  min <10 ? "0"+min : Long.toString(min);
         String sh =  hh <10 ? "0"+hh : Long.toString(hh);
         time.setText(getString(R.string.help_timeplayed)+sh+":"+sm+":"+ss);
+
+
         if(getGamesClient()!= null){
             if(getGamesClient().isConnected()) getGamesClient().disconnect();
 
@@ -99,42 +101,32 @@ public class HelpActivity extends BaseGameActivity {
 
 
 
-        ImageButton showLeaderboardButton = (ImageButton) findViewById(R.id.showleaderboard);
-        showLeaderboardButton.setOnTouchListener(new View.OnTouchListener() {
+        Button showLeaderboardButton = (Button) findViewById(R.id.showleaderboard);
+        showLeaderboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                ImageButton showLeaderboardButton = (ImageButton) v;
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Bitmap image = decodeResource(v.getResources(), R.drawable.leaderboardbuttonpressed);
-                    showLeaderboardButton.setImageBitmap(image);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Bitmap image = decodeResource(v.getResources(), R.drawable.leaderboardbutton);
-                    showLeaderboardButton.setImageBitmap(image);
+            public void onClick(View v) {
                     if(ConnectionResult.SUCCESS != GOOGLE_PLAY){
-                        Toast.makeText(HelpActivity.this,"You need to update your Google Play Service",2000).show();
-                        return false;
+                        Toast.makeText(StatisticActivity.this,"You need to update your Google Play Service",2000).show();
+                        return;
                     }
                     if(connected||stats.getLoggedIn()){
-                        if(!stats.getRemDiff()){
-                            showDialog(CHOOSE_DIFFICULTY);
-                        }
-                        else{
+                       // if(!stats.getRemDiff()){
+                       //     showDialog(CHOOSE_DIFFICULTY);
+                       // }
+                       // else{
                             try {
                                 startActivityForResult(getGamesClient().
-                                        getLeaderboardIntent(GooglePlayServiceController.
-                                                getLeaderBoardForDifficulty(stats, HelpActivity.this)),1);
+                                        getLeaderboardIntent(getString(R.string.leaderboard_normal)),1);
                             }catch (Exception e){
                                 Log.e("HelpAcitivity", e.toString());
                             }
-                        }
+                       // }
 
                     }
                     else{
                         showDialog(LOGIN_DIALOG);
-                        Toast.makeText(HelpActivity.this, "Could not connect to Google Play Games", 2000);
+                        Toast.makeText(StatisticActivity.this, "Could not connect to Google Play Games", 2000);
                     }
-                }
-                return  true;
             }
         });
 
@@ -161,7 +153,7 @@ public class HelpActivity extends BaseGameActivity {
                 final LoginDialog loginDialog = new LoginDialog(this);
                 final SharedPreferences finalPrefs = this.prefs;
                 if (android.os.Build.VERSION.SDK_INT <=  14) {
-                    int result = isGooglePlayServicesAvailable(HelpActivity.this);
+                    int result = isGooglePlayServicesAvailable(StatisticActivity.this);
                     if(!(ConnectionResult.SUCCESS==result)) {
 
                     }
@@ -170,7 +162,7 @@ public class HelpActivity extends BaseGameActivity {
                         getGamesClient().connect();
                         stats.setLoggedIn(true);
                     }catch (Exception e){
-                        Log.e("HelpAcitivity", e.toString());
+                        Log.e("HelpActivity", e.toString());
                     }
                     finalPrefs.edit().putBoolean(getResources().getString(R.string.pref_donotshowAgain), loginDialog.getCheckBox().isChecked()).commit();
                     loginDialog.dismiss();
@@ -178,7 +170,7 @@ public class HelpActivity extends BaseGameActivity {
                     loginDialog.getSignInButton().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int result = isGooglePlayServicesAvailable(HelpActivity.this);
+                            int result = isGooglePlayServicesAvailable(StatisticActivity.this);
                             if(!(ConnectionResult.SUCCESS==result)) {
 
                             }
@@ -186,7 +178,7 @@ public class HelpActivity extends BaseGameActivity {
                                 beginUserInitiatedSignIn();
                                 getGamesClient().connect();
                             }catch (Exception e){
-                                Log.e("HelpAcitivity", e.toString());
+                                Log.e("HelpActivity", e.toString());
                             }
                             finalPrefs.edit().putBoolean(getResources().getString(R.string.pref_donotshowAgain), loginDialog.getCheckBox().isChecked()).commit();
                             loginDialog.dismiss();
@@ -234,7 +226,7 @@ public class HelpActivity extends BaseGameActivity {
                         dismissDialog(CHOOSE_DIFFICULTY);
                         startActivityForResult(getGamesClient().
                                 getLeaderboardIntent(GooglePlayServiceController.
-                                        getLeaderBoardForDifficulty(stats, HelpActivity.this)),1);
+                                        getLeaderBoardForDifficulty(stats, StatisticActivity.this)),1);
                     }
                 });
                 diff.setAdapter(adapter);

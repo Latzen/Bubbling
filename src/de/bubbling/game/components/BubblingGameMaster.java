@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class BubblingGameMaster implements IGameMaster, Runnable {
 
-    private static int BUBBLE_RAD_DEVISOR = 7;
+    public static int BUBBLE_RAD_DEVISOR = 7;
     private int lives;
     private double countDown;
     private int score, perfectStrokes, strokes, perfectInRowBest, perfectInRow;
@@ -64,7 +64,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                     }
                     countDown -= 0.1;
                     second += 0.1;
-                    if (second==1){
+                    if (second>=1){
                         second = 0;
                         timePlayed++;
                     }
@@ -100,7 +100,6 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 }
             }
 
-
             if(cleared){
                 combinationActive = false;
                 StrokeUpdate.StrokeType type = StrokeUpdate.StrokeType.Normal;
@@ -110,7 +109,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 if(neededTimeToSolve<currentStage.getTimeForPerfectStroke()) {
                     pointsGained =  difficultyProperties.getPointsPerCombination()*currentStage.getPointsFactor()*1.5;
                     if(perfectInRow>2){
-                        pointsGained += pointsGained*perfectInRow/10;
+                        pointsGained += pointsGained*perfectInRow/5;
                     }
                     timeGained = currentStage.getTimePerPerfectStroke();
                     type = StrokeUpdate.StrokeType.Perfect;
@@ -147,7 +146,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
 
                 if(allMarked){
                     lives-=1;
-                    countDown -= 5;
+                    countDown -= 2;
                     for (Bubble b : bubbles){
                         b.marked = false;
                         b.resetHitNumber();
@@ -164,7 +163,8 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
             SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
         }
         if(!stopGame)
-            SceneController.sInstance.lostGame(new GameProgress(score,timePlayed,perfectStrokes, strokes, perfectInRowBest));
+            SceneController.sInstance.lostGame(
+                    new GameProgress(score,timePlayed,perfectStrokes, strokes, perfectInRowBest, currentStage.getId()));
         //End + Highscore
     }
 
@@ -193,7 +193,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     }
 
     private void checkCurrentStage(){
-        if(currentStage.getId()<stages.size()&&score>currentStage.getPointLimit()){
+        if(currentStage.getId()+1<stages.size()&&score>currentStage.getPointLimit()){
              currentStage = stages.get(currentStage.getId()+1);
         }
     }

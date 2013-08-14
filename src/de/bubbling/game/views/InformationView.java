@@ -30,7 +30,7 @@ public class InformationView extends SurfaceView implements Observer {
 
     private int width, height;
     private int score, lives;
-    private String countDown;
+    private double countDown;
     private int textSizeDev4;
     Paint linePainter,timePainter, scorePainter, simpleTextPainter, gainedPainter;
     String  timeGained ;
@@ -47,7 +47,6 @@ public class InformationView extends SurfaceView implements Observer {
         this.context = context;
         textSizeDev4 = this.height/4;
         timeGained = "";
-        countDown = "";
         initializePainter();
 
         df = new DecimalFormat("##.#");
@@ -77,7 +76,7 @@ public class InformationView extends SurfaceView implements Observer {
         scorePainter.setTextSize(textSizeDev4);
 
         gainedPainter = new Paint();
-        gainedPainter.setColor(Color.rgb(208,15,5));
+        gainedPainter.setColor( Color.rgb(0,232,0));
         gainedPainter.setFakeBoldText(true);
         gainedPainter.setTextSize(height/6);
 
@@ -102,14 +101,19 @@ public class InformationView extends SurfaceView implements Observer {
         simpleTextPainter.setTextAlign(Paint.Align.RIGHT);
         gainedPainter.setTextAlign(Paint.Align.RIGHT);
         canvas.drawText("time:", width, height/5, simpleTextPainter);
-        canvas.drawText(""+countDown,width, height/5*2, timePainter);
+        if(countDown <10){
+            timePainter.setColor(Color.RED);
+        } else{
+            timePainter.setColor(Color.BLACK);
+        }
+        canvas.drawText(""+toDoubleString(countDown),width, height/5*2, timePainter);
+
         canvas.drawText(timeGained, width, height/5*3, gainedPainter);
 
         //lives
         simpleTextPainter.setTextAlign(Paint.Align.LEFT);
         scorePainter.setTextAlign(Paint.Align.LEFT);
         canvas.drawText("lives:", 5, height/5, simpleTextPainter);
-        //canvas.drawText(""+lives, 5, height/5*2, scorePainter);
 
         int startX = 5;
         int startY = height/5;
@@ -136,8 +140,8 @@ public class InformationView extends SurfaceView implements Observer {
     public void update(Observable observable, Object data) {
         if(data instanceof InformationViewUpdate){
             InformationViewUpdate update = (InformationViewUpdate) data;
-            double iCountDown = update.getCountDown();
-            countDown = toDoubleString(iCountDown);
+            countDown = update.getCountDown();
+
 
             score = update.getPoints();
             lives = update.getLives();

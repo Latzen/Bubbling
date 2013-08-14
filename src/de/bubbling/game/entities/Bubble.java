@@ -3,8 +3,7 @@ package de.bubbling.game.entities;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.View;
-import de.bubbling.game.views.messages.HitInformation;
+import de.bubbling.game.views.messages.NearHitInformation;
 
 import static android.graphics.BitmapFactory.decodeResource;
 
@@ -27,12 +26,12 @@ public class Bubble extends Entity {
         marked = false;
     }
 
-    public void draw(Canvas c,View view){
+    public void draw(Canvas c){
         Paint cyclePaint = new Paint();
         cyclePaint.setAntiAlias(true);
         if(marked){
             cyclePaint.setColor(Color.YELLOW);
-            c.drawCircle(getX()+radius / 2,getY()+ radius / 2,radius / 2, cyclePaint);
+            c.drawCircle(getX() + radius / 2, getY() + radius / 2, radius / 2, cyclePaint);
             cyclePaint.setColor(color);
             c.drawCircle(getX() + radius / 2, getY() + radius / 2, radius / 2 - radius/20, cyclePaint);
 
@@ -57,25 +56,23 @@ public class Bubble extends Entity {
        radius = radius-velocity;
     }
 
-    public HitInformation checkHit(float x, float y, int numberHit, int gameViewTop){
-        HitInformation hitInformation;
-        if(x>=getX()&&x<=getX()+radius){
-            if (y>=getY()+gameViewTop&&y<=getY()+(radius +gameViewTop)){
-                marked = !marked;
-                if(marked){
-                    this.numberHit = numberHit;
-                    hitInformation = new HitInformation(true, true, false);
-                }else{
-                    resetHitNumber();
-                    hitInformation = new HitInformation(true, false, true);
-                }
-                return hitInformation;
+    public NearHitInformation checkNearHit(float x, float y, int gameViewTop, int maximum){
+        if(getX()- maximum <= x && getX()+radius+maximum>= x){
+            if(getY()+gameViewTop-maximum <= y && getY()+gameViewTop+radius+maximum >= y){
+                return new NearHitInformation(getX()+radius-x, getY()+radius-y,this, NearHitInformation.Hit.Hitted);
             }
         }
-        hitInformation = new HitInformation(false, false, false);
-        return hitInformation;
+        return new NearHitInformation(getX()+radius-x, getY()+radius-y,this, NearHitInformation.Hit.NoHit);
     }
 
+    public void setHitted(int number){
+        if(!marked){
+            numberHit = number;
+        }else{
+            resetHitNumber();
+        }
+        marked = !marked;
+    }
     public int getNumberHit() {
         return numberHit;
     }

@@ -24,6 +24,7 @@ public class StartDialog extends Dialog {
 
     ImageButton okButton, cancelButton;
     BubblingGameActivity gameActivity;
+
     public StartDialog(Context context, final BubblingGameActivity gameActivity) {
         super(context);
         this.gameActivity = gameActivity;
@@ -37,7 +38,7 @@ public class StartDialog extends Dialog {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ImageButton okButton = (ImageButton) v;
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Bitmap image = decodeResource(v.getResources(), R.drawable.startdialogbuttonpressed);
                     okButton.setImageBitmap(image);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -47,7 +48,7 @@ public class StartDialog extends Dialog {
                     StartDialog.this.dismiss();
                     gameActivity.startGame();
                 }
-                return  true;//To change body of implemented methods use File | Settings | File Templates.
+                return true;//To change body of implemented methods use File | Settings | File Templates.
             }
         });
 
@@ -56,7 +57,7 @@ public class StartDialog extends Dialog {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ImageButton okButton = (ImageButton) v;
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Bitmap image = decodeResource(v.getResources(), R.drawable.startdialogcancelpressed);
                     okButton.setImageBitmap(image);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -66,7 +67,7 @@ public class StartDialog extends Dialog {
                     StartDialog.this.dismiss();
                     gameActivity.onBackPressed();
                 }
-                return  true;//To change body of implemented methods use File | Settings | File Templates.
+                return true;//To change body of implemented methods use File | Settings | File Templates.
             }
         });
 

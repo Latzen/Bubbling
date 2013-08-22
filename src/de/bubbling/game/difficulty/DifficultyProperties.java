@@ -15,14 +15,14 @@ public class DifficultyProperties {
         hard
     }
 
-    public static String[] difficulties = { "easy", "normal", "hard"};
+    public static String[] difficulties = {"easy", "normal", "hard"};
 
     private int hearts, chanceForNewHeart;
-    private double  pointsPerCombination;
+    private double pointsPerCombination;
     private Difficulty difficulty;
 
     public DifficultyProperties(Difficulty difficulty) {
-        switch (difficulty){
+        switch (difficulty) {
             case easy:
                 this.hearts = 3;
                 this.chanceForNewHeart = 5;
@@ -31,7 +31,7 @@ public class DifficultyProperties {
             case normal:
                 this.hearts = 2;
                 this.chanceForNewHeart = 3;
-                this.pointsPerCombination = 150;
+                this.pointsPerCombination = 300;
                 break;
             case hard:
                 this.hearts = 1;
@@ -45,11 +45,11 @@ public class DifficultyProperties {
         return pointsPerCombination;
     }
 
-    public static Difficulty matchWithString(String diff){
-        if(diff.equals(difficulties[0]))
+    public static Difficulty matchWithString(String diff) {
+        if (diff.equals(difficulties[0]))
             return Difficulty.easy;
-        if(diff.equals(difficulties[1]))
-            return  Difficulty.normal;
+        if (diff.equals(difficulties[1]))
+            return Difficulty.normal;
 
         return Difficulty.hard;
     }

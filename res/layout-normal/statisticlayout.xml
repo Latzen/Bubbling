@@ -95,9 +95,9 @@
     <Button android:id="@+id/showleaderboard"
                  android:layout_height="wrap_content"
                  android:layout_width="match_parent"
-                 android:layout_below="@id/perfectStrokesInRow"
                  android:text="@string/leaderboard"
-                 />
+                 android:layout_marginBottom="40dp"
+                 android:layout_alignLeft="@+id/strokesOverall" android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

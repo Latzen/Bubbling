@@ -25,6 +25,7 @@ public class GameOverDialog extends Dialog {
     private final BubblingGameActivity gameActivity;
     ImageButton okButton, uploadButton;
     Context context;
+
     public GameOverDialog(final Context context, final BubblingGameActivity gameActivity, final long score, boolean newHighscore) {
         super(context);
         this.gameActivity = gameActivity;
@@ -33,14 +34,14 @@ public class GameOverDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         TextView text = (TextView) findViewById(R.id.highscoretext);
 
-        if(newHighscore){
+        if (newHighscore) {
             text.setText("New Highscore: ");
-        }else{
+        } else {
             text.setText("score: ");
         }
 
         TextView scoreText = (TextView) findViewById(R.id.score);
-        scoreText.setText(""+score);
+        scoreText.setText("" + score);
 
         setCancelable(true);
         setCanceledOnTouchOutside(false);
@@ -53,7 +54,7 @@ public class GameOverDialog extends Dialog {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ImageButton okButton = (ImageButton) v;
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Bitmap image = decodeResource(v.getResources(), R.drawable.gameoverdialogrestartpressed);
                     okButton.setImageBitmap(image);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -62,7 +63,7 @@ public class GameOverDialog extends Dialog {
                     GameOverDialog.this.dismiss();
                     gameActivity.startGame();
                 }
-                return  true;//To change body of implemented methods use File | Settings | File Templates.
+                return true;//To change body of implemented methods use File | Settings | File Templates.
             }
         });
 

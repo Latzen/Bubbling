@@ -46,11 +46,14 @@ import java.util.Vector;
 public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {
 
-    /** Listener for sign-in success or failure events. */
+    /**
+     * Listener for sign-in success or failure events.
+     */
     public interface GameHelperListener {
         /**
          * Called when sign-in fails. As a result, a "Sign-In" button can be
          * shown to the user; when that button is clicked, call
+         *
          * @link{GamesHelper#beginUserInitiatedSignIn}. Note that not all calls to this
          * method mean an error; it may be a result of the fact that automatic
          * sign-in could not proceed because user interaction was required
@@ -60,7 +63,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
          */
         void onSignInFailed();
 
-        /** Called when sign-in succeeds. */
+        /**
+         * Called when sign-in succeeds.
+         */
         void onSignInSucceeded();
     }
 
@@ -176,7 +181,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         } else {
             sb.append("Expected states:");
             for (int expectedState : expectedStates) {
-                sb.append(" " ).append(STATE_NAMES[expectedState]);
+                sb.append(" ").append(STATE_NAMES[expectedState]);
             }
             sb.append(".");
         }
@@ -207,16 +212,16 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
      * initialization tasks. Next, call @link{#onStart} from the onStart()
      * method of your Activity.
      *
-     * @param listener The listener to be notified of sign-in events.
-     * @param clientsToUse The clients to use. Use a combination of
-     *            CLIENT_GAMES, CLIENT_PLUS and CLIENT_APPSTATE, or CLIENT_ALL
-     *            to request all clients.
+     * @param listener         The listener to be notified of sign-in events.
+     * @param clientsToUse     The clients to use. Use a combination of
+     *                         CLIENT_GAMES, CLIENT_PLUS and CLIENT_APPSTATE, or CLIENT_ALL
+     *                         to request all clients.
      * @param additionalScopes Any scopes to be used that are outside of the ones defined
-     *            in the Scopes class.
-     *            I.E. for YouTube uploads one would add
-     *            "https://www.googleapis.com/auth/youtube.upload"
+     *                         in the Scopes class.
+     *                         I.E. for YouTube uploads one would add
+     *                         "https://www.googleapis.com/auth/youtube.upload"
      */
-    public void setup(GameHelperListener listener, int clientsToUse, String ... additionalScopes) {
+    public void setup(GameHelperListener listener, int clientsToUse, String... additionalScopes) {
         assertState("setup", STATE_UNCONFIGURED);
         mListener = listener;
         mRequestedClients = clientsToUse;
@@ -312,7 +317,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         return mPlusClient;
     }
 
-    /** Returns whether or not the user is signed in. */
+    /**
+     * Returns whether or not the user is signed in.
+     */
     public boolean isSignedIn() {
         return mState == STATE_CONNECTED;
     }
@@ -333,7 +340,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         return mSignInFailureReason;
     }
 
-    /** Call this method from your Activity's onStart(). */
+    /**
+     * Call this method from your Activity's onStart().
+     */
     public void onStart(Activity act) {
         mActivity = act;
 
@@ -359,13 +368,15 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
                 debugLog("onStart: already connected (unusual, but ok).");
                 break;
             default:
-                String msg =  "onStart: BUG: unexpected state " + STATE_NAMES[mState];
+                String msg = "onStart: BUG: unexpected state " + STATE_NAMES[mState];
                 Log.e(mDebugTag, msg);
                 throw new IllegalStateException(msg);
         }
     }
 
-    /** Call this method from your Activity's onStop(). */
+    /**
+     * Call this method from your Activity's onStop().
+     */
     public void onStop() {
         debugLog("onStop, state = " + STATE_NAMES[mState]);
         assertState("onStop", STATE_DISCONNECTED, STATE_CONNECTING, STATE_CONNECTED);
@@ -380,7 +391,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
                 debugLog("onStop: not connected, so no action taken.");
                 break;
             default:
-                String msg =  "onStop: BUG: unexpected state " + STATE_NAMES[mState];
+                String msg = "onStop: BUG: unexpected state " + STATE_NAMES[mState];
                 Log.e(mDebugTag, msg);
                 throw new IllegalStateException(msg);
         }
@@ -389,13 +400,17 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         mActivity = null;
     }
 
-    /** Convenience method to show an alert dialog. */
+    /**
+     * Convenience method to show an alert dialog.
+     */
     public void showAlert(String title, String message) {
         (new AlertDialog.Builder(getContext())).setTitle(title).setMessage(message)
                 .setNeutralButton(android.R.string.ok, null).create().show();
     }
 
-    /** Convenience method to show an alert dialog. */
+    /**
+     * Convenience method to show an alert dialog.
+     */
     public void showAlert(String message) {
         (new AlertDialog.Builder(getContext())).setMessage(message)
                 .setNeutralButton(android.R.string.ok, null).create().show();
@@ -405,16 +420,18 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
      * Returns the invitation ID received through an invitation notification.
      * This should be called from your GameHelperListener's
      *
+     * @return The id of the invitation, or null if none was received.
      * @link{GameHelperListener#onSignInSucceeded} method, to check if there's an
      * invitation available. In that case, accept the invitation.
-     * @return The id of the invitation, or null if none was received.
      */
     public String getInvitationId() {
         assertState("getInvitationId", STATE_CONNECTED);
         return mInvitationId;
     }
 
-    /** Enables debug logging */
+    /**
+     * Enables debug logging
+     */
     public void enableDebugLog(boolean enabled, String tag) {
         mDebugLog = enabled;
         mDebugTag = tag;
@@ -429,7 +446,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
     public String getScopes() {
         StringBuilder scopeStringBuilder = new StringBuilder();
         if (null != mScopes) {
-            for (String scope: mScopes) {
+            for (String scope : mScopes) {
                 addToScope(scopeStringBuilder, scope);
             }
         }
@@ -446,7 +463,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         return mScopes;
     }
 
-    /** Sign out and disconnect from the APIs. */
+    /**
+     * Sign out and disconnect from the APIs.
+     */
     public void signOut() {
         if (mState == STATE_DISCONNECTED) {
             // nothing to do
@@ -560,8 +579,8 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         } else {
             // Whatever the problem we were trying to solve, it was not
             // solved. So give up and show an error message.
-            debugLog("onAR: responseCode="  + activityResponseCodeToString(responseCode) +
-                        ", so giving up.");
+            debugLog("onAR: responseCode=" + activityResponseCodeToString(responseCode) +
+                    ", so giving up.");
             giveUp(new SignInFailureReason(mConnectionResult.getErrorCode(), responseCode));
         }
     }
@@ -650,7 +669,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
     void connectNextClient() {
         // do we already have all the clients we need?
         debugLog("connectNextClient: requested clients: " + mRequestedClients +
-                    ", connected clients: " + mConnectedClients);
+                ", connected clients: " + mConnectedClients);
 
         // failsafe, in case we somehow lost track of what clients are connected or not.
         if (mGamesClient != null && mGamesClient.isConnected() &&
@@ -714,6 +733,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
 
     /**
      * Disconnects the indicated clients, then connects them again.
+     *
      * @param whatClients Indicates which clients to reconnect.
      */
     public void reconnectClients(int whatClients) {
@@ -737,7 +757,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         if ((whatClients & CLIENT_PLUS) != 0 && mPlusClient != null
                 && mPlusClient.isConnected()) {
             // PlusClient doesn't need reconnections.
-            Log.w(mDebugTag, "GameHelper is ignoring your request to reconnect "  +
+            Log.w(mDebugTag, "GameHelper is ignoring your request to reconnect " +
                     "PlusClient because this is unnecessary.");
         }
 
@@ -751,7 +771,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         }
     }
 
-    /** Called when we successfully obtain a connection to a client. */
+    /**
+     * Called when we successfully obtain a connection to a client.
+     */
     @Override
     public void onConnected(Bundle connectionHint) {
         debugLog("onConnected: connected! client=" + mClientCurrentlyConnecting);
@@ -787,7 +809,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         notifyListener(true);
     }
 
-    /** Handles a connection failure reported by a client. */
+    /**
+     * Handles a connection failure reported by a client.
+     */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // save connection result for later reference
@@ -795,7 +819,7 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
 
         mConnectionResult = result;
         debugLog("Connection failure:");
-        debugLog("   - code: " +  errorCodeToString(mConnectionResult.getErrorCode()));
+        debugLog("   - code: " + errorCodeToString(mConnectionResult.getErrorCode()));
         debugLog("   - resolvable: " + mConnectionResult.hasResolution());
         debugLog("   - details: " + mConnectionResult.toString());
 
@@ -874,7 +898,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         notifyListener(false);
     }
 
-    /** Called when we are disconnected from a client. */
+    /**
+     * Called when we are disconnected from a client.
+     */
     @Override
     public void onDisconnected() {
         debugLog("onDisconnected.");
@@ -899,7 +925,9 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         notifyListener(false);
     }
 
-    /** Shows an error dialog that's appropriate for the failure reason. */
+    /**
+     * Shows an error dialog that's appropriate for the failure reason.
+     */
     void showFailureDialog() {
         Context ctx = getContext();
         if (ctx == null) {
@@ -989,26 +1017,31 @@ public class GameHelper implements GooglePlayServicesClient.ConnectionCallbacks,
         public static final int NO_ACTIVITY_RESULT_CODE = -100;
         int mServiceErrorCode = 0;
         int mActivityResultCode = NO_ACTIVITY_RESULT_CODE;
+
         public int getServiceErrorCode() {
             return mServiceErrorCode;
         }
+
         public int getActivityResultCode() {
             return mActivityResultCode;
         }
+
         public SignInFailureReason(int serviceErrorCode, int activityResultCode) {
             mServiceErrorCode = serviceErrorCode;
             mActivityResultCode = activityResultCode;
         }
+
         public SignInFailureReason(int serviceErrorCode) {
             this(serviceErrorCode, NO_ACTIVITY_RESULT_CODE);
         }
+
         @Override
         public String toString() {
             return "SignInFailureReason(serviceErrorCode:" +
                     errorCodeToString(mServiceErrorCode) +
                     ((mActivityResultCode == NO_ACTIVITY_RESULT_CODE) ? ")" :
-                    (",activityResultCode:" +
-                    activityResponseCodeToString(mActivityResultCode) + ")"));
+                            (",activityResultCode:" +
+                                    activityResponseCodeToString(mActivityResultCode) + ")"));
         }
     }
 

@@ -1,6 +1,7 @@
 package de.bubbling.game.views;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.*;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -8,11 +9,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import de.bubbling.game.activities.R;
-import de.bubbling.game.views.messages.InformationViewNextCombination;
-import de.bubbling.game.views.messages.InformationViewUpdate;
-import de.bubbling.game.views.messages.StrokeUpdate;
+import de.bubbling.game.components.ActiveCombinationContainer;
+import de.bubbling.game.entities.Entity;
+import de.bubbling.game.views.messages.*;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,31 +34,35 @@ public class InformationView extends SurfaceView implements Observer {
     private int score, lives;
     private double countDown;
     private int textSizeDev4;
-    Paint linePainter,timePainter, scorePainter, simpleTextPainter, gainedPainter;
-    String  timeGained ;
-    private int [] activeCombination;
+    private Paint linePainter, timePainter, scorePainter, simpleTextPainter, gainedPainter;
+    private String timeGained;
+    private int[] activeCombination;
+    private ArrayList<ActiveCombinationContainer> activeCombinationContainer;
     private Context context;
-    Bitmap heart;
-    DecimalFormat df;
+    private Bitmap heart;
+    boolean update = false, isDrawing = false;
+    private DecimalFormat df;
+    Thread waitingThread;
+
     public InformationView(Context context, int width, int height) {
         super(context);
         this.width = width;
-        this.height = height/HEIGHT_DEVISOR;
+        this.height = height / HEIGHT_DEVISOR;
         setLayoutParams(new LinearLayout.LayoutParams(width, this.height));
         setBackgroundColor(Color.WHITE);
         this.context = context;
-        textSizeDev4 = this.height/4;
+        textSizeDev4 = this.height / 4;
         timeGained = "";
         initializePainter();
 
         df = new DecimalFormat("##.#");
     }
 
-    private void initializePainter(){
+    private void initializePainter() {
         //Text
         simpleTextPainter = new Paint();
         simpleTextPainter.setColor(Color.BLACK);
-        simpleTextPainter.setTextSize(height/5);
+        simpleTextPainter.setTextSize(height / 5);
 
         //Border
         linePainter = new Paint();
@@ -76,94 +82,106 @@ public class InformationView extends SurfaceView implements Observer {
         scorePainter.setTextSize(textSizeDev4);
 
         gainedPainter = new Paint();
-        gainedPainter.setColor( Color.rgb(0,232,0));
+        gainedPainter.setColor(Color.rgb(0, 232, 0));
         gainedPainter.setFakeBoldText(true);
-        gainedPainter.setTextSize(height/6);
+        gainedPainter.setTextSize(height / 6);
 
         heart = BitmapFactory.decodeResource(context.getResources(), R.drawable.live);
-        int bitmapSize = height/3;
+        int bitmapSize = height / 3;
         heart = Bitmap.createScaledBitmap(heart, bitmapSize, bitmapSize, true);
 
     }
+
     @Override
-    public void draw(Canvas canvas) {
+    public synchronized void draw(Canvas canvas) {
         super.draw(canvas);
+        isDrawing = true;
         canvas.drawRect(0, height - 2, width, height, linePainter);
 
         //Score
         simpleTextPainter.setTextAlign(Paint.Align.CENTER);
         scorePainter.setTextAlign(Paint.Align.CENTER);
         gainedPainter.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("score:", width / 2, height/5, simpleTextPainter);
-        canvas.drawText(""+score, width/2, height/5*2, scorePainter);
+        canvas.drawText("score:", width / 2, height / 5, simpleTextPainter);
+        canvas.drawText("" + score, width / 2, height / 5 * 2, scorePainter);
 
         //time
         simpleTextPainter.setTextAlign(Paint.Align.RIGHT);
         gainedPainter.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("time:", width, height/5, simpleTextPainter);
-        if(countDown <10){
+        canvas.drawText("time:", width, height / 5, simpleTextPainter);
+        if (countDown < 10) {
             timePainter.setColor(Color.RED);
-        } else{
+        } else {
             timePainter.setColor(Color.BLACK);
         }
-        canvas.drawText(""+toDoubleString(countDown),width, height/5*2, timePainter);
+        canvas.drawText("" + toDoubleString(countDown), width, height / 5 * 2, timePainter);
 
-        canvas.drawText(timeGained, width, height/5*3, gainedPainter);
+        canvas.drawText(timeGained, width, height / 5 * 3, gainedPainter);
 
         //lives
         simpleTextPainter.setTextAlign(Paint.Align.LEFT);
         scorePainter.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("lives:", 5, height/5, simpleTextPainter);
+        canvas.drawText("lives:", 5, height / 5, simpleTextPainter);
+
+        if (activeCombinationContainer != null) {
+
+            redrawAfterUpdate(canvas);
+        }
 
         int startX = 5;
-        int startY = height/5;
-        for(int i = 0; i< lives;i++){
+        int startY = height / 5;
+        for (int i = 0; i < lives; i++) {
             canvas.drawBitmap(heart, startX, startY, new Paint());
             startX += heart.getWidth();
         }
-
-        if(activeCombination != null){
-            int bubbleRad = textSizeDev4;
-            int x = width/2 - (bubbleRad*(activeCombination.length-1));
-            int y = height-textSizeDev4;
-            for(int i = 0; i<activeCombination.length;i++){
-                Paint p = new Paint();
-                p.setColor(activeCombination[i]);
-                p.setAntiAlias(true);
-                canvas.drawCircle(x,y,bubbleRad,p);
-                x+=height/2;
-            }
-        }
+        isDrawing = false;
     }
 
     @Override
     public void update(Observable observable, Object data) {
-        if(data instanceof InformationViewUpdate){
+        if (data instanceof InformationViewUpdate) {
             InformationViewUpdate update = (InformationViewUpdate) data;
             countDown = update.getCountDown();
-
-
             score = update.getPoints();
             lives = update.getLives();
-            if(lives <0) lives = 0;
+            if (lives < 0) lives = 0;
             postInvalidate();
-        } else if(data instanceof InformationViewNextCombination){
+        } else if (data instanceof InformationViewNextCombination) {
             InformationViewNextCombination update = (InformationViewNextCombination) data;
-            activeCombination = new int[update.getCombination().size()];
-            for(int i = 0; i<activeCombination.length;i++){
-                activeCombination[i] = update.getCombination().get(i);
+            if(isDrawing){
+                Log.w("bubbling","isWaiting");
+                    synchronized (activeCombinationContainer){
+                        try {
+                            activeCombinationContainer.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+                    }
+                    this.update = true;
+            }
+            activeCombinationContainer = new ArrayList<ActiveCombinationContainer>();
+            for(ActiveCombinationContainer ac : update.getContainers()){
+                activeCombinationContainer.add(new ActiveCombinationContainer(ac.getColor(),ac.getType()));
             }
             postInvalidate();
-        } else if(data instanceof StrokeUpdate){
-            showPerfectStrokeText((StrokeUpdate)data);
+        } else if (data instanceof InformationViewTimeUpdate) {
+            showPerfectStrokeText(((InformationViewTimeUpdate) data).getTimeGained());
         }
+        this.update = false;
     }
 
-    private synchronized void  showPerfectStrokeText(final StrokeUpdate stroke){
+    private synchronized void showPerfectStrokeText(final double time) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                timeGained = "+"+toDoubleString(stroke.getTimeGained());
+                String s ="+";
+                if(time<0){
+                    gainedPainter.setColor(Color.RED);
+                     s ="";
+                }else {
+                    gainedPainter.setColor(Color.rgb(0, 232, 0));
+                }
+                timeGained = s + toDoubleString(time);
                 postInvalidate();
                 try {
                     Thread.sleep(500);
@@ -176,22 +194,67 @@ public class InformationView extends SurfaceView implements Observer {
         }).start();
     }
 
-    private String toDoubleString(double d){
+    private String toDoubleString(double d) {
         String buffer = df.format(d);
-        if(d>=10){
-            if(buffer.length()<=2)
-                buffer +=",0";
-        }else{
-            if(buffer.length()<=1)
-                buffer +=",0";
+        if (d >= 10) {
+            if (buffer.length() <= 2)
+                buffer += ",0";
+        } else {
+            if (buffer.length() <= 1)
+                buffer += ",0";
         }
 
-        if(d<=0){
+        if (d<=0&&d>-1) {
             buffer = "0,0";
         }
         return buffer;
 
     }
 
+    private void redrawAfterUpdate(Canvas canvas){
+        synchronized (activeCombinationContainer){
+            int bubbleRad = textSizeDev4;
+            int begrenzungsBalken = 2;
+            int x = width / 2 - (bubbleRad * (activeCombinationContainer.size() - 1));
+            int y = height - textSizeDev4-begrenzungsBalken;
+            for (int i = 0; i < activeCombinationContainer.size(); i++) {
+                Paint p = new Paint();
+                p.setColor(activeCombinationContainer.get(i).getColor());
+                p.setAntiAlias(true);
+                switch (activeCombinationContainer.get(i).getType()){
+                    case Entity.BUBBLE_TYPE:
+                        canvas.drawCircle(x, y, bubbleRad, p);
+                        break;
+                    case Entity.TRIANGLE_TYPE:
+                        Point point1_draw = new Point();
+                        Point point2_draw = new Point();
+                        Point point3_draw = new Point();
+                        point1_draw.set(x, y-bubbleRad);
+                        point2_draw.set(x+bubbleRad,y+bubbleRad);
+                        point3_draw.set(x-bubbleRad, y+bubbleRad);
+
+                        Path path = new Path();
+                        path.setFillType(Path.FillType.EVEN_ODD);
+                        path.moveTo(point1_draw.x, point1_draw.y);
+                        path.lineTo(point2_draw.x, point2_draw.y);
+                        path.lineTo(point3_draw.x,point3_draw.y);
+                        path.close();
+                        p.setStyle(Paint.Style.FILL);
+                        canvas.drawPath(path,  p);
+                        break;
+                    case Entity.RECTANGLE_TYPE:
+                        canvas.drawRect(x-bubbleRad+2,y-bubbleRad,x+bubbleRad-2,y+bubbleRad,p);
+                        break;
+                }
+                x += height / 2;
+            }
+            if(update){
+                this.update = false;
+                redrawAfterUpdate(canvas);
+            }
+
+            activeCombinationContainer.notify();
+        }
+    }
 
 }

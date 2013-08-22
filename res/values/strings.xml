@@ -23,6 +23,8 @@
     <string name="pref_rememberdiff">rem_difficulty</string>
     <string name="pref_diff">difficulty</string>
 
+    <string name="score_ninja">2361988981989</string>
+    <string name="score_ninja_key">4207DB80A241238E11623072D1F32D75</string>
     <string name="help_strokesoveral">Strokes overall: </string>
     <string name="help_perfect">Perfect Strokes overall: </string>
     <string name="help_timeplayed">Time played: </string>

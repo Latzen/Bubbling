@@ -7,6 +7,8 @@ import com.google.android.gms.games.GamesClient;
 import de.bubbling.game.activities.BubblingGameActivity;
 import de.bubbling.game.views.messages.GameViewUpdate;
 import de.bubbling.game.views.messages.InformationViewUpdate;
+import de.bubbling.game.views.messages.MessageID;
+import de.bubbling.game.views.messages.MessageIDs;
 
 import java.util.Observable;
 
@@ -20,12 +22,8 @@ import java.util.Observable;
 public class SceneController extends Observable {
     public static SceneController sInstance = new SceneController();
     private Activity activity;
-    private GamesClient gamesClient;
-    public void startGame(){
-    }
 
-
-    public void updateObservers(Object update){
+    public void updateObservers(Object update) {
         setChanged();
         notifyObservers(update);
     }
@@ -34,18 +32,17 @@ public class SceneController extends Observable {
         this.activity = activity;
     }
 
-    public void lostGame(GameProgress gameProgress){
+    public void lostGame(GameProgress gameProgress) {
         BubblingGameActivity gameActivity = (BubblingGameActivity) activity;
         Message msg = new Message();
         msg.obj = gameProgress;
         gameActivity.sendMessage(msg);
     }
 
-    public GamesClient getGamesClient() {
-        return gamesClient;
-    }
-
-    public void setGamesClient(GamesClient gamesClient) {
-        this.gamesClient = gamesClient;
+    public void changeScene(Scene scene){
+        BubblingGameActivity gameActivity = (BubblingGameActivity) activity;
+        Message msg = new Message();
+        msg.obj = scene;
+        gameActivity.sendMessage(msg);
     }
 }

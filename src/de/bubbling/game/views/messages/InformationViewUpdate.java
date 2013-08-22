@@ -11,9 +11,10 @@ import java.util.ArrayList;
  * Time: 14:26
  * To change this template use File | Settings | File Templates.
  */
-public class InformationViewUpdate {
+public class InformationViewUpdate implements MessageID {
     private int points, lives;
     private double countDown;
+
     public InformationViewUpdate(double countDown, int points, int lives) {
         this.countDown = countDown;
         this.points = points;
@@ -30,5 +31,10 @@ public class InformationViewUpdate {
 
     public int getLives() {
         return lives;
+    }
+
+    @Override
+    public int getMessageID() {
+        return MessageIDs.INFO_VIEW_UPDATE;
     }
 }

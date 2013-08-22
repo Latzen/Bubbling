@@ -1,6 +1,7 @@
 package de.bubbling.game.views.messages;
 
 import de.bubbling.game.entities.Bubble;
+import de.bubbling.game.entities.Entity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,20 +11,21 @@ import de.bubbling.game.entities.Bubble;
  * To change this template use File | Settings | File Templates.
  */
 public class NearHitInformation {
-    float xDistance, yDistance;
-    public enum  Hit { Hitted, NoHit};
-    Bubble bubble;
-    Hit isHit;
 
-    public NearHitInformation(float xDistance, float yDistance,Bubble bubble, Hit hit) {
+    public enum Hit {Hitted, NoHit}
+    private float xDistance, yDistance;
+    private Entity entity;
+    private Hit isHit;
+
+    public NearHitInformation(float xDistance, float yDistance, Entity entity, Hit hit) {
         this.xDistance = xDistance;
         this.yDistance = yDistance;
-        this.bubble = bubble;
+        this.entity = entity;
         isHit = hit;
     }
 
-    public Bubble getBubble() {
-        return bubble;
+    public Entity getEntity() {
+        return entity;
     }
 
     public float getxDistance() {

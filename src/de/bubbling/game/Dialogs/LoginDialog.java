@@ -32,18 +32,18 @@ public class LoginDialog extends Dialog {
         setTitle("Login to Google Play");
         this.context = context;
         int result = isGooglePlayServicesAvailable(context);
-        if((ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED==result)) {
+        if ((ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED == result)) {
             setContentView(R.layout.loginlayoutsdk10);
             setCanceledOnTouchOutside(false);
             cancelButton = (Button) findViewById(R.id.logout);
-            checkBox = (CheckBox)findViewById(R.id.doNotShow);
+            checkBox = (CheckBox) findViewById(R.id.doNotShow);
             signInSDK10 = (Button) findViewById(R.id.sign_in);
-        }else{
+        } else {
             setContentView(R.layout.loginlayout);
             setCanceledOnTouchOutside(false);
             signInButton = (SignInButton) findViewById(R.id.sign_in);
             cancelButton = (Button) findViewById(R.id.logout);
-            checkBox = (CheckBox)findViewById(R.id.doNotShow);
+            checkBox = (CheckBox) findViewById(R.id.doNotShow);
         }
         setCanceledOnTouchOutside(false);
 

@@ -35,10 +35,10 @@ import com.google.android.gms.plus.PlusClient;
  * PlusClient and GamesClient, use BaseGameActivity(CLIENT_GAMES | CLIENT_PLUS).
  * To request all available clients, use BaseGameActivity(CLIENT_ALL).
  * Alternatively, you can also specify the requested clients via
- * @link{#setRequestedClients}, but you must do so before @link{#onCreate}
- * gets called, otherwise the call will have no effect.
  *
  * @author Bruno Oliveira (Google)
+ * @link{#setRequestedClients}, but you must do so before @link{#onCreate}
+ * gets called, otherwise the call will have no effect.
  */
 public abstract class BaseGameActivity extends FragmentActivity implements
         GameHelper.GameHelperListener {
@@ -62,7 +62,9 @@ public abstract class BaseGameActivity extends FragmentActivity implements
     protected String mDebugTag = "BaseGameActivity";
     protected boolean mDebugLog = false;
 
-    /** Constructs a BaseGameActivity with default client (GamesClient). */
+    /**
+     * Constructs a BaseGameActivity with default client (GamesClient).
+     */
     protected BaseGameActivity() {
         super();
         mHelper = new GameHelper(this);
@@ -70,8 +72,9 @@ public abstract class BaseGameActivity extends FragmentActivity implements
 
     /**
      * Constructs a BaseGameActivity with the requested clients.
+     *
      * @param requestedClients The requested clients (a combination of CLIENT_GAMES,
-     *         CLIENT_PLUS and CLIENT_APPSTATE).
+     *                         CLIENT_PLUS and CLIENT_APPSTATE).
      */
     protected BaseGameActivity(int requestedClients) {
         super();
@@ -84,12 +87,12 @@ public abstract class BaseGameActivity extends FragmentActivity implements
      * cannot do this in the constructor. This must be called before onCreate in order to
      * have any effect. If called after onCreate, this method is a no-op.
      *
-     * @param requestedClients A combination of the flags CLIENT_GAMES, CLIENT_PLUS
-     *         and CLIENT_APPSTATE, or CLIENT_ALL to request all available clients.
-     * @param additionalScopes.  Scopes that should also be requested when the auth
-     *         request is made.
+     * @param requestedClients  A combination of the flags CLIENT_GAMES, CLIENT_PLUS
+     *                          and CLIENT_APPSTATE, or CLIENT_ALL to request all available clients.
+     * @param additionalScopes. Scopes that should also be requested when the auth
+     *                          request is made.
      */
-    protected void setRequestedClients(int requestedClients, String ... additionalScopes) {
+    protected void setRequestedClients(int requestedClients, String... additionalScopes) {
         mRequestedClients = requestedClients;
         mAdditionalScopes = additionalScopes;
     }

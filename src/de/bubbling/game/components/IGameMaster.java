@@ -10,5 +10,6 @@ package de.bubbling.game.components;
 public interface IGameMaster {
 
     boolean checkLostCondition();
+
     void playNewRound();
 }

@@ -16,9 +16,9 @@ public class PrefActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT <=  14) {
+        if (android.os.Build.VERSION.SDK_INT <= 14) {
             setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
-        }else{
+        } else {
             setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
         }
         super.onCreate(savedInstanceState);

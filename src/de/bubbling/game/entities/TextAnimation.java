@@ -14,16 +14,15 @@ import android.text.TextPaint;
  */
 public class TextAnimation extends Entity implements CustomAnimation {
 
-    String text;
-    int color, textSize, alpha;
-    Paint painter;
+    private String text;
+    private int textSize, alpha;
+    private Paint painter;
 
     public TextAnimation(int x, int y, boolean visible, String text, int color, int textSize) {
-        super(x, y, visible);
+        super(x, y, textSize, textSize,color, visible);
         this.text = text;
-        this.color = color;
         this.textSize = textSize;
-        this.alpha =  200;
+        this.alpha = 200;
         painter = new TextPaint();
         painter.setColor(color);
         painter.setTextSize(textSize);
@@ -33,21 +32,21 @@ public class TextAnimation extends Entity implements CustomAnimation {
 
     @Override
     public void draw(Canvas c) {
-        c.drawText(text,x,y,painter);
+        c.drawText(text, x, y, painter);
     }
 
     @Override
     public void moveUpDown(int yVelocity) {
-        y = y+yVelocity;
+        y = y + yVelocity;
     }
 
-    public void fadeOut(){
-       alpha--;
-       painter.setAlpha(alpha);
+    public void fadeOut() {
+        alpha--;
+        painter.setAlpha(alpha);
     }
 
     @Override
     public void moveLeftRight(int xVelocity) {
-        x = x+xVelocity;
+        x = x + xVelocity;
     }
 }

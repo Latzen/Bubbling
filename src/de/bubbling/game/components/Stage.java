@@ -9,14 +9,14 @@ package de.bubbling.game.components;
  */
 public class Stage {
 
-    public static int TWO_BUBBLES = 2;
-    public static int THREE_BUBBLES = 3;
-    public static int FOUR_BUBBLES = 4;
-    public static int FIVE_BUBBLES = 5;
-    public static int SIX_BUBBLES = 6;
+    public static int TWO_ENTITIES = 2;
+    public static int THREE_ENTITIES = 3;
+    public static int FOUR_ENTITIES = 4;
+    public static int FIVE_ENTITIES = 5;
+    public static int SIX_ENTITIES = 6;
 
-    private int pointLimit, combination, id;;
-    private double  timePerPerfectStroke;
+    private int pointLimit, combination, id;
+    private double timePerPerfectStroke;
     private long timeForPerfectStroke;
     private double pointsFactor;
 
@@ -24,7 +24,7 @@ public class Stage {
     //public enum MovingBubbles { BubblesConst, BubblesMoving};
 
     public Stage(int pointLimit, int combination, double pointsFactor,
-                 double timePerPerfectStroke, long timeForPerfectStroke, int id, Integer... possibleColors){
+                 double timePerPerfectStroke, long timeForPerfectStroke, int id, Integer... possibleColors) {
         this.pointLimit = pointLimit;
         this.combination = combination;
         this.timePerPerfectStroke = timePerPerfectStroke;

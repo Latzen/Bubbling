@@ -11,7 +11,10 @@ import android.graphics.Canvas;
  */
 public interface CustomAnimation {
     void draw(Canvas c);
+
     void moveUpDown(int yVelocity);
+
     void fadeOut();
+
     void moveLeftRight(int xVelocity);
 }

@@ -36,10 +36,11 @@ public class StatisticActivity extends BaseGameActivity {
     boolean connected;
     SharedPreferences prefs;
     private MyPreferenceManager stats;
+
     public void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT <=  14) {
+        if (android.os.Build.VERSION.SDK_INT <= 14) {
             setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
-        }else{
+        } else {
             setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
         }
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class StatisticActivity extends BaseGameActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         stats = new MyPreferenceManager(this);
         TextView overallStrokes = (TextView) findViewById(R.id.strokesOverall);
-        overallStrokes.setText(getString(R.string.help_strokesoveral)+stats.getStrokesOverall());
+        overallStrokes.setText(getString(R.string.help_strokesoveral) + stats.getStrokesOverall());
         //easy
         TextView scoreViewEasy = (TextView) findViewById(R.id.currenthighscore_easy);
         scoreViewEasy.setText("" + stats.getLong(getString(R.string.leaderboard_normal)));
@@ -61,27 +62,27 @@ public class StatisticActivity extends BaseGameActivity {
         TextView scoreViewHard = (TextView) findViewById(R.id.currenthighscore_hard);
         scoreViewHard.setText("" + stats.getLong(getString(R.string.leaderboard_hard)));*/
 
-        TextView perfect = (TextView)findViewById(R.id.perfectStrokes);
-        perfect.setText(getString(R.string.help_perfect)+stats.getPerfectStrokes());
+        TextView perfect = (TextView) findViewById(R.id.perfectStrokes);
+        perfect.setText(getString(R.string.help_perfect) + stats.getPerfectStrokes());
 
-        TextView time = (TextView)findViewById(R.id.timePlayed);
-        long min=00, hh=00, sec= stats.getTimePlayed();
-        if(sec>60){
-            min = sec/60;
-            sec = min%60;
-            if(min>60){
-                hh = min/60;
-                min = min%60;
+        TextView time = (TextView) findViewById(R.id.timePlayed);
+        long min = 00, hh = 00, sec = stats.getTimePlayed();
+        if (sec > 60) {
+            min = sec / 60;
+            sec = min % 60;
+            if (min > 60) {
+                hh = min / 60;
+                min = min % 60;
             }
         }
-        String ss = sec <10 ? "0"+sec : Long.toString(sec);
-        String sm =  min <10 ? "0"+min : Long.toString(min);
-        String sh =  hh <10 ? "0"+hh : Long.toString(hh);
-        time.setText(getString(R.string.help_timeplayed)+sh+":"+sm+":"+ss);
+        String ss = sec < 10 ? "0" + sec : Long.toString(sec);
+        String sm = min < 10 ? "0" + min : Long.toString(min);
+        String sh = hh < 10 ? "0" + hh : Long.toString(hh);
+        time.setText(getString(R.string.help_timeplayed) + sh + ":" + sm + ":" + ss);
 
 
-        if(getGamesClient()!= null){
-            if(getGamesClient().isConnected()) getGamesClient().disconnect();
+        if (getGamesClient() != null) {
+            if (getGamesClient().isConnected()) getGamesClient().disconnect();
 
             getGamesClient().registerConnectionCallbacks(new GooglePlayServicesClient.ConnectionCallbacks() {
                 @Override
@@ -94,39 +95,37 @@ public class StatisticActivity extends BaseGameActivity {
                 }
             });
 
-            if(prefs.getBoolean(String.valueOf(R.string.pref_keepLogin), false)){
+            if (prefs.getBoolean(String.valueOf(R.string.pref_keepLogin), false)) {
                 getGamesClient().connect();
             }
         }
-
 
 
         Button showLeaderboardButton = (Button) findViewById(R.id.showleaderboard);
         showLeaderboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if(ConnectionResult.SUCCESS != GOOGLE_PLAY){
-                        Toast.makeText(StatisticActivity.this,"You need to update your Google Play Service",2000).show();
-                        return;
+                if (ConnectionResult.SUCCESS != GOOGLE_PLAY) {
+                    Toast.makeText(StatisticActivity.this, "You need to update your Google Play Service", 2000).show();
+                    return;
+                }
+                if (connected || stats.getLoggedIn()) {
+                    // if(!stats.getRemDiff()){
+                    //     showDialog(CHOOSE_DIFFICULTY);
+                    // }
+                    // else{
+                    try {
+                        startActivityForResult(getGamesClient().
+                                getLeaderboardIntent(getString(R.string.leaderboard_normal)), 1);
+                    } catch (Exception e) {
+                        Log.e("HelpAcitivity", e.toString());
                     }
-                    if(connected||stats.getLoggedIn()){
-                       // if(!stats.getRemDiff()){
-                       //     showDialog(CHOOSE_DIFFICULTY);
-                       // }
-                       // else{
-                            try {
-                                startActivityForResult(getGamesClient().
-                                        getLeaderboardIntent(getString(R.string.leaderboard_normal)),1);
-                            }catch (Exception e){
-                                Log.e("HelpAcitivity", e.toString());
-                            }
-                       // }
+                    // }
 
-                    }
-                    else{
-                        showDialog(LOGIN_DIALOG);
-                        Toast.makeText(StatisticActivity.this, "Could not connect to Google Play Games", 2000);
-                    }
+                } else {
+                    showDialog(LOGIN_DIALOG);
+                    Toast.makeText(StatisticActivity.this, "Could not connect to Google Play Games", 2000);
+                }
             }
         });
 
@@ -138,7 +137,7 @@ public class StatisticActivity extends BaseGameActivity {
 
     @Override
     public void onSignInSucceeded() {
-        if(stats.getLogout()){
+        if (stats.getLogout()) {
             signOut();
             getGamesClient().disconnect();
             stats.setLogoutOnNextConnect(false);
@@ -148,36 +147,36 @@ public class StatisticActivity extends BaseGameActivity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch (id){
+        switch (id) {
             case LOGIN_DIALOG:
                 final LoginDialog loginDialog = new LoginDialog(this);
                 final SharedPreferences finalPrefs = this.prefs;
-                if (android.os.Build.VERSION.SDK_INT <=  14) {
+                if (android.os.Build.VERSION.SDK_INT <= 14) {
                     int result = isGooglePlayServicesAvailable(StatisticActivity.this);
-                    if(!(ConnectionResult.SUCCESS==result)) {
+                    if (!(ConnectionResult.SUCCESS == result)) {
 
                     }
-                    try{
+                    try {
                         beginUserInitiatedSignIn();
                         getGamesClient().connect();
                         stats.setLoggedIn(true);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         Log.e("HelpActivity", e.toString());
                     }
                     finalPrefs.edit().putBoolean(getResources().getString(R.string.pref_donotshowAgain), loginDialog.getCheckBox().isChecked()).commit();
                     loginDialog.dismiss();
-                }else{
+                } else {
                     loginDialog.getSignInButton().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             int result = isGooglePlayServicesAvailable(StatisticActivity.this);
-                            if(!(ConnectionResult.SUCCESS==result)) {
+                            if (!(ConnectionResult.SUCCESS == result)) {
 
                             }
-                            try{
+                            try {
                                 beginUserInitiatedSignIn();
                                 getGamesClient().connect();
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 Log.e("HelpActivity", e.toString());
                             }
                             finalPrefs.edit().putBoolean(getResources().getString(R.string.pref_donotshowAgain), loginDialog.getCheckBox().isChecked()).commit();
@@ -197,13 +196,13 @@ public class StatisticActivity extends BaseGameActivity {
             case CHOOSE_DIFFICULTY:
                 View chooseView = View.inflate(this, R.layout.choosediff, null);
                 ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, DifficultyProperties.difficulties){
+                        android.R.layout.simple_list_item_1, DifficultyProperties.difficulties) {
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
-                        View view =super.getView(position, convertView, parent);
+                        View view = super.getView(position, convertView, parent);
 
-                        TextView textView=(TextView) view.findViewById(android.R.id.text1);
-                        switch (position){
+                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                        switch (position) {
                             case 0:
                                 textView.setTextColor(Color.BLUE);
                                 break;
@@ -216,8 +215,8 @@ public class StatisticActivity extends BaseGameActivity {
                         return view;
                     }
                 };
-                final CheckBox remember = (CheckBox)chooseView.findViewById(R.id.remembermydecision);
-                ListView diff = (ListView)chooseView.findViewById(R.id.diffList);
+                final CheckBox remember = (CheckBox) chooseView.findViewById(R.id.remembermydecision);
+                ListView diff = (ListView) chooseView.findViewById(R.id.diffList);
                 diff.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -226,7 +225,7 @@ public class StatisticActivity extends BaseGameActivity {
                         dismissDialog(CHOOSE_DIFFICULTY);
                         startActivityForResult(getGamesClient().
                                 getLeaderboardIntent(GooglePlayServiceController.
-                                        getLeaderBoardForDifficulty(stats, StatisticActivity.this)),1);
+                                        getLeaderBoardForDifficulty(stats, StatisticActivity.this)), 1);
                     }
                 });
                 diff.setAdapter(adapter);
@@ -252,7 +251,7 @@ public class StatisticActivity extends BaseGameActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu:
                 startActivity(new Intent(this, PrefActivity.class));
                 break;

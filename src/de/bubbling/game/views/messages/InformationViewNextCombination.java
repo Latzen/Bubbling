@@ -1,5 +1,7 @@
 package de.bubbling.game.views.messages;
 
+import de.bubbling.game.components.ActiveCombinationContainer;
+
 import java.util.ArrayList;
 
 /**
@@ -9,15 +11,20 @@ import java.util.ArrayList;
  * Time: 19:15
  * To change this template use File | Settings | File Templates.
  */
-public class InformationViewNextCombination {
+public class InformationViewNextCombination implements  MessageID {
 
-    private ArrayList<Integer> combination;
+    private ArrayList<ActiveCombinationContainer> containers;
 
-    public InformationViewNextCombination(ArrayList<Integer> combination) {
-        this.combination = combination;
+    public InformationViewNextCombination(ArrayList<ActiveCombinationContainer> containers) {
+        this.containers = containers;
     }
 
-    public ArrayList<Integer> getCombination() {
-        return combination;
+    public ArrayList<ActiveCombinationContainer> getContainers() {
+        return containers;
+    }
+
+    @Override
+    public int getMessageID() {
+        return MessageIDs.INFO_VIEW_NEXT_COMB;
     }
 }

@@ -1,6 +1,7 @@
 package de.bubbling.game.views.messages;
 
 import de.bubbling.game.entities.Bubble;
+import de.bubbling.game.entities.Entity;
 
 import java.util.ArrayList;
 
@@ -11,20 +12,25 @@ import java.util.ArrayList;
  * Time: 15:35
  * To change this template use File | Settings | File Templates.
  */
-public class GameViewUpdate {
-    private ArrayList<Bubble> bubbles;
+public class GameViewUpdate implements MessageID {
+    private ArrayList<Entity> bubbles;
     private boolean clearMarks;
-    public ArrayList<Bubble> getBubbles() {
+
+    public ArrayList<Entity> getEntities() {
         return bubbles;
     }
 
-    public GameViewUpdate(ArrayList<Bubble> bubbles, boolean clearMarks) {
-        if(bubbles!= this.bubbles)
-         this.bubbles = (ArrayList<Bubble>) bubbles.clone();
+    public GameViewUpdate(ArrayList<Entity> bubbles, boolean clearMarks) {
+        this.bubbles = (ArrayList<Entity>) bubbles.clone();
         this.clearMarks = clearMarks;
-
     }
+
     public boolean isClearMarks() {
         return clearMarks;
+    }
+
+    @Override
+    public int getMessageID() {
+        return MessageIDs.GAMEVIEW_UPDATE;
     }
 }

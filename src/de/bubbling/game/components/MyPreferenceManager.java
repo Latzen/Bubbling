@@ -16,21 +16,23 @@ import de.bubbling.game.difficulty.DifficultyProperties;
 public class MyPreferenceManager {
     private SharedPreferences prefs;
     private Context context;
-    public MyPreferenceManager(Context context){
+
+    public MyPreferenceManager(Context context) {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void updateStats(GameProgress progress){
+    public void updateStats(GameProgress progress) {
         updateStats(progress.getTimePlayed(), progress.getPerfectStrokes(), progress.getStrokesInARow(), progress.getScore(), progress.getStokesOverall());
     }
-    public void updateStats(long sessionPlayed, int perfectStrokes, int longestPerfectStroke, long score, int strokesOverall){
+
+    public void updateStats(long sessionPlayed, int perfectStrokes, int longestPerfectStroke, long score, int strokesOverall) {
         SharedPreferences.Editor edit = prefs.edit();
-        edit.putLong(context.getString(R.string.pref_timePlayed),getTimePlayed()+sessionPlayed);
-        edit.putInt(context.getString(R.string.pref_perfectStrokes),getPerfectStrokes()+perfectStrokes);
-        edit.putInt(context.getString(R.string.pref_strokesOverall), getStrokesOverall()+strokesOverall);
-        if(getLongestPerfectStroke()<longestPerfectStroke){
-            edit.putInt(context.getString(R.string.pref_longestStroke),longestPerfectStroke);
+        edit.putLong(context.getString(R.string.pref_timePlayed), getTimePlayed() + sessionPlayed);
+        edit.putInt(context.getString(R.string.pref_perfectStrokes), getPerfectStrokes() + perfectStrokes);
+        edit.putInt(context.getString(R.string.pref_strokesOverall), getStrokesOverall() + strokesOverall);
+        if (getLongestPerfectStroke() < longestPerfectStroke) {
+            edit.putInt(context.getString(R.string.pref_longestStroke), longestPerfectStroke);
         }
         /*long scoreT = prefs.getLong(context.getString(R.string.pref_score), 0); //0 is the default value
         if(scoreT < score){
@@ -40,10 +42,10 @@ public class MyPreferenceManager {
         edit.commit();
     }
 
-    private void updateScore(long score){
+    private void updateScore(long score) {
         DifficultyProperties.Difficulty diff = DifficultyProperties.matchWithString(getDifficulty());
         String scoreDiff = "";
-        switch (diff){
+        switch (diff) {
             case normal:
                 scoreDiff = context.getResources().getString(R.string.leaderboard_normal);
                 break;
@@ -54,80 +56,80 @@ public class MyPreferenceManager {
                 scoreDiff = context.getResources().getString(R.string.leaderboard_easy);
         }
         long currentScore = prefs.getLong(scoreDiff, 0);
-        if(score > currentScore){
+        if (score > currentScore) {
             prefs.edit().putLong(scoreDiff, score).commit();
         }
 
     }
 
-    public void resetStats(){
+    public void resetStats() {
         SharedPreferences.Editor edit = prefs.edit();
-        edit.putLong(context.getString(R.string.pref_timePlayed),0);
-        edit.putInt(context.getString(R.string.pref_perfectStrokes),0);
+        edit.putLong(context.getString(R.string.pref_timePlayed), 0);
+        edit.putInt(context.getString(R.string.pref_perfectStrokes), 0);
         edit.putInt(context.getString(R.string.pref_strokesOverall), 0);
-        edit.putInt(context.getString(R.string.pref_longestStroke),0);
-        edit.putLong(context.getString(R.string.leaderboard_normal),0);
+        edit.putInt(context.getString(R.string.pref_longestStroke), 0);
+        edit.putLong(context.getString(R.string.leaderboard_normal), 0);
         edit.putLong(context.getString(R.string.pref_score), 0);
         edit.commit();
     }
 
     public long getTimePlayed() {
-        return prefs.getLong(context.getString(R.string.pref_timePlayed),0);
+        return prefs.getLong(context.getString(R.string.pref_timePlayed), 0);
     }
 
     public int getPerfectStrokes() {
-        return prefs.getInt(context.getString(R.string.pref_perfectStrokes),0);
+        return prefs.getInt(context.getString(R.string.pref_perfectStrokes), 0);
     }
 
     public int getLongestPerfectStroke() {
-        return prefs.getInt(context.getString(R.string.pref_longestStroke),0);
+        return prefs.getInt(context.getString(R.string.pref_longestStroke), 0);
     }
 
-    public int getStrokesOverall(){
-        return prefs.getInt(context.getString(R.string.pref_strokesOverall),0);
+    public int getStrokesOverall() {
+        return prefs.getInt(context.getString(R.string.pref_strokesOverall), 0);
     }
 
-    public boolean getLogout(){
+    public boolean getLogout() {
         return prefs.getBoolean(context.getString(R.string.pref_logout), false);
     }
 
-    public void setLogoutOnNextConnect(boolean bool){
-        prefs.edit().putBoolean(context.getString(R.string.pref_logout),bool).commit();
+    public void setLogoutOnNextConnect(boolean bool) {
+        prefs.edit().putBoolean(context.getString(R.string.pref_logout), bool).commit();
     }
 
-    public boolean getLoggedIn(){
+    public boolean getLoggedIn() {
         return prefs.getBoolean(context.getString(R.string.pref_loggedin), false);
     }
 
-    public void setLoggedIn(boolean bool){
-        prefs.edit().putBoolean(context.getString(R.string.pref_loggedin),bool).commit();
+    public void setLoggedIn(boolean bool) {
+        prefs.edit().putBoolean(context.getString(R.string.pref_loggedin), bool).commit();
     }
 
-    public String getDifficulty(){
+    public String getDifficulty() {
         return prefs.getString(context.getString(R.string.pref_diff), "normal");
     }
 
-    public void setDifficulty(String difficulty){
+    public void setDifficulty(String difficulty) {
         prefs.edit().putString(context.getString(R.string.pref_diff), difficulty).commit();
     }
 
-    public boolean getRemDiff(){
+    public boolean getRemDiff() {
         return prefs.getBoolean(context.getString(R.string.pref_rememberdiff), false);
     }
 
-    public void setRemDiff(boolean bool){
-        prefs.edit().putBoolean(context.getString(R.string.pref_rememberdiff),bool).commit();
+    public void setRemDiff(boolean bool) {
+        prefs.edit().putBoolean(context.getString(R.string.pref_rememberdiff), bool).commit();
     }
 
-    public String getString(String s){
-        return prefs.getString(s,"");
+    public String getString(String s) {
+        return prefs.getString(s, "");
     }
 
-    public long getLong(String s){
-        return prefs.getLong(s,0);
+    public long getLong(String s) {
+        return prefs.getLong(s, 0);
     }
 
-    public boolean getBoolean(String s){
+    public boolean getBoolean(String s) {
         return prefs.getBoolean(s, false);
     }
 }

@@ -7,10 +7,13 @@ package de.bubbling.game.views.messages;
  * Time: 20:04
  * To change this template use File | Settings | File Templates.
  */
-public class StrokeUpdate {
+public class StrokeUpdate implements InformationViewTimeUpdate, MessageID {
     private int pointsGained, perfectTimes;
     private double timeGained;
-    public enum StrokeType {Perfect, Good, Normal};
+
+
+
+    public enum StrokeType {Perfect, Good, Normal}
     StrokeType type;
 
     public StrokeUpdate(int pointsGained, double timeGained, StrokeType type, int perfectTimes) {
@@ -24,6 +27,7 @@ public class StrokeUpdate {
         return pointsGained;
     }
 
+    @Override
     public double getTimeGained() {
         return timeGained;
     }
@@ -31,8 +35,12 @@ public class StrokeUpdate {
     public StrokeType getType() {
         return type;
     }
+    @Override
+    public int getMessageID() {
+        return MessageIDs.STROKE_UPDATE;
+    }
 
     public String getPerfectTimes() {
-        return perfectTimes > 2 ? " x"+perfectTimes : "" ;
+        return perfectTimes > 2 ? " x" + perfectTimes : "";
     }
 }

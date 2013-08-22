@@ -20,7 +20,7 @@ public class GameProgress {
         this.timePlayed = timePlayed;
         this.perfectStrokes = perfectStrokes;
         this.stokesOverall = strokesOverall;
-        this.strokesInARow = strokesInARow ;
+        this.strokesInARow = strokesInARow;
         this.stageReached = stageReached;
     }
 

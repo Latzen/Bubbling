@@ -14,7 +14,7 @@ import de.bubbling.game.difficulty.DifficultyProperties;
 
 import static android.graphics.BitmapFactory.*;
 
-public class MainMenuActivity extends Activity{
+public class MainMenuActivity extends Activity {
 
     private static final int CHOOSE_DIFFICULTY = 1;
     ImageButton playButton, statisticButton, settingsButton;
@@ -24,9 +24,9 @@ public class MainMenuActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.slide_in_to_left, R.anim.slide_out_to_left);
-        if (android.os.Build.VERSION.SDK_INT <=  14) {
+        if (android.os.Build.VERSION.SDK_INT <= 14) {
             setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
-        }else{
+        } else {
             setTheme(android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen);
         }
         super.onCreate(savedInstanceState);
@@ -34,8 +34,8 @@ public class MainMenuActivity extends Activity{
         initializeGUI();
     }
 
-    private void initializeGUI(){
-        Display display =  ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+    private void initializeGUI() {
+        Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
 
@@ -53,9 +53,9 @@ public class MainMenuActivity extends Activity{
                     Bitmap image = decodeResource(v.getResources(), R.drawable.playbutton);
                     playButton.setImageBitmap(image);
                     boolean skip = true;
-                    if(skip||manager.getRemDiff()){
+                    if (skip || manager.getRemDiff()) {
                         startActivity(new Intent(MainMenuActivity.this, BubblingGameActivity.class));
-                    }else{
+                    } else {
                         showDialog(CHOOSE_DIFFICULTY);
                     }
 
@@ -69,7 +69,7 @@ public class MainMenuActivity extends Activity{
             public boolean onTouch(View v, MotionEvent event) {
                 ImageButton playButton = (ImageButton) v;
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Bitmap image = decodeResource(v.getResources(), R.drawable.statisticpressed);
+                    Bitmap image = decodeResource(v.getResources(), R.drawable.statistcbuttonpressed);
                     playButton.setImageBitmap(image);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Bitmap image = decodeResource(v.getResources(), R.drawable.statistcbutton);
@@ -106,7 +106,7 @@ public class MainMenuActivity extends Activity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu:
                 startActivity(new Intent(this, PrefActivity.class));
                 break;
@@ -116,17 +116,17 @@ public class MainMenuActivity extends Activity{
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch (id){
+        switch (id) {
             case CHOOSE_DIFFICULTY:
                 View chooseView = View.inflate(this, R.layout.choosediff, null);
                 ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, DifficultyProperties.difficulties){
+                        android.R.layout.simple_list_item_1, DifficultyProperties.difficulties) {
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
-                        View view =super.getView(position, convertView, parent);
+                        View view = super.getView(position, convertView, parent);
 
-                        TextView textView=(TextView) view.findViewById(android.R.id.text1);
-                        switch (position){
+                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                        switch (position) {
                             case 0:
                                 textView.setTextColor(Color.BLUE);
                                 break;
@@ -139,8 +139,8 @@ public class MainMenuActivity extends Activity{
                         return view;
                     }
                 };
-                final CheckBox remember = (CheckBox)chooseView.findViewById(R.id.remembermydecision);
-                ListView diff = (ListView)chooseView.findViewById(R.id.diffList);
+                final CheckBox remember = (CheckBox) chooseView.findViewById(R.id.remembermydecision);
+                ListView diff = (ListView) chooseView.findViewById(R.id.diffList);
                 diff.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -160,7 +160,7 @@ public class MainMenuActivity extends Activity{
         return super.onCreateDialog(id);
     }
 
-    private void showCustomDialog(int id){
+    private void showCustomDialog(int id) {
 
     }
 }

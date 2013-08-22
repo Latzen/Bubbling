@@ -23,13 +23,14 @@ public class GooglePlayServiceController {
     Context context;
 
     private static int ACHIEVEMENT_50K = 50000, ACHIEVEMENT_25K = 25000, ACHIEVEMENT_10K, ACHIEVEMENT_STROKE = 10;
+
     public GooglePlayServiceController(GamesClient gamesClient, MyPreferenceManager manager, Context context) {
         this.gamesClient = gamesClient;
         this.manager = manager;
         this.context = context;
     }
 
-    public void submitHighScore(long score){
+    public void submitHighScore(long score) {
 
         String leaderboard = getLeaderBoardForDifficulty(manager, context);
 
@@ -43,13 +44,13 @@ public class GooglePlayServiceController {
                     Toast.makeText(context, "Google Service unavailable", 2000).show();
                 }
             }
-        }, leaderboard , score);
+        }, leaderboard, score);
     }
 
-    public static String getLeaderBoardForDifficulty(MyPreferenceManager manager, Context context){
+    public static String getLeaderBoardForDifficulty(MyPreferenceManager manager, Context context) {
         DifficultyProperties.Difficulty diff = DifficultyProperties.matchWithString(manager.getDifficulty());
         String leaderboard = "";
-        switch (diff){
+        switch (diff) {
             case normal:
                 leaderboard = context.getResources().getString(R.string.leaderboard_normal);
                 break;
@@ -63,21 +64,21 @@ public class GooglePlayServiceController {
     }
 
     public void checkForUnlockedAchievements(GameProgress gameProgress) {
-       if(gameProgress.score>ACHIEVEMENT_10K){
-           gamesClient.unlockAchievement(context.getString(R.string.ten_thousand));
-       }
-       if(gameProgress.score>ACHIEVEMENT_25K){
-           gamesClient.unlockAchievement(context.getString(R.string.twenty_five_thousand));
-       }
-       if(gameProgress.score>ACHIEVEMENT_50K){
-           gamesClient.unlockAchievement(context.getString(R.string.fifty_thousand));
-       }
-       if(gameProgress.getStrokesInARow()>ACHIEVEMENT_STROKE){
-           gamesClient.unlockAchievement(context.getString(R.string.perfect));
-       }
-       if(gameProgress.getStageReached()>=LevelDesigner.MAXIMAL_STAGE){
-           gamesClient.unlockAchievement(context.getString(R.string.reachlaststage));
-       }
+        if (gameProgress.score > ACHIEVEMENT_10K) {
+            gamesClient.unlockAchievement(context.getString(R.string.ten_thousand));
+        }
+        if (gameProgress.score > ACHIEVEMENT_25K) {
+            gamesClient.unlockAchievement(context.getString(R.string.twenty_five_thousand));
+        }
+        if (gameProgress.score > ACHIEVEMENT_50K) {
+            gamesClient.unlockAchievement(context.getString(R.string.fifty_thousand));
+        }
+        if (gameProgress.getStrokesInARow() > ACHIEVEMENT_STROKE) {
+            gamesClient.unlockAchievement(context.getString(R.string.perfect));
+        }
+        /*if (gameProgress.getStageReached() >= LevelDesigner.MAXIMAL_STAGE) {
+            gamesClient.unlockAchievement(context.getString(R.string.reachlaststage));
+        } */
 
 
     }

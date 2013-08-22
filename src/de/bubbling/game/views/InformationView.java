@@ -248,10 +248,6 @@ public class InformationView extends SurfaceView implements Observer {
                 }
                 x += height / 2;
             }
-            if(update){
-                this.update = false;
-                redrawAfterUpdate(canvas);
-            }
 
             activeCombinationContainer.notify();
         }

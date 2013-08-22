@@ -15,6 +15,7 @@ public class BubbleTriangle extends Entity implements ITile {
     Point point2_draw;
     Point point3_draw;
     Path path;
+    boolean colapse;
     public BubbleTriangle(int x, int y, int width, int height, int color, boolean visible) {
         super(x, y, width, height, color, visible);
         type = Entity.TRIANGLE_TYPE;
@@ -36,7 +37,7 @@ public class BubbleTriangle extends Entity implements ITile {
     @Override
     public void draw(Canvas canvas) {
         int textSize = getWidth() / 3;
-        if (textSize < 5) return;
+        if (textSize < 5 && colapse) return;
         //if (point1_draw.x <point3_draw.x) return;
         canvas.drawPath(path, paint);
         if(isMarked()){
@@ -62,6 +63,7 @@ public class BubbleTriangle extends Entity implements ITile {
     }
     @Override
     public void collapseAnimation(int velocity) {
+        colapse = true;
         // marked = false;
         x = x + velocity / 2;
         y = y + velocity / 2;

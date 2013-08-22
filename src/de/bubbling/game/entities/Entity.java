@@ -43,9 +43,10 @@ public class Entity implements ITile {
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStrokeWidth(2);
-        paint.setColor(getColor());
+        paint.setColor(color);
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
+
         paintNumber = new Paint();
         paintNumber.setTextAlign(Paint.Align.CENTER);
         paintNumber.setFakeBoldText(true);

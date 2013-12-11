@@ -13,6 +13,7 @@ import de.bubbling.game.views.messages.*;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,13 +29,13 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     private double countDown;
     private int score, perfectStrokes, strokes, perfectInRowBest, perfectInRow;
     private long timeCombinationGen, timePlayed;
-    private ArrayList<Entity> entities;
+    private CopyOnWriteArrayList<Entity> entities;
 
     private Stage currentStage;
     private ArrayList<Stage> stages;
     private DifficultyProperties difficultyProperties;
     //private ArrayList<Integer> activeCombination;
-    private ArrayList<ActiveCombinationContainer> activeCombinationContainer;
+    private CopyOnWriteArrayList<ActiveCombinationContainer> activeCombinationContainer;
     private Thread timer;
     private int gameWidth, gameHeight, bubbleRad;
     boolean combinationActive, stopGame;
@@ -50,11 +51,12 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
 
         initializeStages(difficulty);
         currentStage = stages.get(0);
-        entities = new ArrayList<Entity>();
+        entities = new CopyOnWriteArrayList<Entity>();
        // activeCombination = new ArrayList<Integer>();
-        activeCombinationContainer = new ArrayList<ActiveCombinationContainer>();
+        activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
         SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
         SceneController.sInstance.changeScene(levelDesigner.getCurrentLevel().getScene());
+        SceneController.sInstance.updateObservers(levelDesigner.getCurrentLevel().getScene());
         timer = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -165,8 +167,8 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 Thread.sleep(15);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Log.d("Bubbling",e.toString());
             }
-            SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
         }
         if (!stopGame)
             SceneController.sInstance.lostGame(
@@ -187,14 +189,18 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     public void playNewRound() {
         checkCurrentStage();
         generateCombination();
+        Log.d("Bubbling", "playing new Round");
+        Log.d("Bubbling", "Level = "+currentStage.getId());
         SceneController.sInstance.updateObservers(new InformationViewNextCombination(activeCombinationContainer));
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Log.d("Bubbling",e.toString());
         }
         SceneController.sInstance.updateObservers(new GameViewUpdate(entities, true));
         timeCombinationGen = System.currentTimeMillis();
+
 
     }
 
@@ -218,7 +224,6 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
 
     private void generateCombination() {
         entities.clear();
-        //activeCombination.clear();
         activeCombinationContainer.clear();
         for (int i = 0; i < currentStage.getCombination(); i++) {
             Level.UsedTypes type = levelDesigner.getCurrentLevel().getUsedType();
@@ -229,13 +234,11 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 y = (int) (Math.random() * (gameHeight - bubbleRad) + 1);
             }
             int randomColor = (int) (Math.random() * currentStage.getPossibleColors().length);
-
             if(type == Level.UsedTypes.TriangleBubbles || type == Level.UsedTypes.TriangleBubblesRectangle){
                 int random = 2;
                 if(type == Level.UsedTypes.TriangleBubblesRectangle){
                     random = 3;
                 }
-
                 int typeRandom = (int) (Math.random()*random+1);
 
                 switch (typeRandom){
@@ -277,8 +280,6 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                                     (currentStage.getPossibleColors()[randomColor], Entity.RECTANGLE_TYPE)) ;
                     break;
             }
-
-            //activeCombination.add(currentStage.getPossibleColors()[randomColor]);
         }
     }
 

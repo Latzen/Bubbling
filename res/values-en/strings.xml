@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bubbling</string>
+    <string name="app_name_test">Bubbling_Test</string>
+    <string name="app_id">878499086406</string>
+    <string name="leaderboard_easy">CgkIxoCB1cgZEAIQAQ</string>
+    <string name="leaderboard_normal">CgkIxoCB1cgZEAIQCA</string>
+    <string name="leaderboard_hard">CgkIxoCB1cgZEAIQCQ</string>
+
+
+    <string name="rememberdiff">Remember my decision</string>
+
+    <string name="pref_keepLogin">keepLogin</string>
+    <string name="pref_donotshowAgain">doNotShowAgain</string>
+    <string name="pref_score">score</string>
+    <string name="pref_longestStroke">longestStroke</string>
+    <string name="pref_timePlayed">timePlayed</string>
+    <string name="pref_perfectStrokes">perfectStrokes</string>
+    <string name="pref_strokesOverall">strokesOverall</string>
+    <string name="pref_reset">reset</string>
+    <string name="pref_logout">logout</string>
+    <string name="pref_loggedin">loggedin</string>
+    <string name="pref_rememberdiff">rem_difficulty</string>
+    <string name="pref_diff">difficulty</string>
+
+    <string name="pref_s_upload_title">Upload score</string>
+    <string name="pref_s_upload_summary">Automatic upload on game over</string>
+    <string name="pref_s_logout_title">Logout</string>
+    <string name="pref_s_logout_summary">Press to logout out Google Play Games</string>
+    <string name="pref_s_others_title">Others</string>
+    <string name="pref_s_loginDialog_title">Hide Login Dialog</string>
+    <string name="pref_s_loginDialog_summary">Hide dialog on game startup</string>
+    <string name="pref_s_reset_title">Reset</string>
+    <string name="pref_s_reset_summary">Press to reset statistics</string>
+
+    <string name="help_strokesoveral">Strokes overall: </string>
+    <string name="help_perfect">Perfect Strokes overall: </string>
+    <string name="help_timeplayed">Time played: </string>
+    <string name="help_strokesinrow">Longest Perfect Stroke in a Row: </string>
+    <string name="help_local_highscore">local high score: </string>
+    <string name="help_leaderboard">Show Leaderboard</string>
+
+    <string name="info_board_live">lives:</string>
+    <string name="info_board_score">score:</string>
+    <string name="info_board_time">time:</string>
+
+    <string name="game_board_perfect">Perfect</string>
+    <string name="game_board_good">Good</string>
+
+
+
+</resources>

@@ -3,6 +3,7 @@ package de.bubbling.game.components;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import de.bubbling.game.activities.R;
 import de.bubbling.game.difficulty.DifficultyProperties;
 
@@ -130,6 +131,37 @@ public class MyPreferenceManager {
     }
 
     public boolean getBoolean(String s) {
-        return prefs.getBoolean(s, false);
+        return prefs.getBoolean(s, true);
+    }
+
+    public String getTimeAsString(){
+        int min = 0, hh = 0;
+        long sec = getTimePlayed();
+        if (sec > 60) {
+            min = (int) sec / 60;
+            sec = sec % 60;
+            if (min > 60) {
+                hh = min / 60;
+                min = min % 60;
+            }
+        }
+        String ss = sec < 10 ? "0" + sec : Long.toString(sec);
+        String sm = min < 10 ? "0" + min : Integer.toString(min);
+        String sh = hh < 10 ? "0" + hh : Integer.toString(hh);
+
+        return sh + ":" + sm + ":" + ss;
+    }
+
+    public int getTimeAsMinute(){
+        int min = 0;
+        long sec = getTimePlayed();
+        if (sec > 60) {
+            min = (int) sec / 60;
+            if (min > 60) {
+                min = min % 60;
+            }
+        }
+        Log.d("Bubbling", "time: "+min);
+        return min;
     }
 }

@@ -15,8 +15,10 @@ import de.bubbling.game.views.messages.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,13 +38,13 @@ public class InformationView extends SurfaceView implements Observer {
     private int textSizeDev4;
     private Paint linePainter, timePainter, scorePainter, simpleTextPainter, gainedPainter;
     private String timeGained;
-    private int[] activeCombination;
-    private ArrayList<ActiveCombinationContainer> activeCombinationContainer;
+    private CopyOnWriteArrayList<ActiveCombinationContainer> activeCombinationContainer;
     private Context context;
     private Bitmap heart;
-    boolean update = false, isDrawing = false;
+    boolean update = false;
     private DecimalFormat df;
-    Thread waitingThread;
+
+    private String sLives, sScore, sTime;
 
     public InformationView(Context context, int width, int height) {
         super(context);
@@ -54,7 +56,9 @@ public class InformationView extends SurfaceView implements Observer {
         textSizeDev4 = this.height / 4;
         timeGained = "";
         initializePainter();
-
+        sLives = context.getString(R.string.info_board_live);
+        sScore = context.getString(R.string.info_board_score);
+        sTime = context.getString(R.string.info_board_time);
         df = new DecimalFormat("##.#");
     }
 
@@ -95,36 +99,33 @@ public class InformationView extends SurfaceView implements Observer {
     @Override
     public synchronized void draw(Canvas canvas) {
         super.draw(canvas);
-        isDrawing = true;
         canvas.drawRect(0, height - 2, width, height, linePainter);
-
         //Score
         simpleTextPainter.setTextAlign(Paint.Align.CENTER);
         scorePainter.setTextAlign(Paint.Align.CENTER);
         gainedPainter.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("score:", width / 2, height / 5, simpleTextPainter);
-        canvas.drawText("" + score, width / 2, height / 5 * 2, scorePainter);
+        canvas.drawText(sScore, width / 2, height / 5, simpleTextPainter);
+        canvas.drawText(Integer.toString(score), width / 2, height / 5 * 2, scorePainter);
 
         //time
         simpleTextPainter.setTextAlign(Paint.Align.RIGHT);
         gainedPainter.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("time:", width, height / 5, simpleTextPainter);
+        canvas.drawText(sTime, width, height / 5, simpleTextPainter);
         if (countDown < 10) {
             timePainter.setColor(Color.RED);
         } else {
             timePainter.setColor(Color.BLACK);
         }
-        canvas.drawText("" + toDoubleString(countDown), width, height / 5 * 2, timePainter);
+        canvas.drawText(toDoubleString(countDown), width, height / 5 * 2, timePainter);
 
         canvas.drawText(timeGained, width, height / 5 * 3, gainedPainter);
 
         //lives
         simpleTextPainter.setTextAlign(Paint.Align.LEFT);
         scorePainter.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("lives:", 5, height / 5, simpleTextPainter);
+        canvas.drawText(sLives, 5, height / 5, simpleTextPainter);
 
         if (activeCombinationContainer != null) {
-
             redrawAfterUpdate(canvas);
         }
 
@@ -134,40 +135,30 @@ public class InformationView extends SurfaceView implements Observer {
             canvas.drawBitmap(heart, startX, startY, new Paint());
             startX += heart.getWidth();
         }
-        isDrawing = false;
     }
 
     @Override
-    public void update(Observable observable, Object data) {
+    public synchronized void update(Observable observable, Object data) {
         if (data instanceof InformationViewUpdate) {
             InformationViewUpdate update = (InformationViewUpdate) data;
             countDown = update.getCountDown();
             score = update.getPoints();
             lives = update.getLives();
             if (lives < 0) lives = 0;
-            postInvalidate();
         } else if (data instanceof InformationViewNextCombination) {
             InformationViewNextCombination update = (InformationViewNextCombination) data;
-            if(isDrawing){
-                Log.w("bubbling","isWaiting");
-                    synchronized (activeCombinationContainer){
-                        try {
-                            activeCombinationContainer.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        }
-                    }
-                    this.update = true;
+            this.update = true;
+            if(activeCombinationContainer == null){
+                activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
             }
-            activeCombinationContainer = new ArrayList<ActiveCombinationContainer>();
+            activeCombinationContainer.clear();
             for(ActiveCombinationContainer ac : update.getContainers()){
-                activeCombinationContainer.add(new ActiveCombinationContainer(ac.getColor(),ac.getType()));
+                activeCombinationContainer.add(ac);
             }
-            postInvalidate();
         } else if (data instanceof InformationViewTimeUpdate) {
             showPerfectStrokeText(((InformationViewTimeUpdate) data).getTimeGained());
         }
-        this.update = false;
+        postInvalidate();
     }
 
     private synchronized void showPerfectStrokeText(final double time) {
@@ -187,6 +178,7 @@ public class InformationView extends SurfaceView implements Observer {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Log.d("Bubbling",e.toString());
                 }
                 timeGained = "";
                 postInvalidate();
@@ -212,44 +204,43 @@ public class InformationView extends SurfaceView implements Observer {
     }
 
     private void redrawAfterUpdate(Canvas canvas){
-        synchronized (activeCombinationContainer){
-            int bubbleRad = textSizeDev4;
-            int begrenzungsBalken = 2;
-            int x = width / 2 - (bubbleRad * (activeCombinationContainer.size() - 1));
-            int y = height - textSizeDev4-begrenzungsBalken;
-            for (int i = 0; i < activeCombinationContainer.size(); i++) {
-                Paint p = new Paint();
-                p.setColor(activeCombinationContainer.get(i).getColor());
-                p.setAntiAlias(true);
-                switch (activeCombinationContainer.get(i).getType()){
-                    case Entity.BUBBLE_TYPE:
-                        canvas.drawCircle(x, y, bubbleRad, p);
-                        break;
-                    case Entity.TRIANGLE_TYPE:
-                        Point point1_draw = new Point();
-                        Point point2_draw = new Point();
-                        Point point3_draw = new Point();
-                        point1_draw.set(x, y-bubbleRad);
-                        point2_draw.set(x+bubbleRad,y+bubbleRad);
-                        point3_draw.set(x-bubbleRad, y+bubbleRad);
+        int bubbleRad = textSizeDev4;
+        int begrenzungsBalken = 2;
+        int x = width / 2 - (bubbleRad * (activeCombinationContainer.size() - 1));
+        int y = height - textSizeDev4-begrenzungsBalken;
+        ListIterator<ActiveCombinationContainer> iterator = activeCombinationContainer.listIterator();
 
-                        Path path = new Path();
-                        path.setFillType(Path.FillType.EVEN_ODD);
-                        path.moveTo(point1_draw.x, point1_draw.y);
-                        path.lineTo(point2_draw.x, point2_draw.y);
-                        path.lineTo(point3_draw.x,point3_draw.y);
-                        path.close();
-                        p.setStyle(Paint.Style.FILL);
-                        canvas.drawPath(path,  p);
-                        break;
-                    case Entity.RECTANGLE_TYPE:
-                        canvas.drawRect(x-bubbleRad+2,y-bubbleRad,x+bubbleRad-2,y+bubbleRad,p);
-                        break;
-                }
-                x += height / 2;
+        while (iterator.hasNext()){
+            ActiveCombinationContainer ac = iterator.next();
+            Paint p = new Paint();
+            p.setColor(ac.getColor());
+            p.setAntiAlias(true);
+            switch (ac.getType()){
+                case Entity.BUBBLE_TYPE:
+                    canvas.drawCircle(x, y, bubbleRad, p);
+                    break;
+                case Entity.TRIANGLE_TYPE:
+                    Point point1_draw = new Point();
+                    Point point2_draw = new Point();
+                    Point point3_draw = new Point();
+                    point1_draw.set(x, y-bubbleRad);
+                    point2_draw.set(x+bubbleRad,y+bubbleRad);
+                    point3_draw.set(x-bubbleRad, y+bubbleRad);
+
+                    Path path = new Path();
+                    path.setFillType(Path.FillType.EVEN_ODD);
+                    path.moveTo(point1_draw.x, point1_draw.y);
+                    path.lineTo(point2_draw.x, point2_draw.y);
+                    path.lineTo(point3_draw.x,point3_draw.y);
+                    path.close();
+                    p.setStyle(Paint.Style.FILL);
+                    canvas.drawPath(path,  p);
+                    break;
+                case Entity.RECTANGLE_TYPE:
+                    canvas.drawRect(x-bubbleRad+2,y-bubbleRad,x+bubbleRad-2,y+bubbleRad,p);
+                    break;
             }
-
-            activeCombinationContainer.notify();
+            x += height / 2;
         }
     }
 

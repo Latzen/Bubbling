@@ -29,7 +29,7 @@ public class LoginDialog extends Dialog {
     public LoginDialog(final Context context) {
         super(context);
 
-        setTitle("Login to Google Play");
+        setTitle(context.getString(R.string.dialog_login_title));
         this.context = context;
         int result = isGooglePlayServicesAvailable(context);
         if ((ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED == result)) {

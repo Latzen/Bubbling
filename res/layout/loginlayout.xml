@@ -8,21 +8,20 @@
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               android:layout_marginTop="2dp"
-              android:text="Do you want to Login?"
+              android:text="@string/dialog_login_question"
               android:layout_centerHorizontal="true" />
     <TextView android:id="@+id/leaderBoardInfo"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               android:layout_marginTop="10dp"
               android:layout_below="@id/textId"
-              android:text="Login is required for leaderbord"
+              android:text="@string/dialog_login_desc1"
               android:layout_centerHorizontal="true" />
     <TextView android:id="@+id/scoreInfo"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:layout_marginTop="2dp"
               android:layout_below="@id/leaderBoardInfo"
-              android:text="and sharing scores with friends!"
+              android:text="@string/dialog_login_desc2"
               android:layout_centerHorizontal="true" />
     <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in"
@@ -36,13 +35,13 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/scoreInfo"
             android:layout_marginTop="10dp"
-            android:text="no"
+            android:text="@string/dialog_login_no_button"
             android:layout_below="@id/scoreInfo"/>
     <CheckBox android:id="@+id/doNotShow"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               android:layout_below="@id/logout"
-              android:text="Do not show again"
+              android:text="@string/dialog_do_not_show_again"
               android:layout_alignLeft="@id/logout"/>
 
 

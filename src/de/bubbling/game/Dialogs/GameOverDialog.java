@@ -35,13 +35,13 @@ public class GameOverDialog extends Dialog {
         TextView text = (TextView) findViewById(R.id.highscoretext);
 
         if (newHighscore) {
-            text.setText("New Highscore: ");
+            text.setText(context.getString(R.string.dialog_gameover_high_score));
         } else {
-            text.setText("score: ");
+            text.setText(context.getString(R.string.dialog_gameover_score));
         }
 
         TextView scoreText = (TextView) findViewById(R.id.score);
-        scoreText.setText("" + score);
+        scoreText.setText(Long.toString(score));
 
         setCancelable(true);
         setCanceledOnTouchOutside(false);

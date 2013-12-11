@@ -14,7 +14,7 @@
                  android:layout_marginTop="75dp"
                  android:layout_alignParentTop="true"
                  android:layout_centerHorizontal="true"
-                 android:text="Are you ready?"
+                 android:text="@string/dialog_startup_ready"
                  android:textSize="30dp"
                  android:textStyle="bold"
                  android:textAppearance="?android:attr/textAppearanceMedium" />

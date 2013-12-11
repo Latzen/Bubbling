@@ -3,15 +3,23 @@ package de.bubbling.game.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
+import de.bubbling.game.activities.R;
 import de.bubbling.game.components.BubblingGameMaster;
+import de.bubbling.game.components.Scene;
 import de.bubbling.game.entities.*;
 import de.bubbling.game.views.messages.*;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,63 +29,89 @@ import java.util.Observer;
  * To change this template use File | Settings | File Templates.
  */
 public class GameView extends View implements Observer {
-    private int width, height;
-    ArrayList<Entity> entities;
-    CustomAnimation gainedPoints, strokeUpdate;
     public static int HEIGHT_DIVISOR = 6;
     public static int HEIGHT_MULTIPLIKATOR = 5;
+
+    private int width, height;
+    private CopyOnWriteArrayList<Entity> entities;
+    private CustomAnimation gainedPoints, strokeUpdate;
+
+    boolean collapse;
+    private String sPerfect, sGood;
+    private Paint bubblingPainter;
 
     public GameView(Context context, int width, int height) {
         super(context);
         this.width = width;
         this.height = height / HEIGHT_DIVISOR * HEIGHT_MULTIPLIKATOR;
-        entities = new ArrayList<Entity>();
-
+        entities = new CopyOnWriteArrayList<Entity>();
+        sPerfect = context.getString(R.string.game_board_perfect);
+        sGood = context.getString(R.string.game_board_good);
+        bubblingPainter = new Paint();
+        bubblingPainter.setFakeBoldText(true);
+        Typeface tf = Typeface.create("Aharoni Bold", Typeface.BOLD);
+        bubblingPainter.setColor(Color.rgb(76,76,76));
+        bubblingPainter.setTextAlign(Paint.Align.CENTER);
+        bubblingPainter.setTextSize(height/10);
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        for (Entity b : entities) {
-
-            b.draw(canvas);
+        canvas.drawText("Bubbling", width/2, height- height/20, bubblingPainter);
+        ListIterator<Entity> iterator = entities.listIterator();
+        while (iterator.hasNext()){
+            iterator.next().draw(canvas);
         }
+
         if (gainedPoints != null) {
             gainedPoints.draw(canvas);
         }
         if (strokeUpdate != null) {
             strokeUpdate.draw(canvas);
         }
+
     }
 
     @Override
     public void update(Observable observable, Object data) {
         MessageID id = (MessageID) data;
-        if(id.getMessageID()!= MessageIDs.STROKE_UPDATE  && id.getMessageID() != MessageIDs.GAMEVIEW_UPDATE) return;
-
+        if(id.getMessageID()!= MessageIDs.STROKE_UPDATE  &&
+                id.getMessageID() != MessageIDs.GAMEVIEW_UPDATE) return;
         Entity lastEntity = getLastHitBubble();
         if (data instanceof GameViewUpdate) {
             GameViewUpdate update = (GameViewUpdate) data;
-            entities = update.getEntities();
-            postInvalidate();
+            collapse = false;
+            ListIterator<Entity> it = update.getEntities().listIterator();
+            entities.clear();
+            while (it.hasNext()){
+                entities.add(it.next());
+            }
         } else if (data instanceof StrokeUpdate) {
             StrokeUpdate update = (StrokeUpdate) data;
             int TEXT_SIZE = width / 10;
             switch (update.getType()) {
                 case Perfect:
-                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, "Perfect" + update.getPerfectTimes(), Color.rgb(0, 232, 0), TEXT_SIZE);
+                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sPerfect + update.getPerfectTimes(),
+                            Color.rgb(0, 232, 0), TEXT_SIZE);
                     showPerfectStrokeText(strokeUpdate);
                     break;
                 case Good:
-                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, "Good", Color.rgb(0, 232, 0), TEXT_SIZE);
+                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sGood,
+                            Color.rgb(0, 232, 0), TEXT_SIZE);
                     showPerfectStrokeText(strokeUpdate);
                     break;
             }
               if(lastEntity != null){
-                gainedPoints = new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(), Color.RED, TEXT_SIZE);
-                pointsAnimation(gainedPoints, entities);
+                  TextAnimation animation  =   new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(),
+                          Color.RED, TEXT_SIZE);
+                  animation.setTextAlignmentLeft();
+                  gainedPoints = animation;
+                  collapse = true;
+                  pointsAnimation(gainedPoints, entities);
             }
         }
+        postInvalidate();
     }
 
     public boolean checkHit(MotionEvent event) {
@@ -136,7 +170,7 @@ public class GameView extends View implements Observer {
         return nextNumber;
     }
 
-    private synchronized void showPerfectStrokeText(final CustomAnimation textAnimation) {
+    private void showPerfectStrokeText(final CustomAnimation textAnimation) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -157,23 +191,24 @@ public class GameView extends View implements Observer {
         }).start();
     }
 
-    private synchronized void pointsAnimation(final CustomAnimation animation, final ArrayList<Entity> bubbles) {
-        new Thread(new Runnable() {
+    private void pointsAnimation(final CustomAnimation animation, final CopyOnWriteArrayList<Entity> bubbles){
+        new Thread(new Runnable()  {
             @Override
             public void run() {
                 int timeElapsed = 0;
                 while (timeElapsed < 500) {
                     for (Entity entity : bubbles) {
-                       entity.collapseAnimation(5);
+                       if(collapse){
+                           entity.collapseAnimation(5);
+                       }
                     }
                     animation.moveUpDown(-2);
                     animation.fadeOut();
                     try {
                         Thread.sleep(5);
-                        timeElapsed += 5;
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
+                    timeElapsed += 5;
                     postInvalidate();
                 }
                 gainedPoints = null;

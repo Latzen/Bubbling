@@ -66,18 +66,19 @@ public class StatisticActivity extends BaseGameActivity {
         perfect.setText(getString(R.string.help_perfect) + stats.getPerfectStrokes());
 
         TextView time = (TextView) findViewById(R.id.timePlayed);
-        long min = 00, hh = 00, sec = stats.getTimePlayed();
+        int min = 0, hh = 0;
+        long sec = stats.getTimePlayed();
         if (sec > 60) {
-            min = sec / 60;
-            sec = min % 60;
+            min = (int) sec / 60;
+            sec = sec % 60;
             if (min > 60) {
                 hh = min / 60;
                 min = min % 60;
             }
         }
         String ss = sec < 10 ? "0" + sec : Long.toString(sec);
-        String sm = min < 10 ? "0" + min : Long.toString(min);
-        String sh = hh < 10 ? "0" + hh : Long.toString(hh);
+        String sm = min < 10 ? "0" + min : Integer.toString(min);
+        String sh = hh < 10 ? "0" + hh : Integer.toString(hh);
         time.setText(getString(R.string.help_timeplayed) + sh + ":" + sm + ":" + ss);
 
 

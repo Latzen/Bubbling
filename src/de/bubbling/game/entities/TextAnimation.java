@@ -23,11 +23,17 @@ public class TextAnimation extends Entity implements CustomAnimation {
         this.text = text;
         this.textSize = textSize;
         this.alpha = 200;
+
+
         painter = new TextPaint();
         painter.setColor(color);
         painter.setTextSize(textSize);
         painter.setFakeBoldText(true);
         painter.setTextAlign(Paint.Align.CENTER);
+    }
+
+    public void setTextAlignmentLeft(){
+        painter.setTextAlign(Paint.Align.LEFT);
     }
 
     @Override
@@ -49,4 +55,6 @@ public class TextAnimation extends Entity implements CustomAnimation {
     public void moveLeftRight(int xVelocity) {
         x = x + xVelocity;
     }
+
+
 }

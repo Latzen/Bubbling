@@ -55,6 +55,7 @@ public class BubblingGameActivity extends BaseGameActivity {
     private int GOOGLE_PLAY;
     private boolean lostGameDialogActive;
     private RelativeLayout layout;
+    private Thread gameThread;
 
     public void onCreate(Bundle savedInstanceState) {
         if (android.os.Build.VERSION.SDK_INT <= 14) {
@@ -91,6 +92,7 @@ public class BubblingGameActivity extends BaseGameActivity {
     }
 
     private void initializeGUI() {
+
         layout = new RelativeLayout(this);
         layout.setBackgroundResource(R.drawable.backgroundgray);
         Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
@@ -108,7 +110,6 @@ public class BubblingGameActivity extends BaseGameActivity {
         setContentView(layout);
         SceneController.sInstance.addObserver(informationView);
         SceneController.sInstance.addObserver(gameView);
-
     }
 
     private void initializeHandler() {
@@ -118,15 +119,11 @@ public class BubblingGameActivity extends BaseGameActivity {
                 super.handleMessage(msg);
                 if (msg.obj instanceof GameProgress) {
                     GameProgress gameProgress = (GameProgress) msg.obj;
+                    showGameDialog(LOST_GAME_DIALOG, gameProgress);
                     if (isSignedIn() && stats.getBoolean(getString(R.string.pref_keepLogin))) {
                         serviceController.checkForUnlockedAchievements(gameProgress);
                         uploadCurrentHighscore(gameProgress.getScore());
                     }
-                    showGameDialog(LOST_GAME_DIALOG, gameProgress);
-                }else if(msg.obj instanceof Scene){
-                    Scene s = (Scene) msg.obj;
-                    layout.setBackgroundResource(s.getBackground());
-                    Toast.makeText(BubblingGameActivity.this, s.getName(), 1000).show();
                 }
             }
         };
@@ -159,9 +156,6 @@ public class BubblingGameActivity extends BaseGameActivity {
                 loginDialog.getSignInButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!(ConnectionResult.SUCCESS == GOOGLE_PLAY)) {
-
-                        }
                         connect();
                         finalPrefs.edit().putBoolean(getResources().getString(R.string.pref_donotshowAgain), loginDialog.getCheckBox().isChecked()).commit();
                         loginDialog.dismiss();
@@ -217,6 +211,10 @@ public class BubblingGameActivity extends BaseGameActivity {
         if (gameMaster != null)
             gameMaster.stopGame();
 
+        SceneController.sInstance.deleteObserver(informationView);
+        SceneController.sInstance.deleteObserver(gameView);
+
+
         getGamesClient().disconnect();
     }
 
@@ -233,7 +231,9 @@ public class BubblingGameActivity extends BaseGameActivity {
         gameMaster = new BubblingGameMaster(
                 DifficultyProperties.matchWithString("normal"),
                 width, height / GameView.HEIGHT_DIVISOR * GameView.HEIGHT_MULTIPLIKATOR);
-        new Thread(gameMaster).start();
+        gameThread = new Thread(gameMaster);
+        gameThread.setName("bubblingGameThread");
+        gameThread.start();
     }
 
     public void connect() {
@@ -275,4 +275,5 @@ public class BubblingGameActivity extends BaseGameActivity {
             Toast.makeText(this, "Google Service unavailable, or not logged in", 2000).show();
         }
     }
+
 }

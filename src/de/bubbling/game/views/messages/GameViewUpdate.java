@@ -4,6 +4,7 @@ import de.bubbling.game.entities.Bubble;
 import de.bubbling.game.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,15 +14,15 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class GameViewUpdate implements MessageID {
-    private ArrayList<Entity> bubbles;
+    private CopyOnWriteArrayList<Entity> bubbles;
     private boolean clearMarks;
 
-    public ArrayList<Entity> getEntities() {
+    public CopyOnWriteArrayList<Entity> getEntities() {
         return bubbles;
     }
 
-    public GameViewUpdate(ArrayList<Entity> bubbles, boolean clearMarks) {
-        this.bubbles = (ArrayList<Entity>) bubbles.clone();
+    public GameViewUpdate(CopyOnWriteArrayList<Entity> bubbles, boolean clearMarks) {
+        this.bubbles = bubbles;
         this.clearMarks = clearMarks;
     }
 

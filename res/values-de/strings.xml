@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rememberdiff">Entscheidung merken</string>
+
+    <string name="help_strokesoveral">Kombinationen: </string>
+    <string name="help_perfect">Perfekte Kombinationen: </string>
+    <string name="help_timeplayed">Gespielte Zeit: </string>
+    <string name="help_strokesinrow">Längste Perfekt-Serie: </string>
+    <string name="help_local_highscore">Lokaler Highscore: </string>
+    <string name="help_leaderboard">Zu den Highscores</string>
+
+    <string name="pref_s_upload_title">Punktestand hochladen</string>
+    <string name="pref_s_upload_summary">Automatisch hochladen</string>
+    <string name="pref_s_logout_title">Logout</string>
+    <string name="pref_s_logout_summary">Drücken um aus Google Play Games auszuloggen</string>
+    <string name="pref_s_others_title">Andere</string>
+    <string name="pref_s_loginDialog_title">Login Dialog nicht anzeigen</string>
+    <string name="pref_s_loginDialog_summary">Dialog beim Spielstart nicht anzeigen</string>
+    <string name="pref_s_reset_title">Zurücksetzen</string>
+    <string name="pref_s_reset_summary">Drücken um Statistiken zurückzusetzen</string>
+
+    <string name="info_board_live">Leben:</string>
+    <string name="info_board_score">Punkte:</string>
+    <string name="info_board_time">Zeit:</string>
+
+    <string name="game_board_perfect">Perfekt</string>
+    <string name="game_board_good">Gut</string>
+</resources>

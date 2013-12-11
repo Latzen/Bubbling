@@ -23,6 +23,7 @@ public class GooglePlayServiceController {
     Context context;
 
     private static int ACHIEVEMENT_50K = 50000, ACHIEVEMENT_25K = 25000, ACHIEVEMENT_10K, ACHIEVEMENT_STROKE = 10;
+    private static int ACHIEVEMENT_10_MIN_PLAYED = 10, ACHIEVEMENT_60_MIN_PLAYED = 60;
 
     public GooglePlayServiceController(GamesClient gamesClient, MyPreferenceManager manager, Context context) {
         this.gamesClient = gamesClient;
@@ -37,7 +38,7 @@ public class GooglePlayServiceController {
         gamesClient.submitScoreImmediate(new OnScoreSubmittedListener() {
             @Override
             public void onScoreSubmitted(int i, SubmitScoreResult submitScoreResult) {
-                Log.i("Submitted Score", "--" + submitScoreResult.toString());
+                Log.d("Submitted Score", "--" + submitScoreResult.toString());
                 if (submitScoreResult.getStatusCode() == GamesClient.STATUS_OK)
                     Toast.makeText(context, "Uploaded Highscore!", 2000).show();
                 else {
@@ -76,11 +77,16 @@ public class GooglePlayServiceController {
         if (gameProgress.getStrokesInARow() > ACHIEVEMENT_STROKE) {
             gamesClient.unlockAchievement(context.getString(R.string.perfect));
         }
-        /*if (gameProgress.getStageReached() >= LevelDesigner.MAXIMAL_STAGE) {
+
+        if(manager.getTimeAsMinute()>=ACHIEVEMENT_10_MIN_PLAYED){
+            gamesClient.unlockAchievement(context.getString(R.string.bubbling_friend));
+        }
+        if(manager.getTimeAsMinute()>=ACHIEVEMENT_60_MIN_PLAYED){
+            gamesClient.unlockAchievement(context.getString(R.string.bubbling_addicted));
+        }
+        if (gameProgress.getStageReached() >= LevelDesigner.MAXIMAL_STAGE) {
             gamesClient.unlockAchievement(context.getString(R.string.reachlaststage));
-        } */
-
-
+        }
     }
 }
 

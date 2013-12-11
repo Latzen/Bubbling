@@ -8,7 +8,7 @@
     <TextView android:id="@+id/highscore_easy"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="Current Highscore:"
+              android:text="@string/help_local_highscore"
               android:textColor="@color/black"
               android:textSize="30dp"
               android:layout_centerHorizontal="true"/>
@@ -96,7 +96,7 @@
                  android:layout_height="wrap_content"
                  android:layout_width="match_parent"
                  android:layout_below="@id/perfectStrokesInRow"
-                 android:text="@string/leaderboard"
+                 android:text="@string/help_leaderboard"
                  />
 
 

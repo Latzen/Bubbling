@@ -3,6 +3,7 @@ package de.bubbling.game.views.messages;
 import de.bubbling.game.components.ActiveCombinationContainer;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,13 +14,13 @@ import java.util.ArrayList;
  */
 public class InformationViewNextCombination implements  MessageID {
 
-    private ArrayList<ActiveCombinationContainer> containers;
+    private CopyOnWriteArrayList<ActiveCombinationContainer> containers;
 
-    public InformationViewNextCombination(ArrayList<ActiveCombinationContainer> containers) {
+    public InformationViewNextCombination(CopyOnWriteArrayList<ActiveCombinationContainer> containers) {
         this.containers = containers;
     }
 
-    public ArrayList<ActiveCombinationContainer> getContainers() {
+    public CopyOnWriteArrayList<ActiveCombinationContainer> getContainers() {
         return containers;
     }
 

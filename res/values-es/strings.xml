@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bubbling</string>
+    <string name="app_name_test">Bubbling_Test</string>
+    <string name="app_id">878499086406</string>
+    <string name="leaderboard_easy">CgkIxoCB1cgZEAIQAQ</string>
+    <string name="leaderboard_normal">CgkIxoCB1cgZEAIQCA</string>
+    <string name="leaderboard_hard">CgkIxoCB1cgZEAIQCQ</string>
+
+
+    <string name="rememberdiff">Recordar mi decisión</string>
+
+    <string name="pref_keepLogin">keepLogin</string>
+    <string name="pref_donotshowAgain">doNotShowAgain</string>
+    <string name="pref_score">score</string>
+    <string name="pref_longestStroke">longestStroke</string>
+    <string name="pref_timePlayed">timePlayed</string>
+    <string name="pref_perfectStrokes">perfectStrokes</string>
+    <string name="pref_strokesOverall">strokesOverall</string>
+    <string name="pref_reset">reset</string>
+    <string name="pref_logout">logout</string>
+    <string name="pref_loggedin">loggedin</string>
+    <string name="pref_rememberdiff">rem_difficulty</string>
+    <string name="pref_diff">difficulty</string>
+
+    <string name="pref_s_upload_title">Sube puntuación</string>
+    <string name="pref_s_upload_summary">Carga automática de juego sobre</string>
+    <string name="pref_s_logout_title">Salir</string>
+    <string name="pref_s_logout_summary">Pulse para cerrar la sesión(Google Play Games)</string>
+    <string name="pref_s_others_title">otros</string>
+    <string name="pref_s_loginDialog_title">Ocultar diálogo de entrada</string>
+    <string name="pref_s_loginDialog_summary">Ocultar diálogo en el inicio del juego</string>
+    <string name="pref_s_reset_title">reajustar</string>
+    <string name="pref_s_reset_summary">Pulse para restablecer las estadísticas</string>
+
+    <string name="help_strokesoveral">Trazos totales: </string>
+    <string name="help_perfect">Perfecto Trazos overall: </string>
+    <string name="help_timeplayed">Horas jugadas: </string>
+    <string name="help_strokesinrow">Mayor trazo perfecto en una fila: </string>
+    <string name="help_local_highscore">alto puntaje locales: </string>
+    <string name="help_leaderboard">Mostrar la tabla</string>
+
+    <string name="info_board_live">vidas:</string>
+    <string name="info_board_score">tanteo:</string>
+    <string name="info_board_time">hora:</string>
+
+    <string name="game_board_perfect">perfecto</string>
+    <string name="game_board_good">bueno</string>
+
+
+
+</resources>

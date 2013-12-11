@@ -15,6 +15,8 @@ public class BubbleTriangle extends Entity implements ITile {
     Point point2_draw;
     Point point3_draw;
     Path path;
+    Paint markedPain;
+    Path pathMarked;
     boolean colapse;
     public BubbleTriangle(int x, int y, int width, int height, int color, boolean visible) {
         super(x, y, width, height, color, visible);
@@ -26,35 +28,38 @@ public class BubbleTriangle extends Entity implements ITile {
         point1_draw.set(getX()+getWidth()/2, y);
         point2_draw.set(getX()+getWidth(),y+getHeight());
         point3_draw.set(getX(), y+getHeight());
+
         path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo(point1_draw.x,point1_draw.y);
         path.lineTo(point2_draw.x,point2_draw.y);
         path.lineTo(point3_draw.x,point3_draw.y);
         path.close();
+
+        markedPain = new Paint(Paint.ANTI_ALIAS_FLAG);
+        markedPain.setColor(getPressedColor());
+        markedPain.setStyle(Paint.Style.STROKE);
+        markedPain.setStrokeWidth(width/20);
+
+        pathMarked = new Path();
+        pathMarked.setFillType(Path.FillType.EVEN_ODD);
+        pathMarked.moveTo(point1_draw.x,point1_draw.y);
+        pathMarked.lineTo(point2_draw.x,point2_draw.y);
+        pathMarked.lineTo(point3_draw.x,point3_draw.y);
+        //pathMarked.lineTo(point1_draw.x, point1_draw.y);
+        pathMarked.close();
     }
 
     @Override
     public void draw(Canvas canvas) {
         int textSize = getWidth() / 3;
-        if (textSize < 5 && colapse) return;
-        //if (point1_draw.x <point3_draw.x) return;
+
+        if (textSize < 10 && colapse)
+            return;
+
         canvas.drawPath(path, paint);
         if(isMarked()){
-            Paint markedPain = new Paint(Paint.ANTI_ALIAS_FLAG);
-            markedPain.setColor(getPressedColor());
-            markedPain.setStyle(Paint.Style.STROKE);
-            markedPain.setStrokeWidth(width/20);
-            Path pathMarked = new Path();
-            pathMarked.setFillType(Path.FillType.EVEN_ODD);
-            pathMarked.moveTo(point1_draw.x,point1_draw.y);
-            pathMarked.lineTo(point2_draw.x,point2_draw.y);
-            pathMarked.lineTo(point3_draw.x,point3_draw.y);
-            pathMarked.lineTo(point1_draw.x, point1_draw.y);
-            pathMarked.close();
             canvas.drawPath(pathMarked, markedPain);
-            //int textSize = getWidth() / 3;
-           // if (textSize < 5) return;
             paintNumber.setTextSize(textSize);
             canvas.drawText
                     (Integer.toString(numberHit + 1), getX() +  getWidth()  / 2, getY() +  getWidth()  - textSize / 2, paintNumber);
@@ -64,7 +69,7 @@ public class BubbleTriangle extends Entity implements ITile {
     @Override
     public void collapseAnimation(int velocity) {
         colapse = true;
-        // marked = false;
+        //marked = false;
         x = x + velocity / 2;
         y = y + velocity / 2;
         width = width - velocity;
@@ -74,12 +79,20 @@ public class BubbleTriangle extends Entity implements ITile {
         point2_draw.set(getX()+getWidth(),y+getHeight());
         point3_draw.set(getX(), y+getHeight());
 
-        path = new Path();
-        path.setFillType(Path.FillType.EVEN_ODD);
+        path.rewind();
+        //path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo(point1_draw.x,point1_draw.y);
         path.lineTo(point2_draw.x,point2_draw.y);
         path.lineTo(point3_draw.x,point3_draw.y);
         path.close();
+
+        pathMarked.rewind();
+        //pathMarked.setFillType(Path.FillType.EVEN_ODD);
+        pathMarked.moveTo(point1_draw.x,point1_draw.y);
+        pathMarked.lineTo(point2_draw.x,point2_draw.y);
+        pathMarked.lineTo(point3_draw.x,point3_draw.y);
+        //pathMarked.lineTo(point1_draw.x, point1_draw.y);
+        pathMarked.close();
     }
 
     @Override

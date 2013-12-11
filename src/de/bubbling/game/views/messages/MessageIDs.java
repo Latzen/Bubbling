@@ -13,4 +13,5 @@ public class MessageIDs {
     public static final int INFO_VIEW_NEXT_COMB = 2;
     public static final int INFO_VIEW_UPDATE = 3;
     public static final int STROKE_UPDATE = 4;
+    public static final int SCENE_UPDATE = 5;
 }

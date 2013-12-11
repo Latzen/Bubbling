@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_do_not_show_again">Nicht erneut anzeigen</string>
+
+    <string name="dialog_startup_ready">Bist du bereit?</string>
+
+    <string name="dialog_gameover_over">Game over!</string>
+    <string name="dialog_gameover_high_score">Neuer Highscore: </string>
+    <string name="dialog_gameover_score">Punkte: </string>
+
+    <string name="dialog_login_title">In Google Play einloggen</string>
+    <string name="dialog_login_question">Willst du dich einloggen?</string>
+    <string name="dialog_login_desc1">Wenn du dich einloggst kannst du</string>
+    <string name="dialog_login_desc2">deine Punkte hochladen und vergleichen</string>
+    <string name="dialog_login_no_button">Nein</string>
+</resources>

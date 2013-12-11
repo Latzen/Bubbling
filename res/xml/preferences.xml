@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Google Play Games"
-                        android:summary="Automatic upload on game over">
+    <PreferenceCategory android:title="Google Play Games">
                         <CheckBoxPreference android:key="@string/pref_keepLogin"
-                                            android:title="Upload score"
+                                            android:title="@string/pref_s_upload_title"
                                             android:defaultValue="true"
-                                            android:summary="Automatic upload on game over"/>
+                                            android:summary="@string/pref_s_upload_summary"/>
+        <Preference android:key="@string/pref_logout"
+                    android:title="@string/pref_s_logout_title"
+                    android:defaultValue="false"
+                    android:summary="@string/pref_s_logout_summary"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Others">
+    <PreferenceCategory android:title="@string/pref_s_others_title">
                         <CheckBoxPreference android:key="@string/pref_donotshowAgain"
-                                            android:title="Hide Login Dialog"
-                                            android:summary="Hide dialog on game startup"/>
+                                            android:title="@string/pref_s_loginDialog_title"
+                                            android:summary="@string/pref_s_loginDialog_summary"/>
                         <!--<CheckBoxPreference android:key="@string/pref_rememberdiff"
                                             android:title="Remember my game difficulty"
                                             android:summary="Hide difficulty dialog on game startup"/>-->
     </PreferenceCategory>
     <Preference android:key="@string/pref_reset"
-                android:title="Reset"
-                android:summary="Press to reset statistics"/>
-    <Preference android:key="@string/pref_logout"
-                android:title="Logout"
-                android:defaultValue="false"
-                android:summary="Press to logout out Google Play Games"/>
-
-
+                android:title="@string/pref_s_reset_title"
+                android:summary="@string/pref_s_reset_summary"/>
 </PreferenceScreen>

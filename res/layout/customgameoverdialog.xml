@@ -27,7 +27,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/gameOverText"
-                android:text="new Highscore:"
+                android:text="@string/dialog_gameover_high_score"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium" />

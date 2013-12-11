@@ -34,7 +34,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     private Stage currentStage;
     private ArrayList<Stage> stages;
     private DifficultyProperties difficultyProperties;
-    //private ArrayList<Integer> activeCombination;
+
     private CopyOnWriteArrayList<ActiveCombinationContainer> activeCombinationContainer;
     private Thread timer;
     private int gameWidth, gameHeight, bubbleRad;
@@ -52,7 +52,6 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
         initializeStages(difficulty);
         currentStage = stages.get(0);
         entities = new CopyOnWriteArrayList<Entity>();
-       // activeCombination = new ArrayList<Integer>();
         activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
         SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
         SceneController.sInstance.changeScene(levelDesigner.getCurrentLevel().getScene());
@@ -69,7 +68,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                     }
                     countDown -= 0.1;
                     second += 0.1;
-                    if (second >= 1) {
+                    if (second >= 0.9) {
                         second = 0;
                         timePlayed++;
                     }

@@ -32,7 +32,10 @@ public class Bubble extends Entity {
             c.drawCircle(getX() + radius / 2, getY() + radius / 2, radius / 2 - radius / 20, paint);
 
             int textSize = radius / 3;
-            if (textSize < 5) return;
+            if (textSize < 5){
+                currentState = EnumDrawingState.STATE_DISMISS;
+                return;
+            }
             paintNumber.setTextSize(textSize);
             c.drawText(Integer.toString(numberHit + 1), getX() + radius / 2, getY() + radius / 2 + textSize / 2, paintNumber);
 

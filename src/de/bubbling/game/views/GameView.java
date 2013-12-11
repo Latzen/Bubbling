@@ -7,11 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import de.bubbling.game.activities.R;
 import de.bubbling.game.components.BubblingGameMaster;
-import de.bubbling.game.components.Scene;
+import de.bubbling.game.components.DrawingQueue;
 import de.bubbling.game.entities.*;
 import de.bubbling.game.views.messages.*;
 
@@ -36,6 +35,8 @@ public class GameView extends View implements Observer {
     private CopyOnWriteArrayList<Entity> entities;
     private CustomAnimation gainedPoints, strokeUpdate;
 
+    private DrawingQueue queueToDraw;
+
     boolean collapse;
     private String sPerfect, sGood;
     private Paint bubblingPainter;
@@ -47,30 +48,24 @@ public class GameView extends View implements Observer {
         entities = new CopyOnWriteArrayList<Entity>();
         sPerfect = context.getString(R.string.game_board_perfect);
         sGood = context.getString(R.string.game_board_good);
+        queueToDraw = new DrawingQueue();
         bubblingPainter = new Paint();
         bubblingPainter.setFakeBoldText(true);
-        Typeface tf = Typeface.create("Aharoni Bold", Typeface.BOLD);
         bubblingPainter.setColor(Color.rgb(76,76,76));
         bubblingPainter.setTextAlign(Paint.Align.CENTER);
         bubblingPainter.setTextSize(height/10);
+
+        doAnimations();
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawText("Bubbling", width/2, height- height/20, bubblingPainter);
-        ListIterator<Entity> iterator = entities.listIterator();
-        while (iterator.hasNext()){
-            iterator.next().draw(canvas);
-        }
-
-        if (gainedPoints != null) {
-            gainedPoints.draw(canvas);
-        }
-        if (strokeUpdate != null) {
-            strokeUpdate.draw(canvas);
-        }
-
+        queueToDraw.drawElements(canvas);
+    }
+    public void clearBoard(){
+        queueToDraw.clearQueue();
     }
 
     @Override
@@ -85,35 +80,64 @@ public class GameView extends View implements Observer {
             ListIterator<Entity> it = update.getEntities().listIterator();
             entities.clear();
             while (it.hasNext()){
-                entities.add(it.next());
+                Entity e = it.next();
+                entities.add(e);
+                queueToDraw.addElement(e);
             }
+
         } else if (data instanceof StrokeUpdate) {
             StrokeUpdate update = (StrokeUpdate) data;
             int TEXT_SIZE = width / 10;
+            TextAnimation animation;
             switch (update.getType()) {
                 case Perfect:
-                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sPerfect + update.getPerfectTimes(),
+                    animation   = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sPerfect + update.getPerfectTimes(),
                             Color.rgb(0, 232, 0), TEXT_SIZE);
-                    showPerfectStrokeText(strokeUpdate);
+                    animation.fadeOut(1);
+                    animation.setState(EnumDrawingState.STATE_FADE_OUT);
+                    queueToDraw.addElement(animation);
                     break;
                 case Good:
-                    strokeUpdate = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sGood,
+                    animation   = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sGood,
                             Color.rgb(0, 232, 0), TEXT_SIZE);
-                    showPerfectStrokeText(strokeUpdate);
+                    animation.fadeOut(1);
+                    animation.setState(EnumDrawingState.STATE_FADE_OUT);
+                    queueToDraw.addElement(animation);
                     break;
             }
-              if(lastEntity != null){
-                  TextAnimation animation  =   new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(),
-                          Color.RED, TEXT_SIZE);
-                  animation.setTextAlignmentLeft();
-                  gainedPoints = animation;
-                  collapse = true;
-                  pointsAnimation(gainedPoints, entities);
+            if(lastEntity != null){
+                TextAnimation point  =   new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(),
+                        Color.RED, TEXT_SIZE);
+                point.setTextAlignmentLeft();
+                collapse = true;
+                point.moveUpDownVelocity(-2);
+                point.setState(EnumDrawingState.STATE_MOVE_UP);
+                queueToDraw.addElement(point);
+                queueToDraw.collapseAnimation();
             }
         }
         postInvalidate();
     }
 
+    private void doAnimations(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    long timeBefore = System.currentTimeMillis();
+                    queueToDraw.doSomeAnimationsBeforeDraw();
+                    postInvalidate();
+                    long timeAfter = System.currentTimeMillis();
+                    try {
+                        Thread.sleep(3 - (timeAfter-timeBefore)/1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+            }
+        }).start();
+
+    }
     public boolean checkHit(MotionEvent event) {
         float xCord = event.getX();
         float yCord = event.getY();
@@ -168,51 +192,5 @@ public class GameView extends View implements Observer {
             }
         }
         return nextNumber;
-    }
-
-    private void showPerfectStrokeText(final CustomAnimation textAnimation) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int timeElapsed = 0;
-                while (timeElapsed < 500) {
-                    textAnimation.fadeOut();
-                    postInvalidate();
-                    try {
-                        Thread.sleep(100);
-                        timeElapsed += 100;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                strokeUpdate = null;
-                postInvalidate();
-            }
-        }).start();
-    }
-
-    private void pointsAnimation(final CustomAnimation animation, final CopyOnWriteArrayList<Entity> bubbles){
-        new Thread(new Runnable()  {
-            @Override
-            public void run() {
-                int timeElapsed = 0;
-                while (timeElapsed < 500) {
-                    for (Entity entity : bubbles) {
-                       if(collapse){
-                           entity.collapseAnimation(5);
-                       }
-                    }
-                    animation.moveUpDown(-2);
-                    animation.fadeOut();
-                    try {
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                    }
-                    timeElapsed += 5;
-                    postInvalidate();
-                }
-                gainedPoints = null;
-            }
-        }).start();
     }
 }

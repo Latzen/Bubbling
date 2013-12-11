@@ -9,12 +9,11 @@ import android.graphics.Canvas;
  * Time: 17:59
  * To change this template use File | Settings | File Templates.
  */
-public interface CustomAnimation {
-    void draw(Canvas c);
+public interface CustomAnimation extends DrawObject {
 
-    void moveUpDown(int yVelocity);
+    void moveUpDownVelocity(int yVelocity);
 
-    void fadeOut();
+    void fadeOut(int i);
 
     void moveLeftRight(int xVelocity);
 }

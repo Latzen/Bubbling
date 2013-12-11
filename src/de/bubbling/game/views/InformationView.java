@@ -151,10 +151,12 @@ public class InformationView extends SurfaceView implements Observer {
             if(activeCombinationContainer == null){
                 activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
             }
-            activeCombinationContainer.clear();
+            /*activeCombinationContainer.clear();
             for(ActiveCombinationContainer ac : update.getContainers()){
                 activeCombinationContainer.add(ac);
-            }
+            }*/
+            activeCombinationContainer = update.getContainers();
+
         } else if (data instanceof InformationViewTimeUpdate) {
             showPerfectStrokeText(((InformationViewTimeUpdate) data).getTimeGained());
         }

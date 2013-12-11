@@ -23,7 +23,10 @@ public class Rectangle extends Entity {
 
         if(isMarked()){
             int textSize = width/3;
-            if (textSize < 5) return;
+            if (textSize < 5) {
+                currentState = EnumDrawingState.STATE_DISMISS;
+                return;
+            }
             paint.setColor(getPressedColor());
             c.drawRect(getX(),getY(),getX()+getWidth(),getY()+getHeight(), paint);
             paint.setColor(color);

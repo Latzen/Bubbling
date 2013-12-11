@@ -15,14 +15,16 @@ import android.text.TextPaint;
 public class TextAnimation extends Entity implements CustomAnimation {
 
     private String text;
-    private int textSize, alpha;
+    private int textSize, alpha, fadeOut, upDownVelocity;
     private Paint painter;
+
+    private EnumDrawingState currentState;
 
     public TextAnimation(int x, int y, boolean visible, String text, int color, int textSize) {
         super(x, y, textSize, textSize,color, visible);
         this.text = text;
         this.textSize = textSize;
-        this.alpha = 200;
+        this.alpha = 250;
 
 
         painter = new TextPaint();
@@ -30,6 +32,8 @@ public class TextAnimation extends Entity implements CustomAnimation {
         painter.setTextSize(textSize);
         painter.setFakeBoldText(true);
         painter.setTextAlign(Paint.Align.CENTER);
+
+        currentState = EnumDrawingState.STATE_DRAW;
     }
 
     public void setTextAlignmentLeft(){
@@ -42,13 +46,37 @@ public class TextAnimation extends Entity implements CustomAnimation {
     }
 
     @Override
-    public void moveUpDown(int yVelocity) {
-        y = y + yVelocity;
+    public EnumDrawingState getState() {
+        return currentState;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void fadeOut() {
-        alpha--;
-        painter.setAlpha(alpha);
+    @Override
+    public void setState(EnumDrawingState state) {
+        currentState = state;
+    }
+
+    @Override
+    public void doAnimationBeforeDraw() {
+        switch (this.currentState){
+           case STATE_FADE_OUT:
+                alpha = alpha-fadeOut;
+                painter.setAlpha(alpha);
+                if(alpha<25) currentState = EnumDrawingState.STATE_DISMISS;
+                break;
+            case STATE_MOVE_UP:
+                y = y + upDownVelocity;
+                break;
+        }
+    }
+
+
+    @Override
+    public void moveUpDownVelocity(int yVelocity) {
+        upDownVelocity = yVelocity;
+    }
+
+    public void fadeOut(int i) {
+        fadeOut = i;
     }
 
     @Override

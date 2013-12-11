@@ -21,6 +21,7 @@ public class Entity implements ITile {
     public static final int TRIANGLE_TYPE = 2;
     public static final int RECTANGLE_TYPE = 3;
 
+
     protected int x;
     protected int y;
     protected int width, height;
@@ -30,6 +31,7 @@ public class Entity implements ITile {
     private boolean visible;
     protected Paint paint;
     protected Paint paintNumber;
+    protected EnumDrawingState currentState;
 
     public Entity(int x, int y, int width, int height, int color, boolean visible) {
         this.x = x;
@@ -50,6 +52,8 @@ public class Entity implements ITile {
         paintNumber = new Paint();
         paintNumber.setTextAlign(Paint.Align.CENTER);
         paintNumber.setFakeBoldText(true);
+
+        currentState = EnumDrawingState.STATE_DRAW;
     }
     public int getX() {
         return x;
@@ -118,6 +122,25 @@ public class Entity implements ITile {
     }
     @Override
     public void draw(Canvas c) {
+    }
+
+    @Override
+    public EnumDrawingState getState() {
+        return currentState;
+    }
+
+    @Override
+    public void setState(EnumDrawingState state) {
+        this.currentState = state;
+    }
+
+    @Override
+    public void doAnimationBeforeDraw() {
+        switch (currentState){
+            case STATE_COLLAPSE:
+                collapseAnimation(2);
+                break;
+        }
     }
 
     public int getType() {

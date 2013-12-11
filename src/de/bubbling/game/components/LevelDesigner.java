@@ -23,8 +23,8 @@ public class LevelDesigner {
 
 
     public static int MAXIMAL_STAGE = 5;
-    private static int RED = Color.rgb(255, 23, 56), LightSeaGreen = Color.rgb(32,178,170), LIGHT_ORANGE = Color.rgb(255, 255, 0);
-    private static int PURPLE = Color.rgb(208, 5, 101), BLUE = Color.rgb(0, 167, 255), PINK = Color.rgb(255, 50, 255);
+    private static int RED = Color.rgb(200, 0, 0), LightSeaGreen = Color.rgb(32,178,170), LIGHT_ORANGE = Color.rgb(255, 255, 0);
+    private static int PURPLE = Color.rgb(160, 032, 240), BLUE = Color.rgb(0, 167, 255), PINK = Color.rgb(255, 20, 147);
     private static int GREEN = Color.rgb(0, 232, 0), GOLD = Color.rgb(255, 185, 15), YELLOW = Color.rgb(255, 255, 0);
     private static int BLACK = Color.BLACK, GRAY = Color.GRAY, LIGHT_GRAY = Color.LTGRAY;
     private ArrayList<Level> level;

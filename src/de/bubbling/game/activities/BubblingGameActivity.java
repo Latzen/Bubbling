@@ -214,7 +214,6 @@ public class BubblingGameActivity extends BaseGameActivity {
         SceneController.sInstance.deleteObserver(informationView);
         SceneController.sInstance.deleteObserver(gameView);
 
-
         getGamesClient().disconnect();
     }
 
@@ -228,6 +227,7 @@ public class BubblingGameActivity extends BaseGameActivity {
 
     public void startGame() {
         lostGameDialogActive = false;
+        gameView.clearBoard();
         gameMaster = new BubblingGameMaster(
                 DifficultyProperties.matchWithString("normal"),
                 width, height / GameView.HEIGHT_DIVISOR * GameView.HEIGHT_MULTIPLIKATOR);
@@ -241,7 +241,7 @@ public class BubblingGameActivity extends BaseGameActivity {
             beginUserInitiatedSignIn();
             getGamesClient().connect();
             stats.setLoggedIn(true);
-        } catch (Exception e) {
+        } catch (IllegalStateException e) {
             Log.e("BubblingGame", e.toString());
         }
     }

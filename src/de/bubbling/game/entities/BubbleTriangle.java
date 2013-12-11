@@ -54,8 +54,10 @@ public class BubbleTriangle extends Entity implements ITile {
     public void draw(Canvas canvas) {
         int textSize = getWidth() / 3;
 
-        if (textSize < 10 && colapse)
+        if (textSize < 10 && colapse){
+            currentState = EnumDrawingState.STATE_DISMISS;
             return;
+        }
 
         canvas.drawPath(path, paint);
         if(isMarked()){
@@ -103,6 +105,5 @@ public class BubbleTriangle extends Entity implements ITile {
             }
         }
         return new NearHitInformation(getX() + width - x, getY() + width - y, this, NearHitInformation.Hit.NoHit);
-
     }
 }

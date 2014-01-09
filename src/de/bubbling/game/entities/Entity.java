@@ -1,11 +1,8 @@
 package de.bubbling.game.entities;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import de.bubbling.game.components.Level;
 import de.bubbling.game.views.messages.NearHitInformation;
 
 /**
@@ -29,6 +26,7 @@ public class Entity implements ITile {
     protected int numberHit, color;
     protected int type;
     private boolean visible;
+    protected boolean drawing, calculating;
     protected Paint paint;
     protected Paint paintNumber;
     protected EnumDrawingState currentState;
@@ -55,6 +53,7 @@ public class Entity implements ITile {
 
         currentState = EnumDrawingState.STATE_DRAW;
     }
+
     public int getX() {
         return x;
     }
@@ -92,10 +91,11 @@ public class Entity implements ITile {
         numberHit = -1;
 
     }
-    protected int getPressedColor(){
-      int yellow = Color.rgb(255, 255, 0);
 
-      return getColor()==yellow ? Color.DKGRAY : Color.YELLOW;
+    protected int getPressedColor() {
+        int yellow = Color.rgb(255, 255, 0);
+
+        return getColor() == yellow ? Color.DKGRAY : Color.YELLOW;
     }
 
     public int getWidth() {
@@ -109,17 +109,19 @@ public class Entity implements ITile {
     public boolean isMarked() {
         return marked;
     }
-    public void resetMarked(){
+
+    public void resetMarked() {
         marked = false;
     }
 
-    public void collapseAnimation(int velocity){
+    public void collapseAnimation(int velocity) {
         // marked = false;
         /*x = x + velocity / 2;
         y = y + velocity / 2;
         width = width - velocity;
         height = height - velocity; */
     }
+
     @Override
     public void draw(Canvas c) {
     }
@@ -136,7 +138,7 @@ public class Entity implements ITile {
 
     @Override
     public void doAnimationBeforeDraw() {
-        switch (currentState){
+        switch (currentState) {
             case STATE_COLLAPSE:
                 collapseAnimation(2);
                 break;

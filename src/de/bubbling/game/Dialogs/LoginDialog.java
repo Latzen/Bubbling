@@ -8,7 +8,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import de.bubbling.game.activities.R;
 
-import static com.google.android.gms.common.GooglePlayServicesUtil.getErrorDialog;
 import static com.google.android.gms.common.GooglePlayServicesUtil.isGooglePlayServicesAvailable;
 
 /**

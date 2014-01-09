@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import de.bubbling.game.activities.BubblingGameActivity;
 import de.bubbling.game.activities.R;
+import de.bubbling.game.secure.SecureScore;
 
 import static android.graphics.BitmapFactory.decodeResource;
 
@@ -26,7 +27,7 @@ public class GameOverDialog extends Dialog {
     ImageButton okButton, uploadButton;
     Context context;
 
-    public GameOverDialog(final Context context, final BubblingGameActivity gameActivity, final long score, boolean newHighscore) {
+    public GameOverDialog(final Context context, final BubblingGameActivity gameActivity, final SecureScore score, boolean newHighscore) {
         super(context);
         this.gameActivity = gameActivity;
         this.context = context;
@@ -41,7 +42,7 @@ public class GameOverDialog extends Dialog {
         }
 
         TextView scoreText = (TextView) findViewById(R.id.score);
-        scoreText.setText(Long.toString(score));
+        scoreText.setText(Long.toString(score.getRealScore()));
 
         setCancelable(true);
         setCanceledOnTouchOutside(false);

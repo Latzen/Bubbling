@@ -1,9 +1,7 @@
 package de.bubbling.game.views.messages;
 
-import de.bubbling.game.entities.Bubble;
 import de.bubbling.game.entities.Entity;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**

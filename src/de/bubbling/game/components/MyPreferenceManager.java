@@ -134,7 +134,7 @@ public class MyPreferenceManager {
         return prefs.getBoolean(s, true);
     }
 
-    public String getTimeAsString(){
+    public String getTimeAsString() {
         int min = 0, hh = 0;
         long sec = getTimePlayed();
         if (sec > 60) {
@@ -152,7 +152,7 @@ public class MyPreferenceManager {
         return sh + ":" + sm + ":" + ss;
     }
 
-    public int getTimeAsMinute(){
+    public int getTimeAsMinute() {
         int min = 0;
         long sec = getTimePlayed();
         if (sec > 60) {
@@ -161,7 +161,7 @@ public class MyPreferenceManager {
                 min = min % 60;
             }
         }
-        Log.d("Bubbling", "time: "+min);
+        Log.d("Bubbling", "time: " + min);
         return min;
     }
 }

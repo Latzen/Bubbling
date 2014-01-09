@@ -13,7 +13,9 @@ public class Level {
 
     private Scene scene;
     private ArrayList<Stage> stages;
-    public enum UsedTypes {Triangle, Bubbles, Rectangle, TriangleBubbles, TriangleBubblesRectangle }
+
+    public enum UsedTypes {Triangle, Bubbles, Rectangle, TriangleBubbles, TriangleBubblesRectangle}
+
     private UsedTypes usedType;
     private int id;
 
@@ -32,11 +34,11 @@ public class Level {
         return stages;
     }
 
-    public void addStage(Stage s){
+    public void addStage(Stage s) {
         stages.add(s);
     }
 
-    public int stages(){
+    public int stages() {
         return stages.size();
     }
 

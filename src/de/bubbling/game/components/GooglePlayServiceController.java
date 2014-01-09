@@ -22,7 +22,7 @@ public class GooglePlayServiceController {
     MyPreferenceManager manager;
     Context context;
 
-    private static int ACHIEVEMENT_50K = 50000, ACHIEVEMENT_25K = 25000, ACHIEVEMENT_10K, ACHIEVEMENT_STROKE = 10;
+    private static int ACHIEVEMENT_50K = 50000, ACHIEVEMENT_25K = 25000, ACHIEVEMENT_10K = 10000, ACHIEVEMENT_STROKE = 10;
     private static int ACHIEVEMENT_10_MIN_PLAYED = 10, ACHIEVEMENT_60_MIN_PLAYED = 60;
 
     public GooglePlayServiceController(GamesClient gamesClient, MyPreferenceManager manager, Context context) {
@@ -65,23 +65,23 @@ public class GooglePlayServiceController {
     }
 
     public void checkForUnlockedAchievements(GameProgress gameProgress) {
-        if (gameProgress.score > ACHIEVEMENT_10K) {
+        if (gameProgress.getScore() > ACHIEVEMENT_10K) {
             gamesClient.unlockAchievement(context.getString(R.string.ten_thousand));
         }
-        if (gameProgress.score > ACHIEVEMENT_25K) {
+        if (gameProgress.getScore() > ACHIEVEMENT_25K) {
             gamesClient.unlockAchievement(context.getString(R.string.twenty_five_thousand));
         }
-        if (gameProgress.score > ACHIEVEMENT_50K) {
+        if (gameProgress.getScore() > ACHIEVEMENT_50K) {
             gamesClient.unlockAchievement(context.getString(R.string.fifty_thousand));
         }
         if (gameProgress.getStrokesInARow() > ACHIEVEMENT_STROKE) {
             gamesClient.unlockAchievement(context.getString(R.string.perfect));
         }
 
-        if(manager.getTimeAsMinute()>=ACHIEVEMENT_10_MIN_PLAYED){
+        if (manager.getTimeAsMinute() >= ACHIEVEMENT_10_MIN_PLAYED) {
             gamesClient.unlockAchievement(context.getString(R.string.bubbling_friend));
         }
-        if(manager.getTimeAsMinute()>=ACHIEVEMENT_60_MIN_PLAYED){
+        if (manager.getTimeAsMinute() >= ACHIEVEMENT_60_MIN_PLAYED) {
             gamesClient.unlockAchievement(context.getString(R.string.bubbling_addicted));
         }
         if (gameProgress.getStageReached() >= LevelDesigner.MAXIMAL_STAGE) {

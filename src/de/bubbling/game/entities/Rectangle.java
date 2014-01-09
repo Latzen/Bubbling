@@ -1,7 +1,6 @@
 package de.bubbling.game.entities;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,26 +20,27 @@ public class Rectangle extends Entity {
     @Override
     public void draw(Canvas c) {
 
-        if(isMarked()){
-            int textSize = width/3;
+        if (isMarked()) {
+            int textSize = width / 3;
             if (textSize < 5) {
                 currentState = EnumDrawingState.STATE_DISMISS;
                 return;
             }
             paint.setColor(getPressedColor());
-            c.drawRect(getX(),getY(),getX()+getWidth(),getY()+getHeight(), paint);
+            c.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), paint);
             paint.setColor(color);
-            c.drawRect(getX()+width/20, getY()+getHeight()/20, getX()+getWidth()-getWidth()/20,
-                    getY()+getHeight()-getHeight()/20, paint);
+            c.drawRect(getX() + width / 20, getY() + getHeight() / 20, getX() + getWidth() - getWidth() / 20,
+                    getY() + getHeight() - getHeight() / 20, paint);
 
             paintNumber.setTextSize(textSize);
             c.drawText
-                    (Integer.toString(numberHit + 1), getX() +  getWidth()  / 2, getY() + + textSize / 2 + getWidth() / 2, paintNumber);
+                    (Integer.toString(numberHit + 1), getX() + getWidth() / 2, getY() + +textSize / 2 + getWidth() / 2, paintNumber);
 
-        }else{
-            c.drawRect(getX(),getY(),getX()+getWidth(),getY()+getHeight(),paint);
+        } else {
+            c.drawRect(getX(), getY(), getX() + getWidth(), getY() + getHeight(), paint);
         }
     }
+
     @Override
     public void collapseAnimation(int velocity) {
         // marked = false;

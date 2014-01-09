@@ -1,9 +1,10 @@
 package de.bubbling.game.components;
 
 import android.graphics.Canvas;
-import de.bubbling.game.entities.*;
+import de.bubbling.game.entities.DrawObject;
+import de.bubbling.game.entities.EnumDrawingState;
+import de.bubbling.game.entities.TextAnimation;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
@@ -18,40 +19,39 @@ public class DrawingQueue {
 
     private CopyOnWriteArrayList<DrawObject> elements;
 
-    public DrawingQueue(){
+    public DrawingQueue() {
         elements = new CopyOnWriteArrayList<DrawObject>();
     }
 
-    public void drawElements(Canvas c){
+    public void drawElements(Canvas c) {
 
         CopyOnWriteArrayList<DrawObject> dummyList = new CopyOnWriteArrayList<DrawObject>();
-        for(DrawObject draw : elements){
-           if(draw.getState() != EnumDrawingState.STATE_DISMISS){
-               draw.draw(c);
-           }
-            else{
-               elements.remove(draw);
-           }
+        for (DrawObject draw : elements) {
+            if (draw.getState() != EnumDrawingState.STATE_DISMISS) {
+                draw.draw(c);
+            } else {
+                elements.remove(draw);
+            }
         }
     }
 
-    public void clearQueue(){
+    public void clearQueue() {
         elements.clear();
     }
 
-    public void addElement(DrawObject object){
+    public void addElement(DrawObject object) {
         elements.add(object);
     }
 
-    public void doSomeAnimationsBeforeDraw(){
-        for(DrawObject draw : elements){
+    public void doSomeAnimationsBeforeDraw() {
+        for (DrawObject draw : elements) {
             draw.doAnimationBeforeDraw();
         }
     }
 
-    public void collapseAnimation(){
-        for(DrawObject draw : elements){
-            if(!(draw instanceof TextAnimation)) {
+    public void collapseAnimation() {
+        for (DrawObject draw : elements) {
+            if (!(draw instanceof TextAnimation)) {
                 draw.setState(EnumDrawingState.STATE_COLLAPSE);
             }
         }

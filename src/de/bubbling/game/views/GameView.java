@@ -4,14 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import de.bubbling.game.activities.R;
 import de.bubbling.game.components.BubblingGameMaster;
 import de.bubbling.game.components.DrawingQueue;
-import de.bubbling.game.entities.*;
+import de.bubbling.game.entities.CustomAnimation;
+import de.bubbling.game.entities.Entity;
+import de.bubbling.game.entities.EnumDrawingState;
+import de.bubbling.game.entities.TextAnimation;
 import de.bubbling.game.views.messages.*;
 
 import java.util.ArrayList;
@@ -51,9 +52,9 @@ public class GameView extends View implements Observer {
         queueToDraw = new DrawingQueue();
         bubblingPainter = new Paint();
         bubblingPainter.setFakeBoldText(true);
-        bubblingPainter.setColor(Color.rgb(76,76,76));
+        bubblingPainter.setColor(Color.rgb(76, 76, 76));
         bubblingPainter.setTextAlign(Paint.Align.CENTER);
-        bubblingPainter.setTextSize(height/10);
+        bubblingPainter.setTextSize(height / 10);
 
         doAnimations();
     }
@@ -61,17 +62,18 @@ public class GameView extends View implements Observer {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawText("Bubbling", width/2, height- height/20, bubblingPainter);
+        canvas.drawText("Bubbling", width / 2, height - height / 20, bubblingPainter);
         queueToDraw.drawElements(canvas);
     }
-    public void clearBoard(){
+
+    public void clearBoard() {
         queueToDraw.clearQueue();
     }
 
     @Override
     public void update(Observable observable, Object data) {
         MessageID id = (MessageID) data;
-        if(id.getMessageID()!= MessageIDs.STROKE_UPDATE  &&
+        if (id.getMessageID() != MessageIDs.STROKE_UPDATE &&
                 id.getMessageID() != MessageIDs.GAMEVIEW_UPDATE) return;
         Entity lastEntity = getLastHitBubble();
         if (data instanceof GameViewUpdate) {
@@ -79,7 +81,7 @@ public class GameView extends View implements Observer {
             collapse = false;
             ListIterator<Entity> it = update.getEntities().listIterator();
             entities.clear();
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 Entity e = it.next();
                 entities.add(e);
                 queueToDraw.addElement(e);
@@ -91,23 +93,24 @@ public class GameView extends View implements Observer {
             TextAnimation animation;
             switch (update.getType()) {
                 case Perfect:
-                    animation   = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sPerfect + update.getPerfectTimes(),
+                    animation = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sPerfect + update.getPerfectTimes(),
                             Color.rgb(0, 232, 0), TEXT_SIZE);
                     animation.fadeOut(1);
                     animation.setState(EnumDrawingState.STATE_FADE_OUT);
                     queueToDraw.addElement(animation);
                     break;
                 case Good:
-                    animation   = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sGood,
+                    animation = new TextAnimation(width / 2, 0 + TEXT_SIZE, true, sGood,
                             Color.rgb(0, 232, 0), TEXT_SIZE);
                     animation.fadeOut(1);
                     animation.setState(EnumDrawingState.STATE_FADE_OUT);
                     queueToDraw.addElement(animation);
                     break;
             }
-            if(lastEntity != null){
-                TextAnimation point  =   new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(),
-                        Color.RED, TEXT_SIZE);
+            if (lastEntity != null) {
+                TextAnimation point =
+                        new TextAnimation(lastEntity.getX(), lastEntity.getY(), true, "+" + update.getPointsGained(),
+                                Color.RED, TEXT_SIZE);
                 point.setTextAlignmentLeft();
                 collapse = true;
                 point.moveUpDownVelocity(-2);
@@ -119,17 +122,17 @@ public class GameView extends View implements Observer {
         postInvalidate();
     }
 
-    private void doAnimations(){
+    private void doAnimations() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while (true) {
                     long timeBefore = System.currentTimeMillis();
                     queueToDraw.doSomeAnimationsBeforeDraw();
                     postInvalidate();
                     long timeAfter = System.currentTimeMillis();
                     try {
-                        Thread.sleep(3 - (timeAfter-timeBefore)/1000);
+                        Thread.sleep(3 - (timeAfter - timeBefore) / 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -138,6 +141,7 @@ public class GameView extends View implements Observer {
         }).start();
 
     }
+
     public boolean checkHit(MotionEvent event) {
         float xCord = event.getX();
         float yCord = event.getY();
@@ -145,7 +149,8 @@ public class GameView extends View implements Observer {
         ArrayList<NearHitInformation> hitInformations = new ArrayList<NearHitInformation>();
         for (Entity b : entities) {
             NearHitInformation hit =
-                    b.checkNearHit(xCord, yCord, height / HEIGHT_MULTIPLIKATOR, height / BubblingGameMaster.BUBBLE_RAD_DEVISOR / 5);
+                    b.checkNearHit
+                            (xCord, yCord, height / HEIGHT_MULTIPLIKATOR, height / BubblingGameMaster.BUBBLE_RAD_DIVISOR / 5);
             if (hit.getHit() == NearHitInformation.Hit.Hitted) {
                 hitInformations.add(hit);
             }

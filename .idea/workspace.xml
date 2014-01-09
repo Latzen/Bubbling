@@ -50,45 +50,81 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="de.bubbling.game.activities" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67aaf787-8c61-4436-bf8a-68bad743e0d7" name="Default" comment="" />
+    <list default="true" id="67aaf787-8c61-4436-bf8a-68bad743e0d7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/AppRater.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/de/bubbling/game/secure/SecureScore.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bubbling.apk" afterPath="$PROJECT_DIR$/Bubbling.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/Bubble.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/Bubble.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/BubbleTriangle.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/BubbleTriangle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/BubblingGameMaster.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/BubblingGameMaster.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/CustomAnimation.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/CustomAnimation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/DrawObject.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/DrawObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/Entity.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/Entity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/GameOverDialog.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/GameOverDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/GameProgress.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/GameProgress.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/GameView.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/GameView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/GameViewUpdate.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/GameViewUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/GooglePlayServiceController.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/GooglePlayServiceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/ITile.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/ITile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewNextCombination.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewNextCombination.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewUpdate.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/Level.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/Level.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/LoginDialog.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/LoginDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/activities/MainMenuActivity.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/activities/MainMenuActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/MyPreferenceManager.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/MyPreferenceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/NearHitInformation.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/NearHitInformation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/Rectangle.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/Rectangle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/components/SceneController.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/components/SceneController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/activities/StatisticActivity.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/activities/StatisticActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/StrokeUpdate.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/views/messages/StrokeUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/bubbling/game/entities/TextAnimation.java" afterPath="$PROJECT_DIR$/src/de/bubbling/game/entities/TextAnimation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/dialog_strings.xml" afterPath="$PROJECT_DIR$/res/values/dialog_strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-de/dialog_strings.xml" afterPath="$PROJECT_DIR$/res/values-de/dialog_strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="Bubbling.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/GameMaster.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1374845525839" ignored="false" />
-    <file path="/BubblingGameMaster.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386764354659" ignored="false" />
+    <file path="/BubblingGameMaster.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257839850" ignored="false" />
     <file path="/IGameMaster.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1374845704579" ignored="false" />
     <file path="/bubble.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1374846024224" ignored="false" />
     <file path="/Bubble.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386776976763" ignored="false" />
     <file path="/IEntity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1374846129818" ignored="false" />
-    <file path="/Entity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386776882780" ignored="false" />
-    <file path="/MainMenuActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376494340081" ignored="false" />
+    <file path="/Entity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386799212367" ignored="false" />
+    <file path="/MainMenuActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1388329338975" ignored="false" />
     <file path="/fragment.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386773315334" ignored="false" />
     <file path="/SceneController.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1384465928770" ignored="false" />
     <file path="/AndroidManifest.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376490556674" ignored="false" />
-    <file path="/Dummy.txt" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386780283115" ignored="false" />
-    <file path="/BubblingGameActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386779294238" ignored="false" />
-    <file path="/InformationView.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386778617151" ignored="false" />
-    <file path="/GameView.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386779794217" ignored="false" />
+    <file path="/Dummy.txt" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257746968" ignored="false" />
+    <file path="/BubblingGameActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389190888832" ignored="false" />
+    <file path="/InformationView.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257891573" ignored="false" />
+    <file path="/GameView.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386845905905" ignored="false" />
     <file path="/BitmapHolder.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375106646220" ignored="false" />
     <file path="/Stage.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376736662581" ignored="false" />
     <file path="/FirstStage.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375095441172" ignored="false" />
     <file path="/Difficulty.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375099406810" ignored="false" />
-    <file path="/InformationViewUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377186872140" ignored="false" />
+    <file path="/InformationViewUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257873453" ignored="false" />
     <file path="/GameViewUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377596750395" ignored="false" />
     <file path="/HitInformation.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376485446705" ignored="false" />
     <file path="/PerfectStrokeUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375553121867" ignored="false" />
     <file path="/StrokeUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377186943964" ignored="false" />
     <file path="/PointsAnimation.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375619400582" ignored="false" />
-    <file path="/TextAnimation.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386777178313" ignored="false" />
+    <file path="/TextAnimation.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386838551511" ignored="false" />
     <file path="/startdialog.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375701288466" ignored="false" />
     <file path="/color.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375816111256" ignored="false" />
     <file path="/StartDialog.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375871367759" ignored="false" />
-    <file path="/GameOverDialog.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377253144486" ignored="false" />
+    <file path="/GameOverDialog.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389190851137" ignored="false" />
     <file path="/customgameoverdialog.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377253078771" ignored="false" />
     <file path="/helplayout.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376496447867" ignored="false" />
     <file path="/HelpActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376252800183" ignored="false" />
     <file path="/BaseGameActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375793577057" ignored="false" />
     <file path="/LeaderBoardHelper.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375795899332" ignored="false" />
-    <file path="/GameProgress.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376497390068" ignored="false" />
+    <file path="/GameProgress.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389191584417" ignored="false" />
     <file path="/main.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376763990820" ignored="false" />
     <file path="/GameServiceActivity.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1375801524369" ignored="false" />
     <file path="/strings.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1382545935595" ignored="false" />
@@ -117,7 +153,7 @@
     <file path="/AchievmentsController.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376212999150" ignored="false" />
     <file path="/DifficultyProperties.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376218479777" ignored="false" />
     <file path="/choosediff.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376223548545" ignored="false" />
-    <file path="/GooglePlayServiceController.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1384465853248" ignored="false" />
+    <file path="/GooglePlayServiceController.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389190965067" ignored="false" />
     <file path="/achievements.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1384446138431" ignored="false" />
     <file path="/list_black_text.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376222856107" ignored="false" />
     <file path="/vcs.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376425754302" ignored="false" />
@@ -129,7 +165,7 @@
     <file path="/Level.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377182889373" ignored="false" />
     <file path="/ITile.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386773331459" ignored="false" />
     <file path="/Triangle.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376740930698" ignored="false" />
-    <file path="/BubbleTriangle.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386776993803" ignored="false" />
+    <file path="/BubbleTriangle.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386800124827" ignored="false" />
     <file path="/ActiveCombinationContainer.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377181696705" ignored="false" />
     <file path="/InformationViewNextCombination.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377186897181" ignored="false" />
     <file path="/LevelUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1376835727846" ignored="false" />
@@ -138,12 +174,15 @@
     <file path="/MessageID.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377186715999" ignored="false" />
     <file path="/MessageIDs.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377444636412" ignored="false" />
     <file path="/GainedTimeUpdate.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1377186838049" ignored="false" />
-    <file path="/dialog_strings.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1384444051269" ignored="false" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1384446708405" ignored="false" />
+    <file path="/dialog_strings.xml" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1388330441943" ignored="false" />
     <file path="/CustomAnimation.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386773309397" ignored="false" />
     <file path="/DrawingQueue.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386779230461" ignored="false" />
     <file path="/DrawObject.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386774526297" ignored="false" />
     <file path="/EnumDrawingState.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1386776824262" ignored="false" />
+    <file path="/AppRater.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1388330275255" ignored="false" />
+    <file path="/SecurePoints.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389190701982" ignored="false" />
+    <file path="/SecureScore.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257787770" ignored="false" />
+    <file path="$PROJECT_DIR$/gen/de/bubbling/game/activities/BuildConfig.java" changelist="67aaf787-8c61-4436-bf8a-68bad743e0d7" time="1389257991867" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +190,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -205,15 +249,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/GameView.java">
+      <file leaf-file-name="GameProgress.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/GameProgress.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="131" column="68" selection-start="4968" selection-end="4968" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#4543#5209#0" expanded="true" />
-                <element signature="e#5198#5199#0" expanded="true" />
-                <element signature="e#5418#5438#0" expanded="true" />
-              </folding>
+            <state line="0" column="73" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -221,25 +261,43 @@
       <file leaf-file-name="LevelDesigner.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="42" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0">
+            <state line="95" column="34" selection-start="6872" selection-end="6881" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <file leaf-file-name="SceneController.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/SceneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="33" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0882353">
+            <state line="31" column="43" selection-start="887" selection-end="887" vertical-scroll-proportion="0.5374707">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameOverDialog.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/Dialogs/GameOverDialog.java">
+      <file leaf-file-name="BubblingGameActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="32" selection-start="2565" selection-end="2577" vertical-scroll-proportion="0.0">
+            <state line="180" column="16" selection-start="7296" selection-end="7296" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BubblingGameMaster.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/BubblingGameMaster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="140" column="93" selection-start="6114" selection-end="6126" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InformationViewUpdate.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewUpdate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="15" selection-start="663" selection-end="663" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,58 +306,7 @@
       <file leaf-file-name="InformationView.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="50" selection-start="5647" selection-end="5647" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#6017#6740#0" expanded="true" />
-                <element signature="e#6729#6730#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TextAnimation.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/TextAnimation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="27" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DrawingQueue.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="26" selection-start="904" selection-end="914" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#637#649#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Entity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/Entity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="140" column="35" selection-start="3267" selection-end="3267" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rectangle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/Rectangle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="31" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomAnimation.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/CustomAnimation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0">
+            <state line="106" column="55" selection-start="3439" selection-end="3439" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -329,21 +336,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/CustomAnimation.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/ITile.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/DrawingState.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/EnumDrawingState.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/DrawObject.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/Bubble.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/Rectangle.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/BubbleTriangle.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/Entity.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/entities/TextAnimation.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java" />
-        <option value="$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/activities/MainMenuActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/dialog_strings.xml" />
+        <option value="$PROJECT_DIR$/res/values-de/dialog_strings.xml" />
         <option value="$PROJECT_DIR$/src/de/bubbling/game/views/GameView.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/secure/SecurePoints.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/GameOverDialog.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/components/GooglePlayServiceController.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/Dialogs/AppRater.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/components/GameProgress.java" />
         <option value="$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/secure/SecureScore.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/components/BubblingGameMaster.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewUpdate.java" />
+        <option value="$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
@@ -380,6 +387,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -399,9 +407,84 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Git_Bubbling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -420,7 +503,7 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="git_bubbling" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Android2.3.3" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="3.3zoll" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -430,7 +513,7 @@
     <property name="AndroidLayoutSelectedEditor" value="text-editor" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="4df79076716d40bb" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
@@ -713,22 +796,23 @@
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39795917" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20023148" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1670224" sideWeight="0.31376976" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32426304" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31292516" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32392776" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31030577" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32312927" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.93325794" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15972222" sideWeight="0.68707484" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19614512" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.40010685" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15972222" sideWeight="0.67573696" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19501133" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1072572" sideWeight="0.6877828" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295711" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -736,7 +820,6 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3191035" sideWeight="0.6877828" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.79751134" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280543" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39841986" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -809,124 +892,110 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/Dialogs/AppRater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="1" selection-start="3812" selection-end="3812" vertical-scroll-proportion="1.8114754" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="434" selection-end="434" vertical-scroll-proportion="0.23887588">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/EnumDrawingState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="28" selection-start="202" selection-end="218" vertical-scroll-proportion="0.30417496">
+        <state line="9" column="12" selection-start="202" selection-end="202" vertical-scroll-proportion="0.17915691">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/BubbleTriangle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="114" selection-start="3830" selection-end="3830" vertical-scroll-proportion="0.7753304">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/Rectangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="31" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
+        <state line="15" column="13" selection-start="387" selection-end="387" vertical-scroll-proportion="-0.43325526">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/Bubble.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="31" selection-start="1108" selection-end="1108" vertical-scroll-proportion="0.7488987">
+        <state line="12" column="13" selection-start="295" selection-end="295" vertical-scroll-proportion="-0.114754096">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/DrawObject.java">
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/activities/PrefActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="20" selection-start="298" selection-end="298" vertical-scroll-proportion="0.32452276">
-          <folding />
-        </state>
+        <state line="23" column="24" selection-start="737" selection-end="737" vertical-scroll-proportion="0.39812645" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/Entity.java">
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="35" selection-start="3267" selection-end="3267" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/CustomAnimation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/entities/TextAnimation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="27" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="50" selection-start="5647" selection-end="5647" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#6017#6740#0" expanded="true" />
-            <element signature="e#6729#6730#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/SceneController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="13" selection-start="700" selection-end="700" vertical-scroll-proportion="0.029411765">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/DrawingQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="26" selection-start="904" selection-end="914" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#637#649#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/Dialogs/GameOverDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="32" selection-start="2565" selection-end="2577" vertical-scroll-proportion="0.0">
+        <state line="95" column="34" selection-start="6872" selection-end="6881" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/activities/BubblingGameActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="105" selection-start="8917" selection-end="8917" vertical-scroll-proportion="0.7941176">
+        <state line="180" column="16" selection-start="7296" selection-end="7296" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/GameView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/BubblingGameMaster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="68" selection-start="4968" selection-end="4968" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#4543#5209#0" expanded="true" />
-            <element signature="e#5198#5199#0" expanded="true" />
-            <element signature="e#5418#5438#0" expanded="true" />
-          </folding>
+        <state line="140" column="93" selection-start="6114" selection-end="6126" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/LevelDesigner.java">
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/messages/InformationViewUpdate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="42" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0">
+        <state line="26" column="15" selection-start="663" selection-end="663" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/views/InformationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="106" column="55" selection-start="3439" selection-end="3439" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0882353">
+        <state line="18" column="96" selection-start="897" selection-end="897" vertical-scroll-proportion="0.36823106">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/GooglePlayServiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="577" selection-end="577" vertical-scroll-proportion="-0.62815887">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/GameProgress.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="73" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/secure/SecureScore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="20" selection-start="471" selection-end="471" vertical-scroll-proportion="0.37822014">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/bubbling/game/components/SceneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="43" selection-start="887" selection-end="887" vertical-scroll-proportion="0.5374707">
           <folding />
         </state>
       </provider>

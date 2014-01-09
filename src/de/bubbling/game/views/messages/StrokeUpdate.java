@@ -12,8 +12,8 @@ public class StrokeUpdate implements InformationViewTimeUpdate, MessageID {
     private double timeGained;
 
 
-
     public enum StrokeType {Perfect, Good, Normal}
+
     StrokeType type;
 
     public StrokeUpdate(int pointsGained, double timeGained, StrokeType type, int perfectTimes) {
@@ -35,6 +35,7 @@ public class StrokeUpdate implements InformationViewTimeUpdate, MessageID {
     public StrokeType getType() {
         return type;
     }
+
     @Override
     public int getMessageID() {
         return MessageIDs.STROKE_UPDATE;

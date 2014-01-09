@@ -1,20 +1,18 @@
 package de.bubbling.game.views;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.*;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import de.bubbling.game.activities.R;
 import de.bubbling.game.components.ActiveCombinationContainer;
 import de.bubbling.game.entities.Entity;
-import de.bubbling.game.views.messages.*;
+import de.bubbling.game.views.messages.InformationViewNextCombination;
+import de.bubbling.game.views.messages.InformationViewTimeUpdate;
+import de.bubbling.game.views.messages.InformationViewUpdate;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,7 +31,7 @@ public class InformationView extends SurfaceView implements Observer {
     private static int HEIGHT_DEVISOR = 6;
 
     private int width, height;
-    private int score, lives;
+    private long score, lives;
     private double countDown;
     private int textSizeDev4;
     private Paint linePainter, timePainter, scorePainter, simpleTextPainter, gainedPainter;
@@ -43,6 +41,10 @@ public class InformationView extends SurfaceView implements Observer {
     private Bitmap heart;
     boolean update = false;
     private DecimalFormat df;
+
+
+    Point point1_draw, point2_draw, point3_draw;
+    Path path;
 
     private String sLives, sScore, sTime;
 
@@ -94,6 +96,13 @@ public class InformationView extends SurfaceView implements Observer {
         int bitmapSize = height / 3;
         heart = Bitmap.createScaledBitmap(heart, bitmapSize, bitmapSize, true);
 
+        //triangle
+        point1_draw = new Point();
+        point2_draw = new Point();
+        point3_draw = new Point();
+
+        path = new Path();
+
     }
 
     @Override
@@ -105,7 +114,7 @@ public class InformationView extends SurfaceView implements Observer {
         scorePainter.setTextAlign(Paint.Align.CENTER);
         gainedPainter.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(sScore, width / 2, height / 5, simpleTextPainter);
-        canvas.drawText(Integer.toString(score), width / 2, height / 5 * 2, scorePainter);
+        canvas.drawText(Long.toString(score), width / 2, height / 5 * 2, scorePainter);
 
         //time
         simpleTextPainter.setTextAlign(Paint.Align.RIGHT);
@@ -148,7 +157,7 @@ public class InformationView extends SurfaceView implements Observer {
         } else if (data instanceof InformationViewNextCombination) {
             InformationViewNextCombination update = (InformationViewNextCombination) data;
             this.update = true;
-            if(activeCombinationContainer == null){
+            if (activeCombinationContainer == null) {
                 activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
             }
             /*activeCombinationContainer.clear();
@@ -167,11 +176,11 @@ public class InformationView extends SurfaceView implements Observer {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String s ="+";
-                if(time<0){
+                String s = "+";
+                if (time < 0) {
                     gainedPainter.setColor(Color.RED);
-                     s ="";
-                }else {
+                    s = "";
+                } else {
                     gainedPainter.setColor(Color.rgb(0, 232, 0));
                 }
                 timeGained = s + toDoubleString(time);
@@ -180,7 +189,7 @@ public class InformationView extends SurfaceView implements Observer {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    Log.d("Bubbling",e.toString());
+                    Log.d("Bubbling", e.toString());
                 }
                 timeGained = "";
                 postInvalidate();
@@ -198,48 +207,45 @@ public class InformationView extends SurfaceView implements Observer {
                 buffer += ",0";
         }
 
-        if (d<=0&&d>-1) {
+        if (d <= 0 && d > -1) {
             buffer = "0,0";
         }
         return buffer;
 
     }
 
-    private void redrawAfterUpdate(Canvas canvas){
+    private void redrawAfterUpdate(Canvas canvas) {
         int bubbleRad = textSizeDev4;
         int begrenzungsBalken = 2;
         int x = width / 2 - (bubbleRad * (activeCombinationContainer.size() - 1));
-        int y = height - textSizeDev4-begrenzungsBalken;
+        int y = height - textSizeDev4 - begrenzungsBalken;
         ListIterator<ActiveCombinationContainer> iterator = activeCombinationContainer.listIterator();
 
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             ActiveCombinationContainer ac = iterator.next();
             Paint p = new Paint();
             p.setColor(ac.getColor());
             p.setAntiAlias(true);
-            switch (ac.getType()){
+            switch (ac.getType()) {
                 case Entity.BUBBLE_TYPE:
                     canvas.drawCircle(x, y, bubbleRad, p);
                     break;
                 case Entity.TRIANGLE_TYPE:
-                    Point point1_draw = new Point();
-                    Point point2_draw = new Point();
-                    Point point3_draw = new Point();
-                    point1_draw.set(x, y-bubbleRad);
-                    point2_draw.set(x+bubbleRad,y+bubbleRad);
-                    point3_draw.set(x-bubbleRad, y+bubbleRad);
+                    point1_draw.set(x, y - bubbleRad);
+                    point2_draw.set(x + bubbleRad, y + bubbleRad);
+                    point3_draw.set(x - bubbleRad, y + bubbleRad);
 
-                    Path path = new Path();
+                    path.rewind();
                     path.setFillType(Path.FillType.EVEN_ODD);
                     path.moveTo(point1_draw.x, point1_draw.y);
                     path.lineTo(point2_draw.x, point2_draw.y);
-                    path.lineTo(point3_draw.x,point3_draw.y);
+                    path.lineTo(point3_draw.x, point3_draw.y);
                     path.close();
                     p.setStyle(Paint.Style.FILL);
-                    canvas.drawPath(path,  p);
+                    canvas.drawPath(path, p);
                     break;
                 case Entity.RECTANGLE_TYPE:
-                    canvas.drawRect(x-bubbleRad+2,y-bubbleRad,x+bubbleRad-2,y+bubbleRad,p);
+                    canvas.drawRect(x - bubbleRad + 2, y - bubbleRad, x + bubbleRad - 2, y + bubbleRad, p);
                     break;
             }
             x += height / 2;

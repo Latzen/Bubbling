@@ -1,5 +1,7 @@
 package de.bubbling.game.components;
 
+import de.bubbling.game.secure.SecureScore;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Andreas
@@ -8,15 +10,15 @@ package de.bubbling.game.components;
  * To change this template use File | Settings | File Templates.
  */
 public class GameProgress {
-    long score;
+    SecureScore secureScore;
     long timePlayed;
     int perfectStrokes;
     int stokesOverall, strokesInARow;
     int stageReached;
 
-
-    public GameProgress(long score, long timePlayed, int perfectStrokes, int strokesOverall, int strokesInARow, int stageReached) {
-        this.score = score;
+    public GameProgress(SecureScore score, long timePlayed,
+                        int perfectStrokes, int strokesOverall, int strokesInARow, int stageReached) {
+        this.secureScore = score;
         this.timePlayed = timePlayed;
         this.perfectStrokes = perfectStrokes;
         this.stokesOverall = strokesOverall;
@@ -41,10 +43,15 @@ public class GameProgress {
     }
 
     public long getScore() {
-        return score;
+        return secureScore.getRealScore();
     }
 
     public int getStrokesInARow() {
         return strokesInARow;
     }
+
+    public SecureScore getSecureScore() {
+        return this.secureScore;
+    }
+
 }

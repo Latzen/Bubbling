@@ -1,7 +1,5 @@
 package de.bubbling.game.entities;
 
-import android.graphics.Canvas;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Andreas

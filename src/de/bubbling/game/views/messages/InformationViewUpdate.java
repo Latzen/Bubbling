@@ -1,8 +1,6 @@
 package de.bubbling.game.views.messages;
 
-import de.bubbling.game.entities.Bubble;
-
-import java.util.ArrayList;
+import de.bubbling.game.secure.SecureScore;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,12 +10,13 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class InformationViewUpdate implements MessageID {
-    private int points, lives;
+    private SecureScore secureScore;
+    private int lives;
     private double countDown;
 
-    public InformationViewUpdate(double countDown, int points, int lives) {
+    public InformationViewUpdate(double countDown, SecureScore points, int lives) {
         this.countDown = countDown;
-        this.points = points;
+        this.secureScore = points;
         this.lives = lives;
     }
 
@@ -25,8 +24,8 @@ public class InformationViewUpdate implements MessageID {
         return countDown;
     }
 
-    public int getPoints() {
-        return points;
+    public long getPoints() {
+        return secureScore.getRealScore();
     }
 
     public int getLives() {

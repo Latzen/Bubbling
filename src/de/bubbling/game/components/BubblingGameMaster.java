@@ -1,18 +1,16 @@
 package de.bubbling.game.components;
 
 import android.graphics.Rect;
-import android.os.Debug;
 import android.util.Log;
 import de.bubbling.game.difficulty.DifficultyProperties;
 import de.bubbling.game.entities.Bubble;
 import de.bubbling.game.entities.BubbleTriangle;
 import de.bubbling.game.entities.Entity;
 import de.bubbling.game.entities.Rectangle;
+import de.bubbling.game.secure.SecureScore;
 import de.bubbling.game.views.messages.*;
 
-
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -24,10 +22,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class BubblingGameMaster implements IGameMaster, Runnable {
 
-    public static int BUBBLE_RAD_DEVISOR = 7;
+    public static int BUBBLE_RAD_DIVISOR = 7;
     private int lives;
     private double countDown;
-    private int score, perfectStrokes, strokes, perfectInRowBest, perfectInRow;
+    private SecureScore secureScore;
+    private int perfectStrokes, strokes, perfectInRowBest, perfectInRow;
     private long timeCombinationGen, timePlayed;
     private CopyOnWriteArrayList<Entity> entities;
 
@@ -42,18 +41,18 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     private LevelDesigner levelDesigner;
 
     public BubblingGameMaster(DifficultyProperties.Difficulty difficulty, int gameWidth, int gameHeight) {
-        this.bubbleRad = gameHeight / BUBBLE_RAD_DEVISOR;
+        this.bubbleRad = gameHeight / BUBBLE_RAD_DIVISOR;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         this.difficultyProperties = new DifficultyProperties(difficulty);
         this.countDown = 60;
         this.lives = difficultyProperties.getHearts();
-
+        secureScore = new SecureScore(0);
         initializeStages(difficulty);
         currentStage = stages.get(0);
         entities = new CopyOnWriteArrayList<Entity>();
         activeCombinationContainer = new CopyOnWriteArrayList<ActiveCombinationContainer>();
-        SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
+        SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, secureScore, lives));
         SceneController.sInstance.changeScene(levelDesigner.getCurrentLevel().getScene());
         SceneController.sInstance.updateObservers(levelDesigner.getCurrentLevel().getScene());
         timer = new Thread(new Runnable() {
@@ -72,7 +71,7 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                         second = 0;
                         timePlayed++;
                     }
-                    SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, score, lives));
+                    SceneController.sInstance.updateObservers(new InformationViewUpdate(countDown, secureScore, lives));
                 }
             }
         });
@@ -136,8 +135,8 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 if (perfectInRow > perfectInRowBest)
                     perfectInRowBest = perfectInRow;
                 strokes++;
-
-                score += pointsGained;
+                double newScore = secureScore.getRealScore() + pointsGained;
+                secureScore = new SecureScore((long) newScore);
                 countDown += timeGained;
                 SceneController.sInstance.updateObservers(new StrokeUpdate((int) pointsGained, timeGained, type, perfectInRow));
 
@@ -166,12 +165,12 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 Thread.sleep(15);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                Log.d("Bubbling",e.toString());
+                Log.d("Bubbling", e.toString());
             }
         }
         if (!stopGame)
             SceneController.sInstance.lostGame(
-                    new GameProgress(score, timePlayed, perfectStrokes, strokes, perfectInRowBest, currentStage.getId()));
+                    new GameProgress(secureScore, timePlayed, perfectStrokes, strokes, perfectInRowBest, currentStage.getId()));
         //End + Highscore
     }
 
@@ -189,13 +188,13 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
         checkCurrentStage();
         generateCombination();
         Log.d("Bubbling", "playing new Round");
-        Log.d("Bubbling", "Level = "+currentStage.getId());
+        Log.d("Bubbling", "Level = " + currentStage.getId());
         SceneController.sInstance.updateObservers(new InformationViewNextCombination(activeCombinationContainer));
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Log.d("Bubbling",e.toString());
+            Log.d("Bubbling", e.toString());
         }
         SceneController.sInstance.updateObservers(new GameViewUpdate(entities, true));
         timeCombinationGen = System.currentTimeMillis();
@@ -204,19 +203,19 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
     }
 
     private void checkCurrentStage() {
-        if (currentStage.getId()+1< stages.size()) {
-            if (score > currentStage.getPointLimit()){
-                currentStage = stages.get(currentStage.getId()+1);
+        if (currentStage.getId() + 1 < stages.size()) {
+            if (secureScore.getRealScore() > currentStage.getPointLimit()) {
+                currentStage = stages.get(currentStage.getId() + 1);
             }
-        }else if(!levelDesigner.isLastStage()&&score>currentStage.getPointLimit()){
+        } else if (!levelDesigner.isLastStage() && secureScore.getRealScore() > currentStage.getPointLimit()) {
             stages = levelDesigner.getNextLevel().getStages();
-            if(levelDesigner.getCurrentLevel().getScene().getName().equals(LevelDesigner.LEVEL_SUDDENDEATH)){
+            if (levelDesigner.getCurrentLevel().getScene().getName().equals(LevelDesigner.LEVEL_SUDDENDEATH)) {
                 lives = 0;
             }
             currentStage = stages.get(0);
             SceneController.sInstance.changeScene(levelDesigner.getCurrentLevel().getScene());
             SceneController.sInstance.updateObservers(new GainedTimeUpdate(5));
-            countDown+=5;
+            countDown += 5;
         }
 
     }
@@ -233,15 +232,15 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 y = (int) (Math.random() * (gameHeight - bubbleRad) + 1);
             }
             int randomColor = (int) (Math.random() * currentStage.getPossibleColors().length);
-            if(type == Level.UsedTypes.TriangleBubbles || type == Level.UsedTypes.TriangleBubblesRectangle){
+            if (type == Level.UsedTypes.TriangleBubbles || type == Level.UsedTypes.TriangleBubblesRectangle) {
                 int random = 2;
-                if(type == Level.UsedTypes.TriangleBubblesRectangle){
+                if (type == Level.UsedTypes.TriangleBubblesRectangle) {
                     random = 3;
                 }
-                int typeRandom = (int) (Math.random()*random+1);
+                int typeRandom = (int) (Math.random() * random + 1);
 
-                switch (typeRandom){
-                    case Entity.BUBBLE_TYPE :
+                switch (typeRandom) {
+                    case Entity.BUBBLE_TYPE:
                         type = Level.UsedTypes.Bubbles;
                         break;
                     case Entity.TRIANGLE_TYPE:
@@ -253,30 +252,30 @@ public class BubblingGameMaster implements IGameMaster, Runnable {
                 }
             }
 
-            switch (type){
+            switch (type) {
                 case Bubbles:
                     Bubble bubble;
                     bubble = new Bubble(x, y, currentStage.getPossibleColors()[randomColor], bubbleRad, true);
                     entities.add(bubble);
                     activeCombinationContainer.add
                             (new ActiveCombinationContainer
-                                    (currentStage.getPossibleColors()[randomColor],  Entity.BUBBLE_TYPE)) ;
+                                    (currentStage.getPossibleColors()[randomColor], Entity.BUBBLE_TYPE));
                     break;
                 case Triangle:
                     BubbleTriangle triangle =
-                            new BubbleTriangle(x, y, bubbleRad,bubbleRad,currentStage.getPossibleColors()[randomColor], true);
+                            new BubbleTriangle(x, y, bubbleRad, bubbleRad, currentStage.getPossibleColors()[randomColor], true);
                     entities.add(triangle);
                     activeCombinationContainer.add
                             (new ActiveCombinationContainer
-                                    (currentStage.getPossibleColors()[randomColor], Entity.TRIANGLE_TYPE)) ;
+                                    (currentStage.getPossibleColors()[randomColor], Entity.TRIANGLE_TYPE));
                     break;
                 case Rectangle:
                     Rectangle rect =
-                            new Rectangle(x, y, bubbleRad,bubbleRad,currentStage.getPossibleColors()[randomColor], true);
+                            new Rectangle(x, y, bubbleRad, bubbleRad, currentStage.getPossibleColors()[randomColor], true);
                     entities.add(rect);
                     activeCombinationContainer.add
                             (new ActiveCombinationContainer
-                                    (currentStage.getPossibleColors()[randomColor], Entity.RECTANGLE_TYPE)) ;
+                                    (currentStage.getPossibleColors()[randomColor], Entity.RECTANGLE_TYPE));
                     break;
             }
         }

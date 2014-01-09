@@ -11,7 +11,10 @@ import android.graphics.Canvas;
  */
 public interface DrawObject {
     void draw(Canvas c);
+
     EnumDrawingState getState();
+
     void setState(EnumDrawingState state);
+
     void doAnimationBeforeDraw();
 }

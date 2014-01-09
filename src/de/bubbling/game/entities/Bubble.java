@@ -1,11 +1,7 @@
 package de.bubbling.game.entities;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import de.bubbling.game.views.messages.NearHitInformation;
-
-import static android.graphics.BitmapFactory.decodeResource;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +19,7 @@ public class Bubble extends Entity {
         this.radius = radius;
         type = Entity.BUBBLE_TYPE;
     }
+
     @Override
     public void draw(Canvas c) {
         if (marked) {
@@ -32,7 +29,7 @@ public class Bubble extends Entity {
             c.drawCircle(getX() + radius / 2, getY() + radius / 2, radius / 2 - radius / 20, paint);
 
             int textSize = radius / 3;
-            if (textSize < 5){
+            if (textSize < 5) {
                 currentState = EnumDrawingState.STATE_DISMISS;
                 return;
             }
@@ -44,6 +41,7 @@ public class Bubble extends Entity {
             c.drawCircle(getX() + radius / 2, getY() + radius / 2, radius / 2, paint);
         }
     }
+
     @Override
     public void collapseAnimation(int velocity) {
         // marked = false;

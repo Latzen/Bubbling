@@ -1,18 +1,10 @@
 package de.bubbling.game.components;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Message;
-import android.util.Log;
-import com.google.android.gms.games.GamesClient;
 import de.bubbling.game.activities.BubblingGameActivity;
-import de.bubbling.game.views.messages.GameViewUpdate;
-import de.bubbling.game.views.messages.InformationViewUpdate;
-import de.bubbling.game.views.messages.MessageID;
-import de.bubbling.game.views.messages.MessageIDs;
 
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,7 +33,7 @@ public class SceneController extends Observable {
         gameActivity.sendMessage(msg);
     }
 
-    public void changeScene(Scene scene){
+    public void changeScene(Scene scene) {
         BubblingGameActivity gameActivity = (BubblingGameActivity) activity;
         Message msg = new Message();
         msg.obj = scene;

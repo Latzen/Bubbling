@@ -1,6 +1,5 @@
 package de.bubbling.game.entities;
 
-import android.graphics.Canvas;
 import de.bubbling.game.views.messages.NearHitInformation;
 
 /**

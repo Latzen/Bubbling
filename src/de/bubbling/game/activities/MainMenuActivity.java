@@ -9,10 +9,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
+import de.bubbling.game.Dialogs.AppRater;
 import de.bubbling.game.components.MyPreferenceManager;
 import de.bubbling.game.difficulty.DifficultyProperties;
 
-import static android.graphics.BitmapFactory.*;
+import static android.graphics.BitmapFactory.decodeResource;
 
 public class MainMenuActivity extends Activity {
 
@@ -38,6 +39,8 @@ public class MainMenuActivity extends Activity {
         Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
+
+        AppRater.app_launched(this);
 
         setContentView(R.layout.main);
         playButton = (ImageButton) findViewById(R.id.playButton);

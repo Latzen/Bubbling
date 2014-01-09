@@ -18,7 +18,6 @@ import de.bubbling.game.components.GooglePlayServiceController;
 import de.bubbling.game.components.MyPreferenceManager;
 import de.bubbling.game.difficulty.DifficultyProperties;
 
-import static android.graphics.BitmapFactory.decodeResource;
 import static com.google.android.gms.common.GooglePlayServicesUtil.isGooglePlayServicesAvailable;
 
 /**

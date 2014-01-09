@@ -2,7 +2,6 @@ package de.bubbling.game.views.messages;
 
 import de.bubbling.game.components.ActiveCombinationContainer;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -12,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Time: 19:15
  * To change this template use File | Settings | File Templates.
  */
-public class InformationViewNextCombination implements  MessageID {
+public class InformationViewNextCombination implements MessageID {
 
     private CopyOnWriteArrayList<ActiveCombinationContainer> containers;
 

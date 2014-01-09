@@ -1,6 +1,5 @@
 package de.bubbling.game.views.messages;
 
-import de.bubbling.game.entities.Bubble;
 import de.bubbling.game.entities.Entity;
 
 /**
@@ -13,6 +12,7 @@ import de.bubbling.game.entities.Entity;
 public class NearHitInformation {
 
     public enum Hit {Hitted, NoHit}
+
     private float xDistance, yDistance;
     private Entity entity;
     private Hit isHit;

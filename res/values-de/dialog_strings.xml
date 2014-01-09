@@ -13,4 +13,10 @@
     <string name="dialog_login_desc1">Wenn du dich einloggst kannst du</string>
     <string name="dialog_login_desc2">deine Punkte hochladen und vergleichen</string>
     <string name="dialog_login_no_button">Nein</string>
+
+    <string name="dialog_rate_my_app_rate">Bewerte</string>
+    <string name="dialog_rate_my_app_later">Später erinnern</string>
+    <string name="dialog_rate_my_app_no">Nein danke!</string>
+    <string name="dialog_rate_my_app_text1">Wenn dir </string>
+    <string name="dialog_rate_my_app_text2">gefällt, nimm dir kurz Zeit und bewerte die App im Playstore, danke!</string>
 </resources>

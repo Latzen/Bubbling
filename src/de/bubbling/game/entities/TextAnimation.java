@@ -1,7 +1,6 @@
 package de.bubbling.game.entities;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextPaint;
 
@@ -21,7 +20,7 @@ public class TextAnimation extends Entity implements CustomAnimation {
     private EnumDrawingState currentState;
 
     public TextAnimation(int x, int y, boolean visible, String text, int color, int textSize) {
-        super(x, y, textSize, textSize,color, visible);
+        super(x, y, textSize, textSize, color, visible);
         this.text = text;
         this.textSize = textSize;
         this.alpha = 250;
@@ -36,18 +35,20 @@ public class TextAnimation extends Entity implements CustomAnimation {
         currentState = EnumDrawingState.STATE_DRAW;
     }
 
-    public void setTextAlignmentLeft(){
+    public void setTextAlignmentLeft() {
         painter.setTextAlign(Paint.Align.LEFT);
     }
 
     @Override
     public void draw(Canvas c) {
+        drawing = true;
         c.drawText(text, x, y, painter);
+        drawing = false;
     }
 
     @Override
     public EnumDrawingState getState() {
-        return currentState;  //To change body of implemented methods use File | Settings | File Templates.
+        return currentState;
     }
 
     @Override
@@ -57,14 +58,16 @@ public class TextAnimation extends Entity implements CustomAnimation {
 
     @Override
     public void doAnimationBeforeDraw() {
-        switch (this.currentState){
-           case STATE_FADE_OUT:
-                alpha = alpha-fadeOut;
+        if (drawing) return;
+        switch (this.currentState) {
+            case STATE_FADE_OUT:
+                alpha = alpha - fadeOut;
                 painter.setAlpha(alpha);
-                if(alpha<25) currentState = EnumDrawingState.STATE_DISMISS;
+                if (alpha < 25) currentState = EnumDrawingState.STATE_DISMISS;
                 break;
             case STATE_MOVE_UP:
                 y = y + upDownVelocity;
+                if (y < -10) currentState = EnumDrawingState.STATE_DISMISS;
                 break;
         }
     }

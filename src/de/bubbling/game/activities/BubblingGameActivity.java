@@ -1,7 +1,6 @@
 package de.bubbling.game.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,16 +15,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import basegameutils.BaseGameActivity;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-
 import de.bubbling.game.Dialogs.GameOverDialog;
 import de.bubbling.game.Dialogs.LoginDialog;
 import de.bubbling.game.Dialogs.StartDialog;
 import de.bubbling.game.components.*;
 import de.bubbling.game.difficulty.DifficultyProperties;
+import de.bubbling.game.secure.SecureScore;
 import de.bubbling.game.views.GameView;
 import de.bubbling.game.views.InformationView;
-
 
 import static com.google.android.gms.common.GooglePlayServicesUtil.isGooglePlayServicesAvailable;
 
@@ -142,9 +139,9 @@ public class BubblingGameActivity extends BaseGameActivity {
                 if (score < gameProgress.getScore()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putLong(getString(R.string.pref_score), gameProgress.getScore()).commit();
-                    new GameOverDialog(this, this, gameProgress.getScore(), true).show();
+                    new GameOverDialog(this, this, gameProgress.getSecureScore(), true).show();
                 } else {
-                    new GameOverDialog(this, this, gameProgress.getScore(), false).show();
+                    new GameOverDialog(this, this, gameProgress.getSecureScore(), false).show();
                 }
                 break;
             case START_GAME:
@@ -181,14 +178,14 @@ public class BubblingGameActivity extends BaseGameActivity {
         }
     }
 
-    public void uploadPressed(long score) {
+    public void uploadPressed(SecureScore score) {
 
         if (ConnectionResult.SUCCESS != GOOGLE_PLAY) {
             Toast.makeText(this, "You need to update your Google Play Service", 2000).show();
             return;
         }
         if (stats.getLoggedIn()) {
-            uploadCurrentHighscore(score);
+            uploadCurrentHighscore(score.getRealScore());
         } else {
             if (android.os.Build.VERSION.SDK_INT <= 14) {
                 setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
